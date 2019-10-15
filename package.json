@@ -7,6 +7,7 @@
     "jquery": "^3.4.1",
     "mysql": "^2.17.1",
     "mysql2": "^1.7.0",
+    "nodemon": "^1.19.3",
     "sequelize": "^5.19.6"
   },
   "devDependencies": {
@@ -18,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Simaky/GTA5-RP.git"
+    "url": "https://github.com/theinhabitants/gta5-rp"
   },
   "author": "The Inhabitants Team",
   "license": "ISC",
