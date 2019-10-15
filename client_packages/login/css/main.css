@@ -1,0 +1,26 @@
+body {
+    background-image: url(https://libertycity.ru/uploads/download/gtavc_global/fulls/64lubo4debn84ot09ftqphchg2/1345362398_03.jpg);
+}
+
+.login-window {
+    background-color: black;
+    opacity: 30%;
+    margin: 0%;
+    margin-top: 15%;
+    margin-left: 35%;
+    width: 30%;
+    height: 40%;
+}
+
+.login-form {
+    margin: 0%;
+    padding-top: 25%;
+    padding-left: 30%;
+    width: 30%;
+}
+
+.buttons-bar {
+    margin-top: 20%;
+    margin-left: 20%;
+    width: 100%;
+}

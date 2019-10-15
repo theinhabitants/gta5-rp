@@ -1,0 +1,29 @@
+{
+  "name": "gta5-rp",
+  "version": "0.0.1",
+  "description": "RAGE-MP RolePlay Server",
+  "main": "packages/index.js",
+  "dependencies": {
+    "jquery": "^3.4.1",
+    "mysql": "^2.17.1",
+    "mysql2": "^1.7.0",
+    "sequelize": "^5.19.6"
+  },
+  "devDependencies": {
+    "@types/ragemp-c": "https://github.com/CocaColaBear/types-ragemp-c/tarball/master",
+    "@types/ragemp-s": "github:CocaColaBear/types-ragemp-s#master"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Simaky/GTA5-RP.git"
+  },
+  "author": "The Inhabitants Team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Simaky/GTA5-RP/issues"
+  },
+  "homepage": "https://github.com/Simaky/GTA5-RP#readme"
+}
