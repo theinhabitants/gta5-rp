@@ -1,10 +1,11 @@
  function playerJoinHandler(player) {
-    console.log(player.name + " connected.");
+    console.log(player.name + " has joined. ID:" + player.id);
+    player.outputChatBox(player.name + " has joined. ID:" + player.id);
   }
 
   mp.events.add("playerJoin", playerJoinHandler);
 
- let spawnPoints = require('./spawn_points.json').SpawnPoints;
+ let spawnPoints = require('./admin/spawn_points.json').SpawnPoints;
 
  mp.events.add('playerDeath', (player) => {
      player.spawn(spawnPoints[Math.floor(Math.random() * spawnPoints.length)]);
