@@ -1,3 +1,3 @@
 //init Commands file
-require('./commands.js')
-require('./events.js')
+require('./admin/commands.js');
+require('./events.js');
