@@ -8,13 +8,16 @@
         <div class="login-window">
             <div class="login-form">
                 <div class="input-fields">
-                <input type="email" class="email-input_login" placeholder="E-Mail">
-                <input type="password" class="password-input_login" placeholder="Password">
+                <input type="email" class="email-input_login" id="email" placeholder="E-Mail">
+                <input type="password" class="password-input_login" id="password" placeholder="Password">
                 </div>
 
                 <div class="buttons-bar">
                 <button class="login-accept-button" onclick="login()">Login</button>
                 <button class="goto-register-button" onclick="">Register</button>
+                    <div class="b_reg-button b_reg-button_green" id="success">Success! Loading account data...</div>
+                    <div class="b_reg-button b_reg-button_red" id="error">Wrong password or email!</div>
+                    <div class="b_reg-button b_reg-button_red" id="defNameError">Seems you didn't changed default name</div>
             </div>
             </div>
         </div>

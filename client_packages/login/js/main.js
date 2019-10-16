@@ -1,22 +1,43 @@
-// const playerModel = require("../../../datasources/model/Player");
-
-function getPlayerEmail() {
-    return document.getElementsByClassName("email-input_login")[0].value;
+let timeout = false;
+const error = get("error");
+const success = get("success");
+const pass = get("password");
+const email = get("email");
+function get(id) {
+    return document.getElementById(id);
 }
-
-function getPlayerPassword() {
-    return document.getElementsByClassName("password-input_login")[0].value;   
-}
-
-function login(email, password) {
-    let creds; //From SQL query
-    if((email !== null && email === creds[0])
-    && (password !== null && password === creds[1])) {
-        mp.gui.chat.push("You are successfully login to the server!");
-    } else {
-        mp.events.add("playerQuit", (player) => {
-            mp.gui.chat.push("You were!");
-        });
-        throw "Wrong credentials!";
+function login() {
+    function clearTimeout() {
+        timeout = false;
     }
+    if(timeout) {
+        return;
+    }
+    timeout = true;
+    if (pass.value != "" && email.value != "") {
+        mp.trigger("cTryLogin", pass.value, email.value);
+    };
+    pass.value="";
+    setTimeout(clearTimeout, 2000);
+};
+function showError() {
+    error.style.display = "block";
+    setTimeout(hideError, 2000);
+}
+function hideError() {
+    error.style.display = "none";
+}
+function showSuccess() {
+    success.style.display = "block";
+    setTimeout(hideSuccess, 2000);
+}
+function hideSuccess() {
+    success.style.display = "none";
+}
+function showDefNameError() {
+    defNameError.style.display = "block";
+    setTimeout(hideDefNameError, 2000);
+}
+function hideDefNameError() {
+    defNameError.style.display = "none";
 }
