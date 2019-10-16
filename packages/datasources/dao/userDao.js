@@ -14,26 +14,25 @@ const getById = async function (id) {
     };
 };
 
-const getByUsername = async function (username) {
-    const result = await connectionPool.query('SELECT * FROM user WHERE username = ?', [username]);
+const getByEmail = async function (email) {
+    const result = await connectionPool.query('SELECT * FROM user WHERE email = ?', [email]);
     if (result[0].length !== 1) {
-        throw new Error('user with username ' + username + 'not found');
+        throw new Error('user with email ' + email + 'not found');
     }
     let userFromDb = result[0][0];
     return {
         id: userFromDb.id,
-        username: userFromDb.username,
         email: userFromDb.email
     };
 };
 
-const save = async function (username, email, password) {
+const save = async function (email, password) {
     let errors;
     password = passUtils.cryptPassword(password);
     try {
         await connectionPool.query(
             'INSERT INTO user SET ?',
-            {username, email, password}
+            {email, password}
         );
     } catch (e) {
         errors = e;
@@ -42,6 +41,6 @@ const save = async function (username, email, password) {
 };
 
 module.exports.getById = getById;
-module.exports.getByUsername = getByUsername;
+module.exports.getByEmail = getByEmail;
 
 module.exports.save = save;
