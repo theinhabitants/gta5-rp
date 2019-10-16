@@ -4,6 +4,7 @@
   "description": "RAGE-MP RolePlay Server",
   "main": "packages/index.js",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "jquery": "^3.4.1",
     "mysql": "^2.17.1",
     "mysql2": "^1.7.0",
