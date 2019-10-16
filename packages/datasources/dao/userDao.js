@@ -9,7 +9,6 @@ const getById = async function (id) {
     let userFromDb = result[0][0];
     return {
         id: userFromDb.id,
-        username: userFromDb.username,
         email: userFromDb.email
     };
 };
