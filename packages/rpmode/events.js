@@ -11,12 +11,3 @@ mp.events.add('playerDeath', (player) => {
     player.spawn(spawnPoints[Math.floor(Math.random() * spawnPoints.length)]);
     player.health = 100;
 });
-
-mp.events.add("playerChat", (player,message) =>{
-    player.call('sendMessage',[player,message]);
-    player.call('sendMessageForRadius',[player,message]);
-});
-
-mp.events.add('sendMessageForRadius', (player, message) =>{
-    mp.players.broadcastInRange(player.position, 25, `${player.name}[${player.id}]: ${message}`);
-});
