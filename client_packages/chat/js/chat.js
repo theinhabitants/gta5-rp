@@ -1,15 +1,60 @@
-let chat =
+const BUTTON_T = 84,
+    BUTTON_ENTER = 13,
+    BUTTON_ESCAPE = 27,
+    BUTTON_ARROW_UP = 38,
+    BUTTON_ARROW_DOWN = 40;
+
+let chat = {
+    size: 0,
+    container: null,
+    input: null,
+    enabled: false,
+    active: true,
+    timer: null,
+    previous: new Array(),
+    messageNumber: 0,
+    hide_chat: 15*1000 // 15 - seconds
+};
+var langRegex = {
+    "EN": /^[a-zA-Z]+$/,
+    "RU": /[а-яА-ЯёЁ]/,
+    "UA": /[ієїґ\']+/ig
+};
+function enableChatInput(enable)
+{
+    if(chat.active == false
+        && enable == true)
+        return;
+    if (enable != (chat.input != null))
     {
-        size: 0,
-        container: null,
-        input: null,
-        enabled: false,
-        active: true,
-        timer: null,
-        previous: new Array(),
-        messageNumber: 0,
-        hide_chat: 15*1000 // 15 - seconds
-    };
+        mp.invoke("focus", enable);
+        if (enable)
+        {
+            $("#chat").css("opacity", 1);
+            chat.input = $("#chat").append('<div><input id="chat_msg" type="text" /><div id="chat_lang">EN</div></div>').children(":last");
+            chat.input.children("input").focus();
+
+            chat.input.children("input").on('keypress', function(e) {
+                Object.entries(langRegex).forEach(([key, value]) => {
+                    if (value.test(e.key)){
+                        $("#chat_lang").text(key);
+                    }
+                });
+            });
+
+            mp.trigger("changeChatState", true);
+        }
+        else
+        {
+            chat.input.fadeOut('fast', function()
+            {
+                chat.input.remove();
+                chat.input = null;
+                mp.trigger("changeChatState", false);
+            });
+        }
+    }
+}
 var chatAPI =
     {
         push: (text) =>
@@ -44,32 +89,6 @@ var chatAPI =
             chat.active = toggle;
         }
     };
-function enableChatInput(enable)
-{
-    if(chat.active == false
-        && enable == true)
-        return;
-    if (enable != (chat.input != null))
-    {
-        mp.invoke("focus", enable);
-        if (enable)
-        {
-            $("#chat").css("opacity", 1);
-            chat.input = $("#chat").append('<div><input id="chat_msg" type="text" /><div id="chat_lang">EN</div></div>').children(":last");
-            chat.input.children("input").focus();
-            mp.trigger("changeChatState", true);
-        }
-        else
-        {
-            chat.input.fadeOut('fast', function()
-            {
-                chat.input.remove();
-                chat.input = null;
-               mp.trigger("changeChatState", false);
-            });
-        }
-    }
-}
 function hide() {
     chat.timer = setTimeout(function () {
         $("#chat").css("opacity", 0.5);
@@ -84,55 +103,70 @@ function show() {
 $(document).ready(function()
 {
     let number;
+
     chat.container = $("#chat ul#chat_messages");
     hide();
     $(".ui_element").show();
     $("body").keydown(function(event)
     {
-        if (event.which == 84 && chat.input == null
-            && chat.active == true) {
+        if(event.which == BUTTON_T && chat.input == null && chat.active == true) {
             enableChatInput(true);
             event.preventDefault();
             show();
             number = chat.previous.length;
         }
-        else if (event.which == 13 && chat.input != null) {
-            var value = chat.input.children("input").val();
+        if(chat.input != null) {
+            switch(event.which) {
 
-            if (value.length > 0) {
-                chat.previous[chat.messageNumber] = value;
-                chat.messageNumber++;
-                if (value[0] == "/") {
-                    value = value.substr(1);
+                case BUTTON_ENTER: {
+                    var value = chat.input.children("input").val();
 
-                    if (value.length > 0 && value.length <= 100)
-                        mp.invoke("command", value);
+                    if (value.length > 0) {
+                        chat.previous[chat.messageNumber] = value;
+                        chat.messageNumber++;
+                        if (value[0] == "/") {
+                            value = value.substr(1);
+
+                            if (value.length > 0 && value.length <= 100)
+                                mp.invoke("command", value);
+                        } else {
+                            if (value.length <= 100)
+                                mp.invoke("chatMessage", value);
+                        }
+                    }
+                    enableChatInput(false);
+                    hide();
+                    break;
                 }
-                else {
-                     if (value.length <= 100)
-                    mp.invoke("chatMessage", value);
+
+                case BUTTON_ESCAPE: {
+                    enableChatInput(false);
+                    hide();
+                    break;
+                }
+
+                case BUTTON_ARROW_UP: {
+                    if (chat.input.children("input").is(":focus")) {
+                        number--;
+                        if (number < 0) {
+                            number = chat.previous.length;
+                        }
+                        chat.input.children("input").val(chat.previous[number]);
+                    }
+                    break;
+                }
+
+                case BUTTON_ARROW_DOWN: {
+                    if (chat.input.children("input").is(":focus")) {
+                        number++;
+                        if (number > chat.previous.length) {
+                            number = 0;
+                        }
+                        chat.input.children("input").val(chat.previous[number]);
+                    }
+                    break;
                 }
             }
-            enableChatInput(false);
-            hide();
-        }
-        else if (event.which == 27 && chat.input != null) {
-            enableChatInput(false);
-            hide();
-        }
-        else if (event.which == 38 && chat.input != null) {
-            number--;
-            if(number < 0){
-                number = chat.previous.length;
-            }
-            chat.input.children("input").val(chat.previous[number]);
-        }
-        else if (event.which == 40 && chat.input != null) {
-            number++;
-            if(number > chat.previous.length){
-                number = 0;
-            }
-            chat.input.children("input").val(chat.previous[number]);
         }
     });
 });
