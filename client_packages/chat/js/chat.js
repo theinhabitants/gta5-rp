@@ -11,43 +11,38 @@ let chat = {
     enabled: false,
     active: true,
     timer: null,
-    previous: new Array(),
+    previous: new Array(""),
     messageNumber: 0,
-    hide_chat: 15*1000 // 15 - seconds
+    hide_chat: 15 * 1000 // 15 - seconds
 };
 var langRegex = {
     "EN": /^[a-zA-Z]+$/,
     "RU": /[а-яА-ЯёЁ]/,
     "UA": /[ієїґ\']+/ig
 };
-function enableChatInput(enable)
-{
-    if(chat.active == false
-        && enable == true)
+
+function enableChatInput(enable) {
+    if (chat.active === false && enable === true) {
         return;
-    if (enable != (chat.input != null))
-    {
+    }
+    if (enable !== (chat.input != null)) {
         mp.invoke("focus", enable);
-        if (enable)
-        {
+        if (enable) {
             $("#chat").css("opacity", 1);
             chat.input = $("#chat").append('<div><input id="chat_msg" type="text" /><div id="chat_lang">EN</div></div>').children(":last");
             chat.input.children("input").focus();
 
-            chat.input.children("input").on('keypress', function(e) {
+            chat.input.children("input").on('keypress', function (e) {
                 Object.entries(langRegex).forEach(([key, value]) => {
-                    if (value.test(e.key)){
+                    if (value.test(e.key)) {
                         $("#chat_lang").text(key);
                     }
                 });
             });
 
             mp.trigger("changeChatState", true);
-        }
-        else
-        {
-            chat.input.fadeOut('fast', function()
-            {
+        } else {
+            chat.input.fadeOut('fast', function () {
                 chat.input.remove();
                 chat.input = null;
                 mp.trigger("changeChatState", false);
@@ -55,68 +50,65 @@ function enableChatInput(enable)
         }
     }
 }
-var chatAPI =
-    {
-        push: (text) =>
-        {
-            chat.size++;
-            if (chat.size >= 50)
-            {
-                chat.container.children(":first").remove();
-            }
-            chat.container.append("<li>" + text + "</li>");
-            chat.container.scrollTop(9999);
-        },
-        clear: () =>
-        {
-            chat.container.html("");
-        },
-        activate: (toggle) =>
-        {
-            if (toggle == false
-                && (chat.input != null))
-                enableChatInput(false);
 
-            chat.active = toggle;
-        },
-        show: (toggle) =>
-        {
-            if(toggle)
-                $("#chat").show();
-            else
-                $("#chat").hide();
+var chatAPI = {
+    push: (text) => {
 
-            chat.active = toggle;
+        chat.size++;
+        if (chat.size >= 50) {
+            chat.container.children(":first").remove();
         }
-    };
+        chat.container.append("<li>" + text + "</li>");
+        chat.container.scrollTop(9999);
+    },
+    clear: () => {
+        chat.container.html("");
+    },
+    activate: (toggle) => {
+        if (toggle == false
+            && (chat.input != null))
+            enableChatInput(false);
+
+        chat.active = toggle;
+    },
+    show: (toggle) => {
+        if (toggle)
+            $("#chat").show();
+        else
+            $("#chat").hide();
+
+        chat.active = toggle;
+    }
+};
+
 function hide() {
     chat.timer = setTimeout(function () {
         $("#chat").css("opacity", 0.5);
-        $("#chat_messages").css("overflow",'hidden');
+        $("#chat_messages").css("overflow", 'hidden');
     }, chat.hide_chat);
 }
+
 function show() {
     clearTimeout(chat.timer);
     $("#chat").css("opacity", 1);
-    $("#chat_messages").css("overflow",'overlay');
+    $("#chat_messages").css("overflow", 'overlay');
 }
-$(document).ready(function()
-{
+
+$(document).ready(function () {
     let number;
 
     chat.container = $("#chat ul#chat_messages");
     hide();
     $(".ui_element").show();
-    $("body").keydown(function(event)
-    {
-        if(event.which == BUTTON_T && chat.input == null && chat.active == true) {
+    $("body").keydown(function (event) {
+        if (event.which === BUTTON_T && chat.input == null && chat.active === true) {
             enableChatInput(true);
             event.preventDefault();
             show();
             number = chat.previous.length;
         }
-        if(chat.input != null) {
-            switch(event.which) {
+        if (chat.input != null) {
+            switch (event.which) {
 
                 case BUTTON_ENTER: {
                     var value = chat.input.children("input").val();
