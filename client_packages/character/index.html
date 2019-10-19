@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style/main.css" media="screen">
+        <meta charset="utf-8" />
+    </head>
+    <body>
+    <div class="features">
+
+        <input feature="nose.width" type="range" id="nose_width_range" min="0" max="100" value="0"/>
+        <label id="nose_width_value">0</label>
+
+        <input feature="nose.height" type="range" id="nose_height_range" min="0" max="100" value="0"/>
+        <label id="nose_height_value">0</label>
+
+        <input feature="nose.length" type="range" id="nose_length_range" min="0" max="100" value="0"/>
+        <label id="nose_length_value">0</label>
+
+        <input feature="nose.bridge" type="range" id="nose_bridge_range" min="0" max="100" value="0"/>
+        <label id="nose_bridge_value">0</label>
+
+    </div>
+
+    <div class="sex">
+
+        <label for="male">Мужчина</label>
+        <input id="male" type="radio" checked/>
+
+        <label for="female">Женщина</label>
+        <input id="female" type="radio"/>
+
+    </div>
+
+    <div class="appearance">
+
+        <label style="display: inline-block">Внешность:</label>
+        <div id="left_arrow_appearance" style="display: inline-block"> < </div>
+        <label id="appearance_count" style="display: inline-block">0</label>
+        <div id="right_arrow_appearance" style="display: inline-block"> > </div>
+
+    </div>
+
+    <div class="colors">
+
+        <label style="display: inline-block">Цвет:</label>
+        <div id="left_arrow_color" style="display: inline-block"> < </div>
+        <label id="color_count" style="display: inline-block">0</label>
+        <div id="right_arrow_color" style="display: inline-block"> > </div>
+
+    </div>
+
+    <div class="hair">
+
+        <label style="display: inline-block">Волосы:</label>
+        <div id="left_arrow_hair" style="display: inline-block"> < </div>
+        <label id="hair_number" style="display: inline-block">0</label>
+        <div id="right_arrow_hair" style="display: inline-block"> > </div>
+
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="js/character.js"></script>
+    </body>
+</html>
+
