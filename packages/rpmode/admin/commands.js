@@ -25,6 +25,10 @@ mp.events.addCommand('veh', (player, _, vehName) => {
     mp.vehicles.new(mp.joaat(vehName), player.position);
 });
 
+mp.events.addCommand('o', (player, message) => {
+    mp.players.broadcast(message);
+});
+
 mp.events.addCommand('tp', (player, args) => {
     args = args.split(" ");
     const firstID = parseInt(args[0]);
