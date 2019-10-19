@@ -5,5 +5,6 @@
 	"stream-distance" : 500.0,
 	"announce" : false,
 	"csharp" : "disabled",
-	"port": 22005
+	"port": 22005,
+	"voice-chat": true
 }

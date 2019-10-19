@@ -15,7 +15,7 @@ mp.events.addCommand('coo', (player) => {
 });
 
 mp.events.addCommand('respawn', (player) => {
-    const spawnPoints = require('./spawn_points.json').SpawnPoints;
+    const spawnPoints = require('../spawn_points.json').SpawnPoints;
 
     player.spawn(spawnPoints[Math.floor(Math.random() * spawnPoints.length)]);
     player.health = 100;
@@ -27,22 +27,44 @@ mp.events.addCommand('veh', (player, _, vehName) => {
 
 mp.events.addCommand('tp', (player, args) => {
     args = args.split(" ");
-    const firstID = parseInt(args[0]);
-    const secondID = parseInt(args[1]);
+    const first = parseInt(args[0]);
+    const second = parseInt(args[1]);
+    const third = parseInt(args[2]);
+    const fourth = parseInt(args[2]);
 
-    if (args.length === 1) {
-        player.spawn(mp.players.at(firstID).position);
-        player.outputChatBox("Вы телепортировались к: " + getPlayerNameWithID(mp.players.at(firstID)));
-        return;
-    } else if (args.length === 2) {
-        const firstPlayer = mp.players.at(firstID);
-        const secondPlayer = mp.players.at(secondID);
+    switch (args.length) {
+        case 1:
+            player.spawn(mp.players.at(first).position);
+            player.outputChatBox("Вы телепортировались к: " + getPlayerNameWithID(mp.players.at(first)));
+            break;
+        case 2:
+            const firstPlayer = mp.players.at(first);
+            const secondPlayer = mp.players.at(second);
 
-        mp.players.at(firstID).spawn(mp.players.at(secondID).position);
-        player.outputChatBox(getPlayerNameWithID(firstPlayer) + " телепортирован к " + getPlayerNameWithID(secondPlayer));
-        return;
+            mp.players.at(first).spawn(mp.players.at(second).position);
+            player.outputChatBox(getPlayerNameWithID(firstPlayer) + " телепортирован к " + getPlayerNameWithID(secondPlayer));
+            break;
+        case 3:
+            const newPos = Vector3Mp;
+            newPos.x = first;
+            newPos.y = second;
+            newPos.z = third;
+
+            player.spawn(newPos);
+            player.outputChatBox("Вы телепортировались на координаты: " + newPos.toString());
+            break;
+        case 4:
+            const newPos2 = Vector3Mp;
+            newPos2.x = second;
+            newPos2.y = third;
+            newPos2.z = fourth;
+
+            player.spawn(newPos2);
+            player.outputChatBox(getPlayerNameWithID(mp.players.at(first)) + " телепортирован на координаты " + newPos.toString());
+            break;
+        default:
+            player.outputChatBox("Ошибка! Используйте /tp [id] или /tp [id] [id] или /tp [x] [y] [z] или /tp [id] [x] [y] [z]");
     }
-    player.outputChatBox("Ошибка! Используйте /tp [id] или /tp [id] [id]");
 });
 
 function getPlayerNameWithID(player) {

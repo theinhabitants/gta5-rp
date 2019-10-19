@@ -9,7 +9,8 @@ const getById = async function (id) {
     let userFromDb = result[0][0];
     return {
         id: userFromDb.id,
-        email: userFromDb.email
+        email: userFromDb.email,
+        password: userFromDb.password
     };
 };
 
@@ -21,7 +22,8 @@ const getByEmail = async function (email) {
     let userFromDb = result[0][0];
     return {
         id: userFromDb.id,
-        email: userFromDb.email
+        email: userFromDb.email,
+        password: userFromDb.password
     };
 };
 

@@ -1,13 +1,5 @@
-// const playerModel = require("../../../datasources/model/Player");
-
-function getPlayerEmail() {
-    return document.getElementsByClassName("email-input_login")[0].value;
-}
-
-function getPlayerPassword() {
-    return document.getElementsByClassName("password-input_login")[0].value;   
-}
-
 function login() {
-    alert(getPlayerEmail());
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    mp.trigger("login", email.value, password.value);
 }
