@@ -12,15 +12,17 @@ mp.events.add("loginHandler", (response) => {
                 loginBrowser.active = false;
             }
             mp.gui.cursor.show(false, false);
+            mp.events.callRemote("playerSuccessAuth");
             break;
-        case "fail":
-            //print msg that pass is wrong
+        case "wrong-email":
             if (loginBrowser) {
-                //loginBrowser.execute(`$('#email').val("");`);
-                loginBrowser.destroy();
+                loginBrowser.execute(`$("#wrong-email").show();`);
             }
-            mp.gui.cursor.show(false, false);
+            break;
+        case "wrong-password":
+            if (loginBrowser) {
+                loginBrowser.execute(`$("#wrong-password").show(); $('#passsword').val("");`);
+            }
             break;
     }
-    mp.events.callRemote("playerSuccessAuth");
 });

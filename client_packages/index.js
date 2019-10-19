@@ -1,4 +1,2 @@
 require('./noclip');
-//require('./login');
-
-mp.game.gameplay.disableAutomaticRespawn(false);
+require('./login');

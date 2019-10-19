@@ -1,14 +1,14 @@
-<!DOCTYPE html>
 <html class="transparent-bg-4">
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/main.css">
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+
 <body>
 <div class="login-window">
     <div class="login-form">
         <div class="input-fields">
+            <b class="alert" id="wrong-email">User with this email doesn't exist</b>
             <input id="email" type="email" class="email-input_login" placeholder="E-Mail">
+            <b class="alert" id="wrong-password">Wrong password</b>
             <input id="password" type="password" class="password-input_login" placeholder="Password">
         </div>
 
@@ -19,4 +19,9 @@
     </div>
 </div>
 </body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript">
+    $('.alert').hide();
+</script>
 </html>

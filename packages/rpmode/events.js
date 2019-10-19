@@ -1,11 +1,13 @@
-function playerAuthHandler(player) {
+function playerJoinHandler(player) {
     console.log(player.name + " has joined. ID:" + player.id);
     player.outputChatBox(player.name + " has joined. ID:" + player.id);
-    player.spawn(false);
-    //spawnPlayer(player)
 }
 
 mp.events.add("playerJoin", playerJoinHandler);
+
+mp.events.add("playerSuccessAuth", (player) => {
+    spawnPlayer(player)
+});
 
 mp.events.add('playerDeath', (player) => {
     spawnPlayer(player)

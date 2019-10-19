@@ -17,7 +17,7 @@ const getById = async function (id) {
 const getByEmail = async function (email) {
     const result = await connectionPool.query('SELECT * FROM user WHERE email = ?', [email]);
     if (result[0].length !== 1) {
-        throw new Error('user with email ' + email + 'not found');
+        throw new Error('user with email ' + email + ' not found');
     }
     let userFromDb = result[0][0];
     return {

@@ -24,3 +24,7 @@ body {
     margin-left: 20%;
     width: 100%;
 }
+
+.alert {
+    color: red;
+}
