@@ -10,7 +10,8 @@ const getById = async function (id) {
     return {
         id: userFromDb.id,
         email: userFromDb.email,
-        password: userFromDb.password
+        password: userFromDb.password,
+        ip: userFromDb.ip
     };
 };
 
@@ -23,17 +24,18 @@ const getByEmail = async function (email) {
     return {
         id: userFromDb.id,
         email: userFromDb.email,
-        password: userFromDb.password
+        password: userFromDb.password,
+        ip: userFromDb.ip
     };
 };
 
-const save = async function (email, password) {
+const save = async function (email, password, ip) {
     let errors;
     password = passUtils.cryptPassword(password);
     try {
         await connectionPool.query(
             'INSERT INTO user SET ?',
-            {email, password}
+            {email, password, ip}
         );
     } catch (e) {
         errors = e;

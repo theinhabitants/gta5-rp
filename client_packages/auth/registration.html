@@ -1,0 +1,28 @@
+<html class="transparent-bg-4">
+<meta charset="utf-8">
+<link rel="stylesheet" href="css/main.css">
+
+<body>
+<div class="login-window">
+    <div class="login-form">
+        <form onsubmit="registration(); return false;">
+            <div class="input-fields">
+                <b class="alert" id="wrong-email">Пользователь с таким e-mail уже зарегистрирован</b>
+                <b class="alert" id="server-error">Серверная ошибка, обратитесь в поддержку</b>
+                <input id="email" type="email" class="email-input_login" placeholder="E-Mail" required>
+                <input id="password" type="password" pattern="^\S{6,}$" class="password-input_register" placeholder="Password" required>
+                <input id="passwordRepeat" type="password" pattern="^\S{6,}$" class="password-input_register" placeholder="Password" required>
+            </div>
+            <div class="buttons-bar">
+                <input type="submit" class="goto-register-button" value="Зарегистрироватся"/>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript">
+    $('.alert').hide();
+</script>
+</html>

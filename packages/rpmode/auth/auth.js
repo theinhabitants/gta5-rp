@@ -1,16 +1,17 @@
 const userDao = require("../datasources/dao/userDao");
 const encrypt = require("../util/encrypt");
+const logger = require("../logger/logger");
 
 mp.events.add("userLogin", async (player, email, password) => {
     let user;
-    try {
-        user = await getUserIfExist(email, password);
-    } catch (e) {
+
+    user = await getUserIfExist(email);
+    if (user === undefined) {
         player.call("loginHandler", ["wrong-email"]);
         return;
     }
 
-    if (user === undefined) {
+    if (!encrypt.comparePassword(password, user.password)) {
         player.call("loginHandler", ["wrong-password"]);
         return;
     }
@@ -18,10 +19,30 @@ mp.events.add("userLogin", async (player, email, password) => {
     player.call("loginHandler", ["success"]);
 });
 
-async function getUserIfExist(email, password) {
-    const user = await userDao.getByEmail(email);
-    if (encrypt.comparePassword(password, user.password)) {
-        return user;
+mp.events.add("userRegistration", async (player, email, password) => {
+    let user, error;
+
+    user = await getUserIfExist(email);
+    if (user !== undefined) {
+        player.call("registrationHandler", ["email-already-exist"]);
+        return;
     }
-    return undefined;
+    error = await userDao.save(email, password, player.ip);
+    if (error) {
+        logger.log.fatal(error);
+        player.call("registrationHandler", ["internal-server-error"]);
+    }
+
+    logger.log.info("New user registered! email: %s, ip: %s", email, player.ip);
+    player.call("registrationHandler", ["success"]);
+});
+
+async function getUserIfExist(email) {
+    let user;
+    try {
+        user = await userDao.getByEmail(email);
+    } catch (e) {
+        return undefined;
+    }
+    return user;
 }

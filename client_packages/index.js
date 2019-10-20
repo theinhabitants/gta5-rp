@@ -1,2 +1,2 @@
 require('./noclip');
-require('./login');
+require('./auth');
