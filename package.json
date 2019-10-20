@@ -14,10 +14,13 @@
   },
   "devDependencies": {
     "@types/ragemp-c": "https://github.com/CocaColaBear/types-ragemp-c/tarball/master",
-    "@types/ragemp-s": "github:CocaColaBear/types-ragemp-s#master"
+    "@types/ragemp-s": "github:CocaColaBear/types-ragemp-s#master",
+    "eslint": "^6.5.1"
   },
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "eslint": "node ./node_modules/eslint/bin/eslint packages/rpmode client_packages",
+    "eslint-fix": "node ./node_modules/eslint/bin/eslint packages/rpmode client_packages --fix"
   },
   "repository": {
     "type": "git",

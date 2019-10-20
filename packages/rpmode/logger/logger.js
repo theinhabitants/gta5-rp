@@ -8,25 +8,25 @@ let yyyy = today.getFullYear();
 today = mm + '_' + dd + '_' + yyyy;
 
 log4js.configure({
-    appenders: {
-        'file': {
-            type: 'file',
-            filename: `./logs/rpmode_` + today + `.log`
-        },
-        'console': {
-            type: 'stdout'
-        }
+  appenders: {
+    'file': {
+      type: 'file',
+      filename: `./logs/rpmode_` + today + `.log`
     },
-    categories: {
-        default: {
-            appenders: ['console'],
-            level: 'info'
-        },
-        file: {
-            appenders: ['file'],
-            level: 'trace'
-        }
+    'console': {
+      type: 'stdout'
     }
+  },
+  categories: {
+    default: {
+      appenders: ['console'],
+      level: 'info'
+    },
+    file: {
+      appenders: ['file'],
+      level: 'trace'
+    }
+  }
 });
 
 module.exports.log = log4js.getLogger("rpmode");
