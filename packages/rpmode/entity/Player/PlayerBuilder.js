@@ -3,6 +3,16 @@ const Player = require("./Player");
 class PlayerBuilder {
     constructor() {}
 
+    setId(id) {
+        this.id = id;
+        return this;
+    }
+
+    setSkin(skin) {
+        this.skin = skin;
+        return this;
+    }
+
     setName(name) {
         this.name = name;
         return this;

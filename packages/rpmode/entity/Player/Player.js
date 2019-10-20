@@ -2,6 +2,8 @@ global.sessionPlayer = null;
 
 class Player {
     constructor(builder) {
+        this.id = builder.id;
+        this.skin = builder.skin;
         this.name = builder.name;
         this.surname = builder.surname;
         this.level = builder.level;
