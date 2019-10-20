@@ -30,7 +30,7 @@ mp.events.addCommand('tp', (player, args) => {
     const first = parseInt(args[0]);
     const second = parseInt(args[1]);
     const third = parseInt(args[2]);
-    const fourth = parseInt(args[2]);
+    const fourth = parseInt(args[3]);
 
     switch (args.length) {
         case 1:
@@ -45,22 +45,14 @@ mp.events.addCommand('tp', (player, args) => {
             player.outputChatBox(getPlayerNameWithID(firstPlayer) + " телепортирован к " + getPlayerNameWithID(secondPlayer));
             break;
         case 3:
-            const newPos = Vector3Mp;
-            newPos.x = first;
-            newPos.y = second;
-            newPos.z = third;
-
+            const newPos = new mp.Vector3(first, second, third);
             player.spawn(newPos);
             player.outputChatBox("Вы телепортировались на координаты: " + newPos.toString());
             break;
         case 4:
-            const newPos2 = Vector3Mp;
-            newPos2.x = second;
-            newPos2.y = third;
-            newPos2.z = fourth;
-
+            const newPos2 = new mp.Vector3(second, third, fourth);
             player.spawn(newPos2);
-            player.outputChatBox(getPlayerNameWithID(mp.players.at(first)) + " телепортирован на координаты " + newPos.toString());
+            player.outputChatBox(getPlayerNameWithID(mp.players.at(first)) + " телепортирован на координаты " + newPos2.toString());
             break;
         default:
             player.outputChatBox("Ошибка! Используйте /tp [id] или /tp [id] [id] или /tp [x] [y] [z] или /tp [id] [x] [y] [z]");
