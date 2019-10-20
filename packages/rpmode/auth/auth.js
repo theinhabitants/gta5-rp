@@ -1,6 +1,7 @@
 const userDao = require("../datasources/dao/userDao");
 const encrypt = require("../util/encrypt");
 const logger = require("../logger/logger");
+const PlayerBuilder = require("../entity/Player/PlayerBuilder");
 
 mp.events.add("userLogin", async (player, email, password) => {
     let user;
@@ -15,6 +16,18 @@ mp.events.add("userLogin", async (player, email, password) => {
         player.call("loginHandler", ["wrong-password"]);
         return;
     }
+
+    sessionPlayer = new PlayerBuilder()
+        .setName()
+        .setSurname()
+        .setLevel()
+        .setExperience()
+        .setMoney()
+        .setNumber()
+        .setBankMoney()
+        .setHome()
+        .setCar()
+        .build();
 
     player.call("loginHandler", ["success"]);
 });
