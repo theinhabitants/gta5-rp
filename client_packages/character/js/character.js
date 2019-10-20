@@ -311,7 +311,7 @@ $("#right_arrow_hair").on("click", function () {
 });
 
 $("#male").on("click", function () {
-    if (interface.sex == "male") {
+    if (interface.sex === "male") {
         return;
     }
     interface.sex = "male";
@@ -320,7 +320,7 @@ $("#male").on("click", function () {
 });
 
 $("#female").on("click", function () {
-    if (interface.sex == "female") {
+    if (interface.sex === "female") {
         return;
     }
     interface.sex = "female";
