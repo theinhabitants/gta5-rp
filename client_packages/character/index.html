@@ -1,72 +1,342 @@
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="style/main.css" media="screen">
-        <meta charset="utf-8" />
-    </head>
-    <body>
-    <div class="features">
+<head>
+    <link rel="stylesheet" type="text/css" href="style/main.css" media="screen">
+    <meta charset="utf-8"/>
+</head>
+<body>
 
-        <input feature="nose.width" type="range" id="nose_width_range" min="0" max="100" value="0"/>
-        <label clear="true" id="nose_width_value">0</label>
+<div class="sex">
+    <label>- Пол</label>
 
-        <input feature="nose.height" type="range" id="nose_height_range" min="0" max="100" value="0"/>
-        <label clear="true" id="nose_height_value">0</label>
-
-        <input feature="nose.length" type="range" id="nose_length_range" min="0" max="100" value="0"/>
-        <label clear="true" id="nose_length_value">0</label>
-
-        <input feature="nose.bridge" type="range" id="nose_bridge_range" min="0" max="100" value="0"/>
-        <label clear="true" id="nose_bridge_value">0</label>
-
-    </div>
-
-    <div class="sex">
-
+    <div>
         <label for="male">Мужчина</label>
         <input id="male" type="radio" checked/>
 
         <label for="female">Женщина</label>
         <input id="female" type="radio"/>
+    </div>
+
+</div>
+
+<div class="parents">
+    <label>- Родители</label>
+
+    <div>
+
+        <div>
+            <label style="display: inline-block">Отец:</label>
+            <div parent="father" id="left_arrow_parents" style="display: inline-block"> <</div>
+            <label clear="true" id="parents_count_father" style="display: inline-block">0</label>
+            <div parent="father" id="right_arrow_parents" style="display: inline-block"> ></div>
+        </div>
+
+        <div>
+            <label style="display: inline-block">Мать:</label>
+            <div parent="mother" id="left_arrow_parents" style="display: inline-block"> <</div>
+            <label clear="true" id="parents_count_mother" style="display: inline-block">0</label>
+            <div parent="mother" id="right_arrow_parents" style="display: inline-block"> ></div>
+        </div>
+
+        <div>
+            <label style="display: inline-block">Схожесть</label>
+            <input feature="nose.width" type="range" id="parents_similarity_range" min="0.0" max="1.0" step="0.01"
+                   value="0"/>
+            <label clear="true" id="parents_similarity_value">0</label>
+        </div>
 
     </div>
 
-    <div class="appearance">
+</div>
 
-        <label style="display: inline-block">Внешность:</label>
-        <div id="left_arrow_appearance" style="display: inline-block"> < </div>
-        <label clear="true" id="appearance_count" style="display: inline-block">0</label>
-        <div id="right_arrow_appearance" style="display: inline-block"> > </div>
+<div class="features">
+    <label>- Черты лица</label>
 
+    <div>
+        <label>-- Нос:</label>
+        <div>
+            <label>Ширина носа</label>
+            <input feature="nose.width" type="range" id="nose_width_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+            <label clear="true" id="nose_width_value">0</label>
+        </div>
+
+        <div>
+            <label>Высота носа</label>
+            <input feature="nose.height" type="range" id="nose_height_range" min="-1.0" max="1.0" step="0.01"
+                   value="0"/>
+            <label clear="true" id="nose_height_value">0</label>
+        </div>
+
+        <div>
+            <label>Длина носа</label>
+            <input feature="nose.length" type="range" id="nose_length_range" min="-1.0" max="1.0" step="0.01"
+                   value="0"/>
+            <label clear="true" id="nose_length_value">0</label>
+        </div>
+
+        <div>
+            <label>Переносица</label>
+            <input feature="nose.bridge" type="range" id="nose_bridge_range" min="-1.0" max="1.0" step="0.01"
+                   value="0"/>
+            <label clear="true" id="nose_bridge_value">0</label>
+        </div>
+
+        <div>
+            <label>Кончик носа</label>
+            <input feature="nose.tip" type="range" id="nose_tip_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+            <label clear="true" id="nose_tip_value">0</label>
+        </div>
+
+        <div>
+            <label>Сдвиг переносицы</label>
+            <input feature="nose.bridgeShift" type="range" id="nose_bridgeShift_range" min="-1.0" max="1.0" step="0.01"
+                   value="0"/>
+            <label clear="true" id="nose_bridgeShift_value">0</label>
+        </div>
     </div>
 
-    <div class="colors">
+    <div>
+        <label>-- Брови:</label>
+        <div>
+            <label>Высота бровей</label>
+            <input feature="brow.height" type="range" id="brow_height_range" min="-1.0" max="1.0" step="0.01"
+                   value="0"/>
+            <label clear="true" id="brow_height_value">0</label>
+        </div>
 
-        <label style="display: inline-block">Цвет:</label>
-        <div id="left_arrow_color" style="display: inline-block"> < </div>
-        <label clear="true" id="color_count" style="display: inline-block">0</label>
-        <div id="right_arrow_color" style="display: inline-block"> > </div>
-
+        <div>
+            <label>Ширина бровей</label>
+            <input feature="brow.width" type="range" id="brow_width_range" min="-1.0" max="1.0" step="0.01"
+                   value="0"/>
+            <label clear="true" id="brow_width_value">0</label>
+        </div>
     </div>
 
-    <div class="hair">
+    <div>
+        <label>-- Скуловая кость</label>
+        <div>
+            <label>Высота скул</label>
+            <input feature="cheekbone.height" type="range" id="cheekbone_height_range" min="-1.0" max="1.0" step="0.01"
+                   value="0"/>
+            <label clear="true" id="cheekbone_height_value">0</label>
+        </div>
 
+        <div>
+            <label>Ширина скуо</label>
+            <input feature="cheekbone.width" type="range" id="cheekbone_width_range" min="-1.0" max="1.0" step="0.01"
+                   value="0"/>
+            <label clear="true" id="cheekbone_width_value">0</label>
+        </div>
+    </div>
+
+    <div>
+        <label>-- Щеки:</label>
+        <div>
+            <label>Ширина щек</label>
+            <input feature="cheeks.width" type="range" id="cheeks_width_range" min="-1.0" max="1.0" step="0.01"
+                   value="0"/>
+            <label clear="true" id="cheeks_width_value">0</label>
+        </div>
+    </div>
+
+    <div>
+        <label>-- Глаза:</label>
+        <div>
+            <label>Разрез глаз</label>
+            <input feature="eyes" type="range" id="eyes_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+            <label clear="true" id="eyes_value">0</label>
+        </div>
+    </div>
+
+    <div>
+        <label>-- Губы:</label>
+        <div>
+            <label>Размер губей</label>
+            <input feature="lips" type="range" id="lips_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+            <label clear="true" id="lips_value">0</label>
+        </div>
+    </div>
+
+    <div>
+        <label>-- Челюсть</label>
+        <div>
+            <label>Ширина челюсти</label>
+            <input feature="jaw.width" type="range" id="jaw_width_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+            <label clear="true" id="jaw_width_value">0</label>
+        </div>
+        <div>
+            <label>Высота челюсти</label>
+            <input feature="jaw.height" type="range" id="jaw_height_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+            <label clear="true" id="jaw_height_value">0</label>
+        </div>
+    </div>
+
+    <div>
+        <label>-- Подбородок:</label>
+        <div>
+            <label>Длина подбородка</label>
+            <input feature="chin.length" type="range" id="chin_length_range" min="-1.0" max="1.0" step="0.01"
+                   value="0"/>
+            <label clear="true" id="chin_length_value">0</label>
+        </div>
+        <div>
+            <label>Позиция подбородка</label>
+            <input feature="chin.position" type="range" id="chin_position_range" min="-1.0" max="1.0" step="0.01"
+                   value="0"/>
+            <label clear="true" id="chin_position_value">0</label>
+        </div>
+        <div>
+            <label>Форма подбородка</label>
+            <input feature="chin.shape" type="range" id="chin_shape_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+            <label clear="true" id="chin_shape_value">0</label>
+        </div>
+    </div>
+
+    <div>
+        <label>-- Шея:</label>
+        <div>
+            <label>Ширина шеи</label>
+            <input feature="neck.width" type="range" id="neck_width_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+            <label clear="true" id="neck_width_value">0</label>
+        </div>
+    </div>
+
+</div>
+
+<div class="appearance">
+
+    <label style="display: inline-block">- Внешность:</label>
+
+    <div>
         <label style="display: inline-block">Волосы:</label>
-        <div id="left_arrow_hair" style="display: inline-block"> < </div>
+        <div id="left_arrow_hair" style="display: inline-block"> <</div>
         <label clear="true" id="hair_number" style="display: inline-block">0</label>
-        <div id="right_arrow_hair" style="display: inline-block"> > </div>
-
+        <div id="right_arrow_hair" style="display: inline-block"> ></div>
     </div>
 
-    <div class="reset">
-
-        <label id="reset_character">Скинуть</label>
-
+    <div>
+        <label style="display: inline-block">Пятна:</label>
+        <div appearance="blemishes" id="left_arrow_appearance" style="display: inline-block"> <</div>
+        <label clear="true" id="appearance_count_blemishes" style="display: inline-block">0</label>
+        <div appearance="blemishes" id="right_arrow_appearance" style="display: inline-block"> ></div>
     </div>
 
+    <div>
+        <label style="display: inline-block">Волосы на лице:</label>
+        <div appearance="facialHair" id="left_arrow_appearance" style="display: inline-block"> <</div>
+        <label clear="true" id="appearance_count_facialHair" style="display: inline-block">0</label>
+        <div appearance="facialHair" id="right_arrow_appearance" style="display: inline-block"> ></div>
+    </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="js/character.js"></script>
-    </body>
+    <div>
+        <label style="display: inline-block">Брови:</label>
+        <div appearance="eyebrows" id="left_arrow_appearance" style="display: inline-block"> <</div>
+        <label clear="true" id="appearance_count_eyebrows" style="display: inline-block">0</label>
+        <div appearance="eyebrows" id="right_arrow_appearance" style="display: inline-block"> ></div>
+    </div>
+
+    <div>
+        <label style="display: inline-block">Старость:</label>
+        <div appearance="ageing" id="left_arrow_appearance" style="display: inline-block"> <</div>
+        <label clear="true" id="appearance_count_ageing" style="display: inline-block">0</label>
+        <div appearance="ageing" id="right_arrow_appearance" style="display: inline-block"> ></div>
+    </div>
+
+    <div>
+        <label style="display: inline-block">Румянец:</label>
+        <div appearance="blush" id="left_arrow_appearance" style="display: inline-block"> <</div>
+        <label clear="true" id="appearance_count_blush" style="display: inline-block">0</label>
+        <div appearance="blush" id="right_arrow_appearance" style="display: inline-block"> ></div>
+    </div>
+
+    <div>
+        <label style="display: inline-block">Цвет лица:</label>
+        <div appearance="complexion" id="left_arrow_appearance" style="display: inline-block"> <</div>
+        <label clear="true" id="appearance_count_complexion" style="display: inline-block">0</label>
+        <div appearance="complexion" id="right_arrow_appearance" style="display: inline-block"> ></div>
+    </div>
+
+    <div>
+        <label style="display: inline-block">Загар:</label>
+        <div appearance="sunDamage" id="left_arrow_appearance" style="display: inline-block"> <</div>
+        <label clear="true" id="appearance_count_sunDamage" style="display: inline-block">0</label>
+        <div appearance="sunDamage" id="right_arrow_appearance" style="display: inline-block"> ></div>
+    </div>
+
+    <div>
+        <label style="display: inline-block">Веснушки:</label>
+        <div appearance="freckles" id="left_arrow_appearance" style="display: inline-block"> <</div>
+        <label clear="true" id="appearance_count_freckles" style="display: inline-block">0</label>
+        <div appearance="freckles" id="right_arrow_appearance" style="display: inline-block"> ></div>
+    </div>
+
+    <div>
+        <label style="display: inline-block">Волосы на груди:</label>
+        <div appearance="chestHair" id="left_arrow_appearance" style="display: inline-block"> <</div>
+        <label clear="true" id="appearance_count_chestHair" style="display: inline-block">0</label>
+        <div appearance="chestHair" id="right_arrow_appearance" style="display: inline-block"> ></div>
+    </div>
+
+</div>
+
+<div class="colors">
+    <label style="display: inline-block">- Цвет:</label>
+
+    <div>
+        <label style="display: inline-block">Цвет волос: </label>
+        <div for="hair" color="hair" id="left_arrow_color" style="display: inline-block"> <</div>
+        <label clear="true" id="color_count_hair" style="display: inline-block">0</label>
+        <div for="hair" color="hair" id="right_arrow_color" style="display: inline-block"> ></div>
+    </div>
+
+    <div>
+        <label style="display: inline-block">Цвет глаз: </label>
+        <div for="eyes" color="features.eyes" id="left_arrow_color" style="display: inline-block"> <</div>
+        <label clear="true" id="color_count_eyes" style="display: inline-block">0</label>
+        <div for="eyes" color="features.eyes" id="right_arrow_color" style="display: inline-block"> ></div>
+    </div>
+
+    <div>
+        <label style="display: inline-block">Цвет бороды: </label>
+        <div for="facialHair" color="appearance.facialHair" id="left_arrow_color" style="display: inline-block"> <</div>
+        <label clear="true" id="color_count_facialHair" style="display: inline-block">0</label>
+        <div for="facialHair" color="appearance.facialHair" id="right_arrow_color" style="display: inline-block"> >
+        </div>
+    </div>
+
+    <div>
+        <label style="display: inline-block">Цвет бровей: </label>
+        <div for="eyebrows" color="appearance.eyebrows" id="left_arrow_color" style="display: inline-block"> <</div>
+        <label clear="true" id="color_count_eyebrows" style="display: inline-block">0</label>
+        <div for="eyebrows" color="appearance.eyebrows" id="right_arrow_color" style="display: inline-block"> ></div>
+    </div>
+
+    <div>
+        <label style="display: inline-block">Цвет румянца: </label>
+        <div for="blush" color="appearance.blush" id="left_arrow_color" style="display: inline-block"> <</div>
+        <label clear="true" id="color_count_blush" style="display: inline-block">0</label>
+        <div for="blush" color="appearance.blush" id="right_arrow_color" style="display: inline-block"> ></div>
+    </div>
+
+    <div>
+        <label style="display: inline-block">Цвет волос на груди: </label>
+        <div for="chestHair" color="appearance.chestHair" id="left_arrow_color" style="display: inline-block"> <</div>
+        <label clear="true" id="color_count_chestHair" style="display: inline-block">0</label>
+        <div for="chestHair" color="appearance.chestHair" id="right_arrow_color" style="display: inline-block"> ></div>
+    </div>
+
+</div>
+
+
+<div class="reset">
+
+    <label id="reset_character">Скинуть</label>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="js/main.js"></script>
+</body>
 </html>
 
 
