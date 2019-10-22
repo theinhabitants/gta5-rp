@@ -1,16 +1,19 @@
 let interface = {
-    sex: "male",
+    sex: {
+        name: "male",
+        gender: 0,
+    },
     parents: {
         father: {
             count: 0,
-            maxCount: 24
+            maxCount: 23
         },
         mother: {
             count: 0,
             maxCount: 22
         },
         similarity: {
-            value: 0,
+            value: 0.5,
             range: "#parents_similarity_range",
             valueLabel: "#parents_similarity_value"
         }
@@ -169,55 +172,55 @@ let interface = {
         blemishes: {
             index: 0,
             maxCount: 23,
-            count: 0
+            count: -1
         },
         facialHair: {
             index: 1,
             maxCount: 28,
             colorNumber: 0,
             maxColor: 255,
-            count: 0
+            count: -1
         },
         eyebrows: {
             index: 2,
             maxCount: 33,
             colorNumber: 0,
             maxColor: 255,
-            count: 0
+            count: -1
         },
         ageing: {
             index: 3,
             maxCount: 14,
-            count: 0
+            count: -1
         },
         blush: {
             index: 5,
             maxCount: 6,
             colorNumber: 0,
             maxColor: 255,
-            count: 0
+            count: -1
         },
         complexion: {
             index: 6,
             maxCount: 11,
-            count: 0
+            count: -1
         },
         sunDamage: {
             index: 7,
             maxCount: 10,
-            count: 0
+            count: -1
         },
         freckles: {
             index: 9,
             maxCount: 17,
-            count: 0
+            count: -1
         },
         chestHair: {
             index: 10,
             maxCount: 16,
             colorNumber: 0,
             maxColor: 255,
-            count: 0
+            count: -1
         }
     },
 
@@ -225,12 +228,17 @@ let interface = {
         number: 0,
         colorNumber: 0,
         maxColor: 63,
+        highlightColor: {
+            value: 0,
+            range: "#hair_highlightColor_range"  ,
+            valueLabel: "#color_count_highlightColor"
+        },
         male: {
             maxNumber: 37
         },
         female: {
             maxNumber: 39
-        }
+        },
     }
 }
 
@@ -243,8 +251,8 @@ $(document).on('input change', function (event) {
 
         $(feature.range).on('input change', function () {
             feature.value = this.value;
-            $(feature.valueLabel).text((this.value * 100).toFixed(0));
-           // mp.trigger("featureHandler", feature.index, feature.value);
+            $(feature.valueLabel).text(feature.value);
+            mp.trigger("featureHandler", feature.index, feature.value);
         });
 
     }
@@ -252,17 +260,19 @@ $(document).on('input change', function (event) {
 
 $(interface.parents.similarity.range).on('input change', function () {
     interface.parents.similarity.value = this.value;
-    $(interface.parents.similarity.valueLabel).text((this.value * 100).toFixed(0));
+    $(interface.parents.similarity.valueLabel).text(interface.parents.similarity.value);
+    mp.trigger("parentsHandler", interface.parents.mother.count, interface.parents.father.count, interface.parents.similarity.value);
 });
 
 $("[id=left_arrow_parents]").on("click", function () {
     let parent = eval("interface.parents." + $(this).attr("parent"));
 
     parent.count--;
-    if (parent.count <= 0) {
+    if (parent.count < 0) {
         parent.count = parent.maxCount;
     }
     $("#parents_count_" + $(this).attr("parent")).text(parent.count);
+    mp.trigger("parentsHandler", interface.parents.mother.count, interface.parents.father.count, interface.parents.similarity.value);
 });
 
 $("[id=right_arrow_parents]").on("click", function () {
@@ -272,17 +282,20 @@ $("[id=right_arrow_parents]").on("click", function () {
     if (parent.count > parent.maxCount) {
         parent.count = 0;
     }
+
     $("#parents_count_" + $(this).attr("parent")).text(parent.count);
+    mp.trigger("parentsHandler", interface.parents.mother.count, interface.parents.father.count, interface.parents.similarity.value);
 });
 
 $("[id=left_arrow_appearance]").on("click", function () {
     let appearance = eval("interface.appearance." + $(this).attr("appearance"));
 
     appearance.count--;
-    if (appearance.count <= 0) {
+    if (appearance.count < -1) {
         appearance.count = appearance.maxCount;
     }
-    $("#appearance_count_" + $(this).attr("appearance")).text(appearance.count);
+    $("#appearance_count_" + $(this).attr("appearance")).text(appearance.count + 1);
+    mp.trigger("appearanceHandler", appearance.index, appearance.count, appearance.colorNumber);
 });
 
 $("[id=right_arrow_appearance]").on("click", function () {
@@ -290,19 +303,21 @@ $("[id=right_arrow_appearance]").on("click", function () {
 
     appearance.count++;
     if (appearance.count > appearance.maxCount) {
-        appearance.count = 0;
+        appearance.count = -1;
     }
-    $("#appearance_count_" + $(this).attr("appearance")).text(appearance.count);
+    $("#appearance_count_" + $(this).attr("appearance")).text(appearance.count + 1);
+    mp.trigger("appearanceHandler", appearance.index, appearance.count, appearance.colorNumber);
 });
 
 $("[id=left_arrow_color]").on("click", function () {
     let color = eval("interface." + $(this).attr("color"));
 
     color.colorNumber--;
-    if (color.colorNumber <= 0) {
+    if (color.colorNumber < 0) {
         color.colorNumber = color.maxColor;
     }
     $("#color_count_" + $(this).attr("for")).text(color.colorNumber);
+    mp.trigger("colorHandler", color.index, color.count, $(this).attr("for"), color.colorNumber, interface.hair.highlightColor.value);
 });
 
 $("[id=right_arrow_color]").on("click", function () {
@@ -313,6 +328,13 @@ $("[id=right_arrow_color]").on("click", function () {
         color.colorNumber = 0;
     }
     $("#color_count_"  + $(this).attr("for")).text(color.colorNumber);
+    mp.trigger("colorHandler", color.index, color.count, $(this).attr("for"), color.colorNumber, interface.hair.highlightColor.value);
+});
+
+$(interface.hair.highlightColor.range).on('input change', function () {
+    interface.hair.highlightColor.value = this.value;
+    $(interface.hair.highlightColor.valueLabel).text(interface.hair.highlightColor.value);
+    mp.trigger("colorHandler", -1, -1, "hair", interface.hair.colorNumber, interface.hair.highlightColor.value);
 });
 
 $("#left_arrow_hair").on("click", function () {
@@ -320,7 +342,7 @@ $("#left_arrow_hair").on("click", function () {
 
     hair.number--;
     if (hair.number <= 0) {
-        hair.number = eval("hair." + interface.sex + ".maxNumber");
+        hair.number = eval("hair." + interface.sex.name + ".maxNumber");
     }
 
     setHair(hair.number);
@@ -330,41 +352,67 @@ $("#right_arrow_hair").on("click", function () {
     let hair = interface.hair;
 
     hair.number++;
-    if (hair.number > eval("hair." + interface.sex + ".maxNumber")) {
+    if (hair.number > eval("hair." + interface.sex.name + ".maxNumber")) {
         hair.number = 0;
     }
     setHair(hair.number);
 });
 
 $("#male").on("click", function () {
-    if (interface.sex === "male") {
-        return;
-    }
-    resetCharacter();
-    interface.sex = "male";
-    $("#female").prop('checked', false);
-    $("#male").prop('checked', true);
-    setHair(interface.hair.number);
+    $(".warning_message").fadeIn('slow','linear');
+    $(".warning_message h4").text("Вы точно хотите поменять пол персонажа? Все данные настройки будут утеряны!");
+    $("#male").prop('checked', false);
+    $("#accept_warning").attr("response", "male");
 });
 
 $("#female").on("click", function () {
-    if (interface.sex === "female") {
-        return;
-    }
-    resetCharacter();
-    interface.sex = "female";
-    $("#male").prop('checked', false);
-    $("#female").prop('checked', true);
-    setHair(interface.hair.number);
+    $(".warning_message").fadeIn('slow','linear');
+    $(".warning_message h4").text("Вы точно хотите поменять пол персонажа? Все данные настройки будут утеряны!");
+    $("#female").prop('checked', false);
+    $("#accept_warning").attr("response", "female");
 });
+$("#reject_warning").on("click", function () {
+    $(".warning_message").fadeOut('slow','linear');
+});
+$("#accept_warning").on("click", function () {
+    const warning = $(this).attr("response");
 
+    switch (warning) {
+        case "female":{
+            resetCharacter();
+            interface.sex.name = "female";
+            interface.sex.gender = 1;
+            $("#female").prop('checked', true);
+            $("#male").prop('checked', false);
+            mp.trigger("genderHandler", interface.sex.gender);
+            break;
+        }
+        case "male": {
+            resetCharacter();
+            interface.sex.name = "male";
+            interface.sex.gender = 0;
+            $("#male").prop('checked', true);
+            $("#female").prop('checked', false);
+            mp.trigger("genderHandler", interface.sex.gender);
+            break;
+        }
+        case "reset": {
+            resetCharacter();
+            break;
+        }
+    }
+
+    $(".warning_message").fadeOut('slow','linear');
+});
 $("#reset_character").on("click", function () {
-    resetCharacter();
+    $(".warning_message").show(500);
+    $(".warning_message h4").text("Вы точно хотите сбросить все настройки?");
+    $("#accept_warning").attr("response", "reset");
 });
 
 function setHair(number) {
     $("#hair_number").text(number);
-    //тригер мп функции\
+    mp.trigger("hairHandler", number, interface.sex.gender);
 }
 
 resetCharacter = function () {
@@ -374,6 +422,9 @@ resetCharacter = function () {
     $("#male").prop('checked', true);
     $("label[clear=true]").text(0);
     $("input[type=range]").val(0);
+    $(interface.parents.similarity.range).val(0.5);
+
+    mp.trigger("resetHandler");
 }
 
 

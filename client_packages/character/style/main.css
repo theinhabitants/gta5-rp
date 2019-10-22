@@ -1,1 +1,17 @@
-/
+body {
+    width: 100%;
+    height: 40%;
+    overflow-y:scroll;
+    color:#ffffff;
+}
+
+.warning_message {
+    background: cornflowerblue;
+    opacity: 0.8;
+    width: 400px;
+    height: 150px;
+    position: absolute;
+    top: 30%;
+    left: 40%;
+}
+

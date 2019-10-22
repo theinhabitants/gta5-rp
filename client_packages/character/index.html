@@ -5,6 +5,17 @@
 </head>
 <body>
 
+<div class="warning_message" style="display: none">
+    <div style="text-align: center">
+        <h2>WARNING!</h2>
+        <h4>текст...</h4>
+        <div>
+            <button id="reject_warning">Нет</button>
+            <button id="accept_warning">Да</button>
+        </div>
+    </div>
+</div>
+
 <div class="sex">
     <label>- Пол</label>
 
@@ -14,6 +25,7 @@
 
         <label for="female">Женщина</label>
         <input id="female" type="radio"/>
+
     </div>
 
 </div>
@@ -40,7 +52,7 @@
         <div>
             <label style="display: inline-block">Схожесть</label>
             <input feature="nose.width" type="range" id="parents_similarity_range" min="0.0" max="1.0" step="0.01"
-                   value="0"/>
+                   value="0.5"/>
             <label clear="true" id="parents_similarity_value">0</label>
         </div>
 
@@ -174,7 +186,7 @@
         <label>-- Подбородок:</label>
         <div>
             <label>Длина подбородка</label>
-            <input feature="chin.length" type="range" id="chin_length_range" min="-1.0" max="1.0" step="0.01"
+            <input feature="chin.length" type="range" id="chin_length_range" min="-1.0" step="0.01" max="1.0"
                    value="0"/>
             <label clear="true" id="chin_length_value">0</label>
         </div>
@@ -286,6 +298,13 @@
         <div for="hair" color="hair" id="left_arrow_color" style="display: inline-block"> <</div>
         <label clear="true" id="color_count_hair" style="display: inline-block">0</label>
         <div for="hair" color="hair" id="right_arrow_color" style="display: inline-block"> ></div>
+    </div>
+
+    <div>
+        <label>Высветление волос</label>
+        <input type="range" id="hair_highlightColor_range" min="0" max="100"
+               value="0"/>
+        <label clear="true" id="color_count_highlightColor">0</label>
     </div>
 
     <div>

@@ -25,6 +25,7 @@ mp.events.addCommand('veh', (player, _, vehName) => {
     mp.vehicles.new(mp.joaat(vehName), player.position);
 });
 
+
 mp.events.addCommand('o', (player, message) => {
     mp.players.broadcast(message);
 });
