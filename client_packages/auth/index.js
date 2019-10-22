@@ -1,4 +1,4 @@
-let authBrowser = mp.browsers.new("package://auth/login.html");
+let authBrowser = mp.browsers.new("package://auth/index.html");
 mp.gui.chat.show(false); // added to avoid problem with background chat
 
 mp.gui.cursor.show(true, true);

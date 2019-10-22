@@ -1,0 +1,55 @@
+<html class="transparent-bg-4">
+<meta charset="utf-8">
+<link rel="stylesheet" href="css/main.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu&display=swap" rel="stylesheet">
+
+<body>
+<div class="bg"></div>
+<div class="main">
+    <form onsubmit="login(); return false;">
+        <div class="logo">
+            <img src="img/logo.png"/>
+        </div>
+        <div class="email">
+            <input id="email" type="email" placeholder="email" required/>
+        </div>
+        <div class="pass">
+            <img id="hide" class="hide" src="img/hide.png">
+            <input id="password" type="password" minlength="6" placeholder="password" required/>
+        </div>
+        <b class="alert" id="wrong-email">Не можем найти такой комбинации email и пароля</b>
+        <div class="buttons">
+            <div class="url">
+                <a href="#">Forget password</a>
+            </div>
+            <div class="url">
+                <a href="registration.html">register</a>
+            </div>
+            <div class="url">
+                <input type="submit" value="login" align="center"/>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.alert').hide();
+        let isPass = true;
+        $('#hide').on('click', function () {
+            if (isPass) {
+                $('#password')[0].type = 'text';
+                $('#hide')[0].src = 'img/show.png';
+                isPass = false;
+            } else {
+                $('#password')[0].type = 'password';
+                $('#hide')[0].src = 'img/hide.png';
+                isPass = true;
+            }
+        });
+    });
+
+</script>
+</html>
