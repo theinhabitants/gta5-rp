@@ -103,9 +103,6 @@ mp.events.add("genderHandlerServer", (player, number) => {
 });
 
 mp.events.addCommand('test', (player) => {
-    const creatorPlayerPos = new mp.Vector3(402.8664, -996.4108, -99.00027);
-    const creatorPlayerHeading = -185.0;
-
     player.preCreatorPos = player.position;
     player.preCreatorHeading = player.heading;
     player.preCreatorDimension = player.dimension;
