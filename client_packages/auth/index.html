@@ -5,8 +5,7 @@
 
 <body>
 <div class="bg"></div>
-<form onsubmit="login(); return false;">
-
+<form id="form" action="" method="POST">
     <div class="half">
         <div class="logo">
             <img src="img/logo.png"/>
@@ -15,7 +14,6 @@
             <input id="email" type="email" placeholder="email" required/>
         </div>
     </div>
-
 
     <div class="half">
         <div class="pass">
@@ -34,27 +32,10 @@
             </span>
         </div>
     </div>
-    <b class="alert" id="wrong-email">Не можем найти такой комбинации email и пароля</b>
+    <b class="alert" id="wrong-email" style="display: none">Такой email не зарегистрирован в системе</b>
+    <b class="alert" id="wrong-password" style="display: none">Не верный пароль</b>
 </form>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.alert').hide();
-        let isPass = true;
-        $('#hide').on('click', function () {
-            if (isPass) {
-                $('#password')[0].type = 'text';
-                $('#hide')[0].src = 'img/show.png';
-                isPass = false;
-            } else {
-                $('#password')[0].type = 'password';
-                $('#hide')[0].src = 'img/hide.png';
-                isPass = true;
-            }
-        });
-    });
-
-</script>
 </html>
