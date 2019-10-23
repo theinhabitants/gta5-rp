@@ -57,6 +57,10 @@ mp.events.add('showCreator', () => {
     mp.players.local.clearTasksImmediately();
     mp.players.local.freezePosition(true);
 
+    for(let i = 0; i < 12; i++){
+        currentPlayer.setComponentVariation(i,0,0,0);
+    }
+
     mp.game.cam.renderScriptCams(true, false, 0, true, false);
 
     mp.gui.cursor.show(true, true);
@@ -113,6 +117,21 @@ mp.events.add("appearanceHandler", (index, count, color) => {
     currentPlayer.setHeadOverlay(index, count, 1, color, 0); //ДОРОБИТИ ОПАСИТИ
 });
 
+mp.events.add("saveHandler", (json) => {
+    mp.gui.chat.show(true);
+    mp.game.ui.displayRadar(true);
+    mp.game.ui.displayHud(true);
+    currentPlayer.freezePosition(false);
+    mp.gui.cursor.show(false, false);
+
+    mp.events.callRemote("saveHandlerServer", json);
+
+    interface.destroy();
+
+    mp.game.cam.renderScriptCams(false, false, 0, true, false);
+
+});
+
 mp.events.add("parentsHandler", (mother, father, similarity) => {
     currentPlayer.setHeadBlendData(mothers[mother], fathers[father], 0,
         mothers[mother], fathers[father], 0,
@@ -132,6 +151,7 @@ mp.events.add("genderHandler", (number) => {
             similarityTo, similarityTo, 0.0, false);
     }, 200);
 });
+
 
 function setCamera(name, vector, X,Y,Z, fov){
     playerCamera.destroy(true);

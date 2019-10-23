@@ -98,6 +98,45 @@ mp.events.add('hairHandlerServer', (player, number, gender) => {
     player.setClothes(2, hairList[gender][number].ID, 0, 2);
 });
 
+mp.events.add('saveHandlerServer', (player, json) => {
+    let character = JSON.parse(json);
+    // player.setCustomization(
+    //     character.sex.gender,
+    //
+    //     character.parents.mother.count,
+    //     character.parents.father.count,
+    //     0,
+    //
+    //     character.parents.mother.count,
+    //     character.parents.father.count,
+    //     0,
+    //
+    //     character.parents.similarity.value * 1,
+    //     character.parents.similarity.value * 1,
+    //     0.0,
+    //
+    //     character.features.eyes.colorNumber,
+    //     character.hair.colorNumber,
+    //     character.hair.highlightColor.value,
+    //
+    //     [character.features.nose.width.value, character.features.nose.height.value,
+    //         character.features.nose.length.value, character.features.nose.bridge.value,
+    //         character.features.nose.tip.value, character.features.nose.bridgeShift.value,
+    //         character.features.brow.height.value, character.features.brow.width.value,
+    //         character.features.cheekbone.height.value, character.features.cheekbone.width.value,
+    //         character.features.cheeks.width.value, character.features.eyes.value,
+    //         character.features.lips.value, character.features.jaw.width.value,
+    //         character.features.jaw.height.value, character.features.chin.length.value,
+    //         character.features.chin.position.value, character.features.chin.width.value,
+    //         character.features.chin.shape.value, character.features.neck.width]
+    // );
+    //
+    // player.setClothes(2, character.hair.number, 0, 2);
+    // for (let i = 0; i < 10; i++) {
+    //     player.setHeadOverlay(i, character.appearance[i].count, 1, character.appearance[i].colorNumber, 0);
+    // }
+});
+
 mp.events.add("genderHandlerServer", (player, number) => {
     player.model = freemodeCharacters[number];
     player.position = creatorPlayerPos;
@@ -117,3 +156,5 @@ mp.events.addCommand('test', (player) => {
     player.changedGender = false;
     player.call("showCreator");
 });
+
+

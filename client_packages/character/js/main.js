@@ -172,6 +172,7 @@ let interface = {
         blemishes: {
             index: 0,
             maxCount: 23,
+            colorNumber: 0,
             count: -1
         },
         facialHair: {
@@ -191,6 +192,7 @@ let interface = {
         ageing: {
             index: 3,
             maxCount: 14,
+            colorNumber: 0,
             count: -1
         },
         blush: {
@@ -203,16 +205,19 @@ let interface = {
         complexion: {
             index: 6,
             maxCount: 11,
+            colorNumber: 0,
             count: -1
         },
         sunDamage: {
             index: 7,
             maxCount: 10,
+            colorNumber: 0,
             count: -1
         },
         freckles: {
             index: 9,
             maxCount: 17,
+            colorNumber: 0,
             count: -1
         },
         chestHair: {
@@ -461,6 +466,11 @@ $("#accept_warning").on("click", function () {
             resetCharacter();
             break;
         }
+        case "save": {
+            console.log(JSON.stringify(interface));
+            mp.trigger("saveHandler", JSON.stringify(interface));
+            break;
+        }
     }
 
     $(".warning_message").fadeOut('slow','linear');
@@ -470,6 +480,12 @@ $("#reset_character").on("click", function () {
     $(".warning_message").show(500);
     $(".warning_message h4").text("Вы точно хотите сбросить все настройки?");
     $("#accept_warning").attr("response", "reset");
+});
+
+$("#save_character").on("click", function () {
+    $(".warning_message").show(500);
+    $(".warning_message h4").text("Вы точно хотите продолжить? В дальнейшем можно будет сделать только косметические изменения.");
+    $("#accept_warning").attr("response", "save");
 });
 
 
