@@ -238,12 +238,19 @@ let interface = {
         },
         female: {
             maxNumber: 39
-        },
+        }
+    },
+
+    settings: {
+        angleCount: 180
     }
 }
 
 const initInterface = JSON.parse(JSON.stringify(interface));
 let scopeCount = 1;
+
+const HOLD_SPEED = 100;
+let holdInButton = 0;
 
 $(document).on('input change', function (event) {
     if ($(event.target).attr("feature") != null) {
@@ -369,7 +376,43 @@ $("#right_arrow_hair").on("click", function () {
     mp.trigger("hairHandler", hair.number, interface.sex.gender);
 });
 
+$('#right_arrow_angle').on('mousedown',function() {
+    holdInButton = setInterval(function() {
+
+        interface.settings.angleCount += 3;
+        if(interface.settings.angleCount >= 360) {
+            interface.settings.angleCount = 0;
+        }
+        $("#angle_text").text(interface.settings.angleCount + "°");
+        mp.trigger("angleHandler", interface.settings.angleCount);
+
+    }, HOLD_SPEED);
+}).on('mouseup',function() {
+    clearInterval(holdInButton);
+}).on('mouseout',function() {
+    clearInterval(holdInButton);
+});
+
+$('#left_arrow_angle').on('mousedown',function() {
+    holdInButton = setInterval(function() {
+        if(interface.settings.angleCount <= 0) {
+            interface.settings.angleCount = 360;
+        }
+        interface.settings.angleCount -= 3;
+        $("#angle_text").text(interface.settings.angleCount + "°");
+        mp.trigger("angleHandler", interface.settings.angleCount);
+
+    }, HOLD_SPEED);
+}).on('mouseup',function() {
+    clearInterval(holdInButton);
+}).on('mouseout',function() {
+    clearInterval(holdInButton);
+});
+
 $("#male").on("click", function () {
+    if(interface.sex.gender === 0) {
+        return 1;
+    }
     $(".warning_message").fadeIn('slow','linear');
     $(".warning_message h4").text("Вы точно хотите поменять пол персонажа? Все данные настройки будут утеряны!");
     $("#male").prop('checked', false);
@@ -377,6 +420,9 @@ $("#male").on("click", function () {
 });
 
 $("#female").on("click", function () {
+    if(interface.sex.gender === 1) {
+        return 1;
+    }
     $(".warning_message").fadeIn('slow','linear');
     $(".warning_message h4").text("Вы точно хотите поменять пол персонажа? Все данные настройки будут утеряны!");
     $("#female").prop('checked', false);
@@ -395,18 +441,20 @@ $("#accept_warning").on("click", function () {
             resetCharacter();
             interface.sex.name = "female";
             interface.sex.gender = 1;
+            scopeCount = 1;
             $("#female").prop('checked', true);
             $("#male").prop('checked', false);
-            mp.trigger("genderHandler", interface.sex.gender, scopeCount);
+            mp.trigger("genderHandler", interface.sex.gender);
             break;
         }
         case "male": {
             resetCharacter();
             interface.sex.name = "male";
             interface.sex.gender = 0;
+            scopeCount = 1;
             $("#male").prop('checked', true);
             $("#female").prop('checked', false);
-            mp.trigger("genderHandler", interface.sex.gender, scopeCount);
+            mp.trigger("genderHandler", interface.sex.gender);
             break;
         }
         case "reset": {
@@ -425,12 +473,14 @@ $("#reset_character").on("click", function () {
 });
 
 
+
 resetCharacter = function () {
     interface = JSON.parse(JSON.stringify(initInterface));
 
     $("#female").prop('checked', false);
     $("#male").prop('checked', true);
     $("label[clear=true]").text(0);
+    $("#angle_text").text(180 + "°");
     $("input[type=range]").val(0);
     $(interface.parents.similarity.range).val(0.5);
 

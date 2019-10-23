@@ -61,7 +61,6 @@ mp.events.add('showCreator', () => {
 
     mp.gui.cursor.show(true, true);
 
-
 });
 
 mp.events.add('hairHandler', (number, gender) => {
@@ -78,11 +77,17 @@ mp.events.add('scopeHandler', (index, gender) => {
     }
 });
 
+mp.events.add('angleHandler', (angle) => {
+    mp.events.callRemote("angleHandlerServer", angle);
+});
+
 mp.events.add('featureHandler', (index, value) => {
     currentPlayer.setFaceFeature(index, value * smoothValue);
 });
 
 mp.events.add('resetHandler', () => {
+    setCamera("creatorCamera", cameraCoords[1].camera, cameraCoords[1].X, cameraCoords[1].Y, cameraCoords[1].Z, cameraCoords[1].fov);
+
     mp.events.callRemote("genderHandlerServer", 0);
 });
 
@@ -115,13 +120,10 @@ mp.events.add("parentsHandler", (mother, father, similarity) => {
 });
 
 
-mp.events.add("genderHandler", (number, scope) => {
+mp.events.add("genderHandler", (number) => {
     const similarityTo = (number === 0) ? 0 : 100;
-    const genderHead = (number === 0) ? eval(cameraCoords[scope].male) : eval(cameraCoords[scope].female);
 
-    if(scope == HEAD_CAMERA) {
-        setCamera("creatorCamera", genderHead.camera, genderHead.X, genderHead.Y, genderHead.Z, cameraCoords[scope].fov);
-    }
+    setCamera("creatorCamera", cameraCoords[1].camera, cameraCoords[1].X, cameraCoords[1].Y, cameraCoords[1].Z, cameraCoords[1].fov);
 
     mp.events.callRemote("genderHandlerServer", number);
 

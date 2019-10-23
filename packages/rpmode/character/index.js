@@ -88,8 +88,11 @@ const hairList = [
 const freemodeCharacters = [mp.joaat("mp_m_freemode_01"), mp.joaat("mp_f_freemode_01")];
 
 const creatorPlayerPos = new mp.Vector3(402.8664, -996.4108, -99.00027);
-const creatorPlayerHeading = -185.0;
+const creatorPlayerHeading = 180;
 
+mp.events.add("angleHandlerServer", (player, angle) => {
+    player.heading = angle;
+});
 
 mp.events.add('hairHandlerServer', (player, number, gender) => {
     player.setClothes(2, hairList[gender][number].ID, 0, 2);
