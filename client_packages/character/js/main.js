@@ -243,6 +243,7 @@ let interface = {
 }
 
 const initInterface = JSON.parse(JSON.stringify(interface));
+let scopeCount = 1;
 
 $(document).on('input change', function (event) {
     if ($(event.target).attr("feature") != null) {
@@ -285,6 +286,14 @@ $("[id=right_arrow_parents]").on("click", function () {
 
     $("#parents_count_" + $(this).attr("parent")).text(parent.count);
     mp.trigger("parentsHandler", interface.parents.mother.count, interface.parents.father.count, interface.parents.similarity.value);
+});
+
+$("#scope").on("click", function () {
+    scopeCount++;
+    if(scopeCount >= 3) {
+        scopeCount = 0;
+    }
+    mp.trigger("scopeHandler", scopeCount, interface.sex.gender);
 });
 
 $("[id=left_arrow_appearance]").on("click", function () {
@@ -345,7 +354,8 @@ $("#left_arrow_hair").on("click", function () {
         hair.number = eval("hair." + interface.sex.name + ".maxNumber");
     }
 
-    setHair(hair.number);
+    $("#hair_number").text(hair.number);
+    mp.trigger("hairHandler", hair.number, interface.sex.gender);
 });
 
 $("#right_arrow_hair").on("click", function () {
@@ -355,7 +365,8 @@ $("#right_arrow_hair").on("click", function () {
     if (hair.number > eval("hair." + interface.sex.name + ".maxNumber")) {
         hair.number = 0;
     }
-    setHair(hair.number);
+    $("#hair_number").text(hair.number);
+    mp.trigger("hairHandler", hair.number, interface.sex.gender);
 });
 
 $("#male").on("click", function () {
@@ -371,9 +382,11 @@ $("#female").on("click", function () {
     $("#female").prop('checked', false);
     $("#accept_warning").attr("response", "female");
 });
+
 $("#reject_warning").on("click", function () {
     $(".warning_message").fadeOut('slow','linear');
 });
+
 $("#accept_warning").on("click", function () {
     const warning = $(this).attr("response");
 
@@ -384,7 +397,7 @@ $("#accept_warning").on("click", function () {
             interface.sex.gender = 1;
             $("#female").prop('checked', true);
             $("#male").prop('checked', false);
-            mp.trigger("genderHandler", interface.sex.gender);
+            mp.trigger("genderHandler", interface.sex.gender, scopeCount);
             break;
         }
         case "male": {
@@ -393,7 +406,7 @@ $("#accept_warning").on("click", function () {
             interface.sex.gender = 0;
             $("#male").prop('checked', true);
             $("#female").prop('checked', false);
-            mp.trigger("genderHandler", interface.sex.gender);
+            mp.trigger("genderHandler", interface.sex.gender, scopeCount);
             break;
         }
         case "reset": {
@@ -404,16 +417,13 @@ $("#accept_warning").on("click", function () {
 
     $(".warning_message").fadeOut('slow','linear');
 });
+
 $("#reset_character").on("click", function () {
     $(".warning_message").show(500);
     $(".warning_message h4").text("Вы точно хотите сбросить все настройки?");
     $("#accept_warning").attr("response", "reset");
 });
 
-function setHair(number) {
-    $("#hair_number").text(number);
-    mp.trigger("hairHandler", number, interface.sex.gender);
-}
 
 resetCharacter = function () {
     interface = JSON.parse(JSON.stringify(initInterface));
