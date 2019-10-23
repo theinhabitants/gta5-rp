@@ -1,1 +1,2 @@
 require('./noclip');
+require('./chat');

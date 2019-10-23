@@ -42,6 +42,7 @@ mp.events.addCommand('tp', (player, args) => {
         player.outputChatBox(getPlayerNameWithID(firstPlayer) + " телепортирован к " + getPlayerNameWithID(secondPlayer));
         return;
     }
+
     player.outputChatBox("Ошибка! Используйте /tp [id] или /tp [id] [id]");
 });
 

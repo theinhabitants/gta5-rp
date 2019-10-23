@@ -1,6 +1,7 @@
 function playerJoinHandler(player) {
     console.log(player.name + " has joined. ID:" + player.id);
-    player.outputChatBox(player.name + " has joined. ID:" + player.id);
+    let str = player.name + " has joined. ID:" + player.id;
+    mp.players.broadcast(str);
 }
 
 mp.events.add("playerJoin", playerJoinHandler);
