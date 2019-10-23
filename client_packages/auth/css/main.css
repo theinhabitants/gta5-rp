@@ -15,66 +15,60 @@ body{
     font-family: Ubuntu, sans-serif;
 }
 
-.main {
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-    align-content: center;
+form {
+    display: block;
+    position: relative;
     height: 100%;
     width: 100%;
-    margin: 0;
 }
-form {
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+
+.half {
+    width: 100%;
     height: 50%;
-    width: 70%;
-    padding-bottom: 2.5%;
-    flex-wrap: wrap;
+    position: relative;
 }
 
 .logo {
-    display: flex;
-    flex: 1;
-    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 70%;
 }
 
 .logo img {
-    display: flex;
-    height: 75%;
+    position: absolute;
+    width: 16%;
+    bottom: 0;
+    left: 42%;
 }
 
 .email {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    width: 100%;
-    padding-bottom: 20px;
+    position: absolute;
+    width: 26%;
+    height: 70px;
+    bottom: 0;
+    left: 37%;
+    margin-bottom: 5px;
 }
 
 .pass {
-    display: flex;
     position: relative;
-    flex: 1;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
+    width: 26%;
+    height: 70px;
+    bottom: 0;
+    left: 37%;
+    margin-top: 7px;
 }
 
 input {
     font-family: Ubuntu, sans-serif;
     display: flex;
-    height: 73%;
-    width: 40%;
+    height: 55px;
+    width: 100%;
     border: none;
     border-radius: 17px;
     background: rgba(255,255,255, 0.2);
     outline: none;
-    padding-left: 2%;
+    padding-left: 5%;
     padding-right: 2%;
     font-size: large;
     color: white;
@@ -86,43 +80,45 @@ input::placeholder {
     opacity: 0.7;
 }
 
-.buttons {
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    text-align: left;
-    width: 40%;
-}
-
 input[type=submit] {
     font-family: Roboto, sans-serif;
     font-weight: bold;
     display: inline-block;
     position: relative;
-    width: 100%;
-    height: 54%;
     align-self: center;
     background: #D02054;
     color: #241143;
+    height: 30px;
+    width: 100%;
+    padding: 0;
 }
 
 input[type=submit]:hover {
     cursor: pointer;
 }
+
+.buttons {
+    display: inline-block;
+    position: relative;
+    left: 37%;
+    width: 26%;
+    text-align: left;
+}
+
+.buttons > *:last-child {
+    text-align: right;
+}
+
 .url {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex: 2;
-    height: 100%;
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 0;
+    width: 29%;
 }
 
 .url a {
     font-family: Ubuntu, sans-serif;
-    flex: 1;
-    align-self: center;
     text-align: center;
     font-size: 0.7em;
     text-decoration: none;
@@ -130,7 +126,12 @@ input[type=submit]:hover {
 }
 
 b {
+    bottom: 20%;
+    position: absolute;
+    left: 25%;
+    width: 50%;
     color: crimson;
+    text-align: center;
 }
 
 .hide {
@@ -138,7 +139,7 @@ b {
     height: 16px;
     position: absolute;
     top: calc(50% - 15px);
-    right: 32%;
+    right: 7%;
     opacity: 0.6;
 }
 
