@@ -21,3 +21,6 @@ $('#hide').on('click', function () {
     }
 });
 
+hide = _.debounce(function () {
+    $(".alert").hide();
+}, 3000);
