@@ -1,4 +1,5 @@
 $("#form").on("submit", function () {
+    $("#sub").attr("disabled", true);
     $(".alert").hide();
     const email = $("#email").val();
     const password = $("#password").val();
@@ -20,9 +21,3 @@ $('#hide').on('click', function () {
     }
 });
 
-function registration() {
-    const email = document.getElementById("email");
-    const password = document.getElementById("password");
-
-    mp.trigger("registration", email.value, password.value);
-}

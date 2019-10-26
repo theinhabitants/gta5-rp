@@ -1,6 +1,6 @@
 
 .bg {
-    background: url("../img/background.jpg") no-repeat;
+    background: url("../img/background.jpg") no-repeat center;
     background-size: 100%;
     position: absolute;
     height: 100%;
@@ -44,19 +44,19 @@ form {
 
 .email {
     position: absolute;
-    width: 26%;
+    width: 22%;
     height: 70px;
     bottom: 0;
-    left: 37%;
+    left: 39%;
     margin-bottom: 5px;
 }
 
 .pass {
     position: relative;
-    width: 26%;
+    width: 22%;
     height: 70px;
     bottom: 0;
-    left: 37%;
+    left: 39%;
     margin-top: 7px;
 }
 
@@ -90,7 +90,7 @@ input[type=submit] {
     background: #D02054;
     color: #241143;
     height: 30px;
-    width: 100%;
+    width: 80%;
     padding: 0;
 }
 
@@ -98,16 +98,22 @@ input[type=submit]:hover {
     cursor: pointer;
 }
 
+input[type=submit]:disabled {
+    opacity: 0.8;
+}
+
 .buttons {
     display: inline-block;
     position: relative;
-    left: 37%;
-    width: 26%;
+    left: 39%;
+    width: 22%;
     text-align: left;
 }
 
 .buttons > *:last-child {
     text-align: right;
+    float: right;
+    padding: 0;
 }
 
 .url {
@@ -123,7 +129,7 @@ input[type=submit]:hover {
     text-align: center;
     font-size: 0.7em;
     text-decoration: none;
-    color: #474975;
+    color: whitesmoke;
 }
 
 b {

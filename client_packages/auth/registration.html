@@ -3,26 +3,82 @@
 <link rel="stylesheet" href="css/main.css">
 
 <body>
-<div class="login-window">
-    <div class="login-form">
-        <form onsubmit="registration(); return false;">
-            <div class="input-fields">
-                <b class="alert" id="wrong-email">Пользователь с таким e-mail уже зарегистрирован</b>
-                <b class="alert" id="server-error">Серверная ошибка, обратитесь в поддержку</b>
-                <input id="email" type="email" class="email-input_login" placeholder="E-Mail" required>
-                <input id="password" type="password" pattern="^\S{6,}$" class="password-input_register" placeholder="Password" required>
-                <input id="passwordRepeat" type="password" pattern="^\S{6,}$" class="password-input_register" placeholder="Password" required>
-            </div>
-            <div class="buttons-bar">
-                <input type="submit" class="goto-register-button" value="Зарегистрироватся"/>
-            </div>
-        </form>
+<div class="bg"></div>
+<form id="formRegister" action="" method="POST">
+    <div class="half">
+        <div class="logo">
+            <img src="img/logo.png"/>
+        </div>
+        <div class="email">
+            <input id="emailRegister" type="email" placeholder="email" required/>
+        </div>
     </div>
-</div>
+    <div class="half">
+        <div class="pass">
+            <img id="hideReg" class="hide" src="img/hide.png">
+            <input id="passwordRegister" type="password" minlength="6" placeholder="password" required/>
+        </div>
+        <div class="pass">
+            <input id="passwordRegisterRepeat" type="password" minlength="6" placeholder="repeat password" required/>
+        </div>
+        <div class="buttons">
+            <span class="url">
+                <a href="index.html">login</a>
+            </span>
+            <span class="url">
+                <input id="sub" type="submit" value="register" align="center"/>
+            </span>
+        </div>
+    </div>
+    <b class="alert" id="wrong-email" style="display: none">Такой email уже зарегистрирован в системе</b>
+    <b class="alert" id="server-error" style="display: none">Чтото на пошло не так</b>
+</form>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript">
-    $('.alert').hide();
+    $(document).ready(function () {
+        $('.alert').hide();
+
+        let isPass = true;
+
+        $('#hideReg').on('click', function () {
+            if (isPass) {
+                $('#passwordRegister')[0].type = 'text';
+                $('#hideReg')[0].src = 'img/show.png';
+                isPass = false;
+            } else {
+                $('#passwordRegister')[0].type = 'password';
+                $('#hideReg')[0].src = 'img/hide.png';
+                isPass = true;
+            }
+        });
+
+        let password = $("#passwordRegister");
+        let confirm_password = $("#passwordRegisterRepeat");
+
+        let validatePassword = function () {
+            if (password[0].value != confirm_password[0].value) {
+                confirm_password[0].setCustomValidity("Passwords Don't Match");
+            } else {
+                confirm_password[0].setCustomValidity('');
+            }
+        };
+
+        password.on('change', validatePassword);
+        confirm_password.keyup(validatePassword);
+
+        $("#formRegister").on('submit', function () {
+            $("#sub").attr("disabled", true);
+            $(".alert").hide();
+
+
+            const email = $("#emailRegister").val();
+            const password = $("#passwordRegister").val();
+
+            mp.trigger("registration", email, password);
+            return false;
+        });
+    });
 </script>
 </html>

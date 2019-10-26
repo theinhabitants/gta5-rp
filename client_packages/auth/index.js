@@ -24,11 +24,15 @@ mp.events.add("loginHandler", (response) => {
         case "wrong-email":
             if (authBrowser) {
                 authBrowser.execute(`$("#wrong-email").show();`);
+                authBrowser.execute(` setTimeout(()=>{$("#wrong-email").hide()}, 3000);`);
+                authBrowser.execute(`$("#sub").attr("disabled", false);`);
             }
             break;
         case "wrong-password":
             if (authBrowser) {
                 authBrowser.execute(`$("#wrong-password").show(); $('#passsword').val("");`);
+                authBrowser.execute(`setTimeout(()=>{$("#wrong-password").hide()}, 3000)`);
+                authBrowser.execute(`$("#sub").attr("disabled", false);`);
             }
             break;
     }
@@ -48,11 +52,15 @@ mp.events.add("registrationHandler", (response) => {
         case "email-already-exist":
             if (authBrowser) {
                 authBrowser.execute(`$("#wrong-email").show();`);
+                authBrowser.execute(`setTimeout(()=>{$("#wrong-email").hide()}, 3000)`);
+                authBrowser.execute(`$("#sub").attr("disabled", false);`);
             }
             break;
         case "internal-server-error":
             if (authBrowser) {
                 authBrowser.execute(`$("#server-error").show();`);
+                authBrowser.execute(`setTimeout(()=>{$("server-error").hide()}, 3000)`);
+                authBrowser.execute(`$("#sub").attr("disabled", false);`);
             }
             break;
     }
