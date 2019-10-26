@@ -1,5 +1,4 @@
 const connectionPool = require('../mysql');
-const passUtils = require('../../util/encrypt');
 
 const getById = function (id) {
     return new Promise(function (resolve, reject) {
@@ -7,17 +6,18 @@ const getById = function (id) {
             if (err) {
                 reject(err);
             }
-            let result = null;
-            if (res) {
-                let userFromDb = res[0];
-                result = {
+
+            let userFromDb = res[0];
+            if (userFromDb === undefined) {
+                resolve(null);
+            } else {
+                resolve({
                     id: userFromDb.id,
                     email: userFromDb.email,
                     password: userFromDb.password,
                     ip: userFromDb.ip
-                }
+                });
             }
-            resolve(result);
         });
     });
 };
@@ -30,13 +30,16 @@ const getByEmail = function (email) {
             }
 
             let userFromDb = res[0];
-
-            resolve({
-                id: userFromDb.id,
-                email: userFromDb.email,
-                password: userFromDb.password,
-                ip: userFromDb.ip
-            });
+            if (userFromDb === undefined) {
+                resolve(null);
+            } else {
+                resolve({
+                    id: userFromDb.id,
+                    email: userFromDb.email,
+                    password: userFromDb.password,
+                    ip: userFromDb.ip
+                });
+            }
         });
     });
 };
