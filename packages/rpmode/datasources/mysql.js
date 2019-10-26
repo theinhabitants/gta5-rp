@@ -1,7 +1,6 @@
-let mysql = require('mysql2/promise');
+let mysql = require('mysql');
 
 let pool = mysql.createPool({
-  connectionLimit: 20,
   host     : 'remotemysql.com',
   port     : '3306',
   user     : 'Evg5778rJJ',

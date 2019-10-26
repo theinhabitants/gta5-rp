@@ -1,46 +1,56 @@
 const connectionPool = require('../mysql');
 const passUtils = require('../../util/encrypt');
 
-const getById = async function (id) {
-    const result = await connectionPool.query('SELECT * FROM user WHERE id = ?', [id]);
-    if (result[0].length !== 1) {
-        throw new Error('user with id ' + id + 'not found');
-    }
-    let userFromDb = result[0][0];
-    return {
-        id: userFromDb.id,
-        email: userFromDb.email,
-        password: userFromDb.password,
-        ip: userFromDb.ip
-    };
+const getById = function (id) {
+    return new Promise(function (resolve, reject) {
+        connectionPool.query('SELECT * FROM user WHERE id = ?', id, function (err, res) {
+            if (err) {
+                reject(err);
+            }
+            let result = null;
+            if (res) {
+                let userFromDb = res[0];
+                result = {
+                    id: userFromDb.id,
+                    email: userFromDb.email,
+                    password: userFromDb.password,
+                    ip: userFromDb.ip
+                }
+            }
+            resolve(result);
+        });
+    });
 };
 
-const getByEmail = async function (email) {
-    const result = await connectionPool.query('SELECT * FROM user WHERE email = ?', [email]);
-    if (result[0].length !== 1) {
-        throw new Error('user with email ' + email + ' not found');
-    }
-    let userFromDb = result[0][0];
-    return {
-        id: userFromDb.id,
-        email: userFromDb.email,
-        password: userFromDb.password,
-        ip: userFromDb.ip
-    };
+const getByEmail = function (email) {
+    return new Promise(function (resolve, reject) {
+        connectionPool.query("SELECT * FROM user WHERE email = ?", [email], function (err, res) {
+            if (err) {
+                reject(err);
+            }
+
+            let userFromDb = res[0];
+
+            resolve({
+                id: userFromDb.id,
+                email: userFromDb.email,
+                password: userFromDb.password,
+                ip: userFromDb.ip
+            });
+        });
+    });
 };
 
-const save = async function (email, password, ip) {
-    let errors;
-    password = passUtils.cryptPassword(password);
-    try {
-        await connectionPool.query(
-            'INSERT INTO user SET ?',
-            {email, password, ip}
-        );
-    } catch (e) {
-        errors = e;
-    }
-    return errors;
+const save = function (email, password, ip) {
+    return new Promise(function (resolve, reject) {
+        connectionPool.query('INSERT INTO user SET ?',
+            {email, password, ip}, function (err, res) {
+                if (err) {
+                    reject(err);
+                }
+                resolve(null);
+            });
+    });
 };
 
 module.exports.getById = getById;

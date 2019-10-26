@@ -5,8 +5,8 @@ const logger = require("../logger/logger");
 mp.events.add("userLogin", async (player, email, password) => {
     let user;
 
-    user = await getUserIfExist(email);
-    if (user === undefined) {
+    user = await userDao.getByEmail(email);
+    if (user === null) {
         player.call("loginHandler", ["wrong-email"]);
         return;
     }
@@ -20,29 +20,20 @@ mp.events.add("userLogin", async (player, email, password) => {
 });
 
 mp.events.add("userRegistration", async (player, email, password) => {
-    let user, error;
+    let userInDb = await userDao.getByEmail(email);
 
-    user = await getUserIfExist(email);
-    if (user !== undefined) {
+    if (userInDb !== null) {
         player.call("registrationHandler", ["email-already-exist"]);
         return;
     }
-    error = await userDao.save(email, password, player.ip);
-    if (error) {
-        logger.log.fatal(error);
+
+    try {
+        await userDao.save(email, password, player.ip);
+    } catch (e) {
+      logger.log.error(e);
         player.call("registrationHandler", ["internal-server-error"]);
     }
 
     logger.log.info("New user registered! email: %s, ip: %s", email, player.ip);
     player.call("registrationHandler", ["success"]);
 });
-
-async function getUserIfExist(email) {
-    let user;
-    try {
-        user = await userDao.getByEmail(email);
-    } catch (e) {
-        return undefined;
-    }
-    return user;
-}
