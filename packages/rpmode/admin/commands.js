@@ -26,6 +26,10 @@ mp.events.addCommand('veh', (player, _, vehName) => {
 });
 
 mp.events.addCommand('tp', (player, args) => {
+    if (args === undefined) {
+        player.outputChatBox("Ошибка! Используйте /tp [id] или /tp [id] [id] или /tp [x] [y] [z] или /tp [id] [x] [y] [z]");
+        return;
+    }
     args = args.split(" ");
     const first = parseInt(args[0]);
     const second = parseInt(args[1]);

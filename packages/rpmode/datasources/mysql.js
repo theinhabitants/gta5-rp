@@ -1,11 +1,11 @@
 let mysql = require('mysql');
 
 let pool = mysql.createPool({
-  host     : 'remotemysql.com',
+  host     : 'localhost',
   port     : '3306',
-  user     : 'Evg5778rJJ',
-  password : 'jdL4Wxxr8J',
-  database : 'Evg5778rJJ'
+  user     : 'root',
+  password : 'root',
+  database : 'gtarp'
 });
 
 module.exports = pool;
