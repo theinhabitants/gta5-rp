@@ -6,11 +6,11 @@ let interface = {
     parents: {
         father: {
             count: 0,
-            maxCount: 23
+            maxCount: 24,
         },
         mother: {
             count: 0,
-            maxCount: 22
+            maxCount: 20,
         },
         similarity: {
             value: 0.5,
@@ -226,7 +226,7 @@ let interface = {
             colorNumber: 0,
             maxColor: 255,
             count: -1
-        }
+        },
     },
 
     hair: {
@@ -235,7 +235,7 @@ let interface = {
         maxColor: 63,
         highlightColor: {
             value: 0,
-            range: "#hair_highlightColor_range"  ,
+            range: "#hair_highlightColor_range",
             valueLabel: "#color_count_highlightColor"
         },
         male: {
@@ -251,11 +251,20 @@ let interface = {
     }
 }
 
+const fatherNames = ["Benjamin", "Daniel", "Joshua", "Noah", "Andrew", "Juan", "Alex", "Isaac", "Evan", "Ethan", "Vincent", "Angel", "Diego", "Adrian", "Gabriel", "Michael", "Santiago", "Kevin", "Louis", "Samuel", "Anthony", "Claude", "Niko", "John"];
+const motherNames = ["Hannah", "Aubrey", "Jasmine", "Gisele", "Amelia", "Isabella", "Zoe", "Ava", "Camila", "Violet", "Sophia", "Evelyn", "Nicole", "Ashley", "Gracie", "Brianna", "Natalie", "Olivia", "Elizabeth", "Charlotte", "Emma", "Misty"];
+
 const initInterface = JSON.parse(JSON.stringify(interface));
 let scopeCount = 1;
 
 const HOLD_SPEED = 100;
 let holdInButton = 0;
+
+
+$('input[type="range"]').on('input', function () {
+    const percent = Math.ceil(((this.value - this.min) / (this.max - this.min)) * 100);
+    $(this).css('background', '-webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) ' + percent + '%, rgba(211, 22, 73,0.3) ' + percent + '%)');
+});
 
 $(document).on('input change', function (event) {
     if ($(event.target).attr("feature") != null) {
@@ -274,38 +283,42 @@ $(document).on('input change', function (event) {
 $(interface.parents.similarity.range).on('input change', function () {
     interface.parents.similarity.value = this.value;
     $(interface.parents.similarity.valueLabel).text(interface.parents.similarity.value);
-    mp.trigger("parentsHandler", interface.parents.mother.count, interface.parents.father.count, interface.parents.similarity.value);
+    mp.trigger("parentsHandler", interface.parents.mother.count, interface.parents.father.count, interface.parents.similarity.value,);
 });
 
 $("[id=left_arrow_parents]").on("click", function () {
     let parent = eval("interface.parents." + $(this).attr("parent"));
 
+    const names = ($(this).attr("parent") === "father") ? fatherNames : motherNames;
+
     parent.count--;
     if (parent.count < 0) {
         parent.count = parent.maxCount;
     }
-    $("#parents_count_" + $(this).attr("parent")).text(parent.count);
-    mp.trigger("parentsHandler", interface.parents.mother.count, interface.parents.father.count, interface.parents.similarity.value);
+    $("#parents_count_" + $(this).attr("parent")).text(names[parent.count]);
+    mp.trigger("parentsHandler", interface.parents.mother.count, interface.parents.father.count, interface.parents.similarity.value, interface.sex.gender);
 });
 
 $("[id=right_arrow_parents]").on("click", function () {
     let parent = eval("interface.parents." + $(this).attr("parent"));
+
+    const names = ($(this).attr("parent") === "father") ? fatherNames : motherNames;
 
     parent.count++;
     if (parent.count > parent.maxCount) {
         parent.count = 0;
     }
 
-    $("#parents_count_" + $(this).attr("parent")).text(parent.count);
-    mp.trigger("parentsHandler", interface.parents.mother.count, interface.parents.father.count, interface.parents.similarity.value);
+    $("#parents_count_" + $(this).attr("parent")).text(names[parent.count]);
+    mp.trigger("parentsHandler", interface.parents.mother.count, interface.parents.father.count, interface.parents.similarity.value, interface.sex.gender);
 });
 
 $("#scope").on("click", function () {
     scopeCount++;
-    if(scopeCount >= 3) {
+    if (scopeCount >= 3) {
         scopeCount = 0;
     }
-    mp.trigger("scopeHandler", scopeCount, interface.sex.gender);
+    mp.trigger("scopeHandler", scopeCount);
 });
 
 $("[id=left_arrow_appearance]").on("click", function () {
@@ -348,7 +361,7 @@ $("[id=right_arrow_color]").on("click", function () {
     if (color.colorNumber > color.maxColor) {
         color.colorNumber = 0;
     }
-    $("#color_count_"  + $(this).attr("for")).text(color.colorNumber);
+    $("#color_count_" + $(this).attr("for")).text(color.colorNumber);
     mp.trigger("colorHandler", color.index, color.count, $(this).attr("for"), color.colorNumber, interface.hair.highlightColor.value);
 });
 
@@ -381,26 +394,26 @@ $("#right_arrow_hair").on("click", function () {
     mp.trigger("hairHandler", hair.number, interface.sex.gender);
 });
 
-$('#right_arrow_angle').on('mousedown',function() {
-    holdInButton = setInterval(function() {
+$('#right_arrow_angle').on('mousedown', function () {
+    holdInButton = setInterval(function () {
 
         interface.settings.angleCount += 3;
-        if(interface.settings.angleCount >= 360) {
+        if (interface.settings.angleCount >= 360) {
             interface.settings.angleCount = 0;
         }
         $("#angle_text").text(interface.settings.angleCount + "°");
         mp.trigger("angleHandler", interface.settings.angleCount);
 
     }, HOLD_SPEED);
-}).on('mouseup',function() {
+}).on('mouseup', function () {
     clearInterval(holdInButton);
-}).on('mouseout',function() {
+}).on('mouseout', function () {
     clearInterval(holdInButton);
 });
 
-$('#left_arrow_angle').on('mousedown',function() {
-    holdInButton = setInterval(function() {
-        if(interface.settings.angleCount <= 0) {
+$('#left_arrow_angle').on('mousedown', function () {
+    holdInButton = setInterval(function () {
+        if (interface.settings.angleCount <= 0) {
             interface.settings.angleCount = 360;
         }
         interface.settings.angleCount -= 3;
@@ -408,47 +421,45 @@ $('#left_arrow_angle').on('mousedown',function() {
         mp.trigger("angleHandler", interface.settings.angleCount);
 
     }, HOLD_SPEED);
-}).on('mouseup',function() {
+}).on('mouseup', function () {
     clearInterval(holdInButton);
-}).on('mouseout',function() {
+}).on('mouseout', function () {
     clearInterval(holdInButton);
 });
 
 $("#male").on("click", function () {
-    if(interface.sex.gender === 0) {
+    if (interface.sex.gender === 0) {
         return 1;
     }
-    $(".warning_message").fadeIn('slow','linear');
+    $(".warning_message").fadeIn('slow', 'linear');
     $(".warning_message h4").text("Вы точно хотите поменять пол персонажа? Все данные настройки будут утеряны!");
-    $("#male").prop('checked', false);
     $("#accept_warning").attr("response", "male");
 });
 
 $("#female").on("click", function () {
-    if(interface.sex.gender === 1) {
+    if (interface.sex.gender === 1) {
         return 1;
     }
-    $(".warning_message").fadeIn('slow','linear');
+    $(".warning_message").fadeIn('slow', 'linear');
     $(".warning_message h4").text("Вы точно хотите поменять пол персонажа? Все данные настройки будут утеряны!");
-    $("#female").prop('checked', false);
     $("#accept_warning").attr("response", "female");
 });
 
 $("#reject_warning").on("click", function () {
-    $(".warning_message").fadeOut('slow','linear');
+    $(".warning_message").fadeOut('slow', 'linear');
 });
 
 $("#accept_warning").on("click", function () {
     const warning = $(this).attr("response");
 
     switch (warning) {
-        case "female":{
+        case "female": {
             resetCharacter();
             interface.sex.name = "female";
             interface.sex.gender = 1;
             scopeCount = 1;
-            $("#female").prop('checked', true);
-            $("#male").prop('checked', false);
+            $("#male").css("background", "rgb(104,104,104)");
+            $("#female").css("background", "rgb(211, 22, 73)");
             mp.trigger("genderHandler", interface.sex.gender);
             break;
         }
@@ -457,8 +468,8 @@ $("#accept_warning").on("click", function () {
             interface.sex.name = "male";
             interface.sex.gender = 0;
             scopeCount = 1;
-            $("#male").prop('checked', true);
-            $("#female").prop('checked', false);
+            $("#female").css("background", "rgb(104,104,104)");
+            $("#male").css("background", "rgb(211, 22, 73)");
             mp.trigger("genderHandler", interface.sex.gender);
             break;
         }
@@ -467,13 +478,12 @@ $("#accept_warning").on("click", function () {
             break;
         }
         case "save": {
-            console.log(JSON.stringify(interface));
             mp.trigger("saveHandler", JSON.stringify(interface));
             break;
         }
     }
 
-    $(".warning_message").fadeOut('slow','linear');
+    $(".warning_message").fadeOut('slow', 'linear');
 });
 
 $("#reset_character").on("click", function () {
@@ -489,19 +499,21 @@ $("#save_character").on("click", function () {
 });
 
 
-
 resetCharacter = function () {
     interface = JSON.parse(JSON.stringify(initInterface));
 
-    $("#female").prop('checked', false);
-    $("#male").prop('checked', true);
+    $("#male").css("background", "rgb(211, 22, 73)");
+    $("#female").css("background", "rgb(104,104,104)");
     $("label[clear=true]").text(0);
     $("#angle_text").text(180 + "°");
     $("input[type=range]").val(0);
+    $("input[type=range]").css('background', '-webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%,  rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73,0.3) 50%)');
     $(interface.parents.similarity.range).val(0.5);
+    $(interface.parents.similarity.range).css('background', '-webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%,  rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73,0.3) 50%)');
 
     mp.trigger("resetHandler");
 }
+
 
 
 

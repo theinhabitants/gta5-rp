@@ -31,6 +31,7 @@ var controlModifier = false;
 var localPlayer = mp.players.local;
 mp.keys.bind(bindVirtualKeys.F2, true, function() {
   isNoClip = !isNoClip;
+  mp.gui.cursor.show(false, false);
   mp.game.ui.displayRadar(!isNoClip);
   if (isNoClip) {
     startNoClip();

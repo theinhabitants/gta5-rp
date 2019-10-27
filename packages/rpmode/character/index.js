@@ -87,60 +87,82 @@ const hairList = [
 
 const freemodeCharacters = [mp.joaat("mp_m_freemode_01"), mp.joaat("mp_f_freemode_01")];
 
+const fathers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 42, 43, 44];
+const mothers = [21, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 45];
+
 const creatorPlayerPos = new mp.Vector3(402.8664, -996.4108, -99.00027);
 const creatorPlayerHeading = 180;
 
-mp.events.add("angleHandlerServer", (player, angle) => {
-    player.heading = angle;
-});
+const creatorClothes = [
+    [{index: 3, clothes: 15}, {index: 11, clothes: 15}, {index: 8, clothes: 15}, {index: 4, clothes: 14}, {index: 6, clothes: 5}],
+    [{index: 3, clothes: 15}, {index: 11, clothes: 18}, {index: 8, clothes: 17}, {index: 4, clothes: 17}, {index: 6, clothes: 5}]
+];
 
-mp.events.add('hairHandlerServer', (player, number, gender) => {
-    player.setClothes(2, hairList[gender][number].ID, 0, 2);
-});
+const appearanceName = ["blemishes", "facialHair", "eyebrows", "ageing", "blush", "complexion", "sunDamage", "freckles", "chestHair"];
+
+const featuresName = ["nose.width", "nose.height", "nose.length", "nose.bridge", "nose.tip", "nose.bridgeShift",
+    "brow.height", "brow.width", "cheekbone.height", "cheekbone.width", "cheeks.width", "eyes",
+    "lips", "jaw.width", "jaw.height", "chin.length", "chin.position", "chin.width", "chin.shape", "neck.width"];
 
 mp.events.add('saveHandlerServer', (player, json) => {
     let character = JSON.parse(json);
-    // player.setCustomization(
-    //     character.sex.gender,
-    //
-    //     character.parents.mother.count,
-    //     character.parents.father.count,
-    //     0,
-    //
-    //     character.parents.mother.count,
-    //     character.parents.father.count,
-    //     0,
-    //
-    //     character.parents.similarity.value * 1,
-    //     character.parents.similarity.value * 1,
-    //     0.0,
-    //
-    //     character.features.eyes.colorNumber,
-    //     character.hair.colorNumber,
-    //     character.hair.highlightColor.value,
-    //
-    //     [character.features.nose.width.value, character.features.nose.height.value,
-    //         character.features.nose.length.value, character.features.nose.bridge.value,
-    //         character.features.nose.tip.value, character.features.nose.bridgeShift.value,
-    //         character.features.brow.height.value, character.features.brow.width.value,
-    //         character.features.cheekbone.height.value, character.features.cheekbone.width.value,
-    //         character.features.cheeks.width.value, character.features.eyes.value,
-    //         character.features.lips.value, character.features.jaw.width.value,
-    //         character.features.jaw.height.value, character.features.chin.length.value,
-    //         character.features.chin.position.value, character.features.chin.width.value,
-    //         character.features.chin.shape.value, character.features.neck.width]
-    // );
-    //
-    // player.setClothes(2, character.hair.number, 0, 2);
-    // for (let i = 0; i < 10; i++) {
-    //     player.setHeadOverlay(i, character.appearance[i].count, 1, character.appearance[i].colorNumber, 0);
-    // }
+
+    let features = [];
+    let value;
+
+    for(let i = 0; i < featuresName.length; i++) {
+        value = eval("character.features." + featuresName[i] + ".value");
+        features.push(value);
+        console.log(value);
+    }
+    console.log("M:" + character.parents.mother.count);
+    console.log("F:" + character.parents.father.count);
+    console.log("S:" + character.parents.similarity.value);
+
+
+    player.setCustomization((character.sex.gender === 0),
+
+        mothers[character.parents.mother.count],
+        fathers[character.parents.father.count],
+        null,
+
+        mothers[character.parents.mother.count],
+        fathers[character.parents.father.count],
+        null,
+
+        character.parents.similarity.value,
+        character.parents.similarity.value,
+        0.0,
+
+        character.features.eyes.colorNumber,
+        character.hair.colorNumber,
+        character.hair.highlightColor.value,
+
+        features
+    );
+
+    player.setClothes(2, hairList[character.sex.gender][character.hair.number].ID, 0, 2);
+
+    console.log("-------------");
+
+    let item;
+
+    for(let i = 0; i < appearanceName.length; i++) {
+        item = eval("character.appearance." + appearanceName[i]);
+        console.log(item.maxCount);
+        player.setHeadOverlay(item.index, [item.count, 1, item.colorNumber, 0]);
+    }
+
+    for(let i = 0; i < 5; i++) {
+        player.setClothes(creatorClothes[character.sex.gender][i].index, creatorClothes[character.sex.gender][i].clothes,0, 2);
+    }
 });
 
 mp.events.add("genderHandlerServer", (player, number) => {
     player.model = freemodeCharacters[number];
     player.position = creatorPlayerPos;
     player.heading = creatorPlayerHeading;
+    player.call("changeHead", [number]);
     player.changedGender = true;
 });
 
@@ -149,6 +171,11 @@ mp.events.addCommand('test', (player) => {
     player.preCreatorHeading = player.heading;
     player.preCreatorDimension = player.dimension;
 
+    player.model = freemodeCharacters[0];
+    for(let i = 0; i < 5; i++) {
+        player.setClothes(creatorClothes[0][i].index, creatorClothes[0][i].clothes, 0, 2);
+    }
+
     player.position = creatorPlayerPos;
     player.heading = creatorPlayerHeading;
     player.dimension = player.id + 1000;
@@ -156,5 +183,18 @@ mp.events.addCommand('test', (player) => {
     player.changedGender = false;
     player.call("showCreator");
 });
+
+mp.events.addCommand('r', (player,args) => {
+    args = args.split(" ");
+    const firstID = parseInt(args[0]);
+    const secondID = parseInt(args[1]);
+    const thirdID = parseInt(args[2]);
+    const thidrdID = parseInt(args[3]);
+
+    console.log(firstID +" "+secondID +" "+thirdID+" "+thidrdID);
+    player.setClothes(firstID, secondID, thirdID, thidrdID);
+});
+
+
 
 
