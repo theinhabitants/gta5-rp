@@ -1,3 +1,6 @@
+auth = require("../auth/auth");
+logger = require("../logger/logger");
+
 function playerJoinHandler(player) {
     console.log(player.name + " has joined. ID:" + player.id);
     let str = player.name + " has joined. ID:" + player.id;
@@ -5,6 +8,13 @@ function playerJoinHandler(player) {
 }
 
 mp.events.add("playerJoin", playerJoinHandler);
+
+function playerQuitHandler(player) {
+    auth.removeOnlineUser(player.id);
+    logger.log.info("Player: %s disconnected", player.name)
+}
+
+mp.events.add("playerQuit", playerQuitHandler);
 
 mp.events.add('playerDeath', (player) => {
     spawnPlayer(player)

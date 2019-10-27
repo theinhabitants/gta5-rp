@@ -12,18 +12,16 @@ mp.events.add("registration", (email, pass) => {
     mp.events.callRemote("userRegistration", email, pass);
 });
 
-mp.events.add("loginHandler", (response) => {
-    let data = JSON.parse(response);
-
-    switch (data.code) {
+mp.events.add("loginHandler", (response, char) => {
+    switch (response) {
         case "success":
             if (authBrowser) {
                 mp.events.callRemote("playerSuccessAuth");
+                setSkin(char);
                 authBrowser.destroy();
                 mp.gui.cursor.show(false, false);
                 mp.gui.chat.show(true);
                 mp.gui.chat.activate(true);
-                processPlayer(data.char);
             }
             break;
         case "wrong-email":
@@ -78,6 +76,6 @@ mp.events.add("registrationHandler", (response) => {
     }
 });
 
-function processPlayer(character) {
-    mp.players.local.name = character.name + " " + character.surname;
+function setSkin(character) {
+    //TODO set character skin
 }

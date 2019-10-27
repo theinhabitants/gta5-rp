@@ -3,6 +3,9 @@ const characterDao = require("../datasources/dao/characterDao");
 const encrypt = require("../util/encrypt");
 const logger = require("../logger/logger");
 
+// OnlineUsers represents all online users as map [localID]userObj
+let OnlineUsers = new Map();
+
 mp.events.add("userLogin", async (player, email, password) => {
     let user = await userDao.getByEmail(email);
     if (user === null) {
@@ -22,9 +25,11 @@ mp.events.add("userLogin", async (player, email, password) => {
         return;
     }
 
-    let data = JSON.stringify({code: "success", char: JSON.stringify(character)});
+    player.name = character.name + " " + character.surname;
+    OnlineUsers.set(player.id, user);
 
-    player.call("loginHandler", [data]);
+    logger.log.info("User %s(%s) successfully authorized", player.name, user.id);
+    player.call("loginHandler", ["success", character]);
 });
 
 mp.events.add("userRegistration", async (player, email, password) => {
@@ -45,3 +50,15 @@ mp.events.add("userRegistration", async (player, email, password) => {
     logger.log.info("New user registered! email: %s, ip: %s", email, player.ip);
     player.call("registrationHandler", "success");
 });
+
+function getOnlineUser(userID) {
+    return OnlineUsers.get(userID);
+}
+
+function removeOnlineUser(userID) {
+    OnlineUsers.delete(userID);
+}
+
+module.exports.getOnlineUser = getOnlineUser;
+module.exports.removeOnlineUser = removeOnlineUser;
+
