@@ -1,0 +1,43 @@
+<html class="transparent-bg-4">
+<meta charset="utf-8">
+<link rel="stylesheet" href="css/main.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu&display=swap" rel="stylesheet">
+
+<body>
+<div class="bg"></div>
+<form id="form" action="" method="POST">
+    <div class="half">
+        <div class="logo">
+            <img src="img/logo.png"/>
+        </div>
+        <div class="email">
+            <input id="email" type="email" placeholder="email" required/>
+        </div>
+    </div>
+
+    <div class="half">
+        <div class="pass">
+            <img id="hide" class="hide" src="img/hide.png">
+            <input id="password" type="password" minlength="6" placeholder="password" required/>
+        </div>
+        <div class="buttons">
+            <span class="url">
+                <a href="#">forget password</a>
+            </span>
+            <span class="url">
+                <a href="registration.html">register</a>
+            </span>
+            <span class="url">
+                <input id="sub" type="submit" value="login" align="center"/>
+            </span>
+        </div>
+    </div>
+    <b class="alert" id="wrong-email" style="display: none">Такой email не зарегистрирован в системе</b>
+    <b class="alert" id="wrong-password" style="display: none">Не верный пароль</b>
+    <b class="alert" id="server-error" style="display: none">Внутренняя ошибка сервера, обратитесь в ТП</b>
+</form>
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="js/lodash.js"></script>
+<script type="text/javascript" src="js/login.js"></script>
+</html>

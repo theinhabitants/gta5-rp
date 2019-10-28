@@ -1,4 +1,4 @@
-let bcrypt = require('bcrypt');
+let bcrypt = require('bcryptjs');
 
 exports.cryptPassword = password => {
     let salt = bcrypt.genSaltSync(10);
