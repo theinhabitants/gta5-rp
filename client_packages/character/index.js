@@ -174,15 +174,15 @@ mp.events.add('resetHandler', () => {
 mp.events.add("colorHandler", (index, count, name, color, highlightColor) => {
     switch (name) {
         case "eyes": {
-            currentPlayer.setEyeColor(color);
+            currentPlayer.setEyeColor(parseInt(color));
             break;
         }
         case "hair": {
-            currentPlayer.setHairColor(color, parseInt(highlightColor));
+            currentPlayer.setHairColor(parseInt(color), parseInt(highlightColor));
             break;
         }
         default: {
-            currentPlayer.setHeadOverlay(index, count, 1, color, 0);
+            currentPlayer.setHeadOverlay(parseInt(index), parseInt(count), 1, parseInt(color), 0);
             break;
         }
 
@@ -190,7 +190,7 @@ mp.events.add("colorHandler", (index, count, name, color, highlightColor) => {
 });
 
 mp.events.add("appearanceHandler", (index, count, color) => {
-    currentPlayer.setHeadOverlay(index, count, 1, color, 0); //ДОРОБИТИ ОПАСИТИ
+    currentPlayer.setHeadOverlay(index, count, 1, parseInt(color), 0); //ДОРОБИТИ ОПАСИТИ
 });
 
 mp.events.add("saveHandler", (json) => {

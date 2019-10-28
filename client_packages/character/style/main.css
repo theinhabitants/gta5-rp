@@ -2,68 +2,143 @@
     font-family: SignPainter-HouseScript;
     src: url(fonts/SignPainter-HouseScript.otf);
 }
+
 @font-face {
     font-family: Roboto-Bold;
     src: url(fonts/roboto-bold.ttf);
 }
+
 @font-face {
     font-family: Bebas-Neue;
     src: url(fonts/Bebas-Neue.ttf);
 }
+
 body {
     /*background: url(images/bg.png) no-repeat center center fixed;*/
     /*background-size: cover; !* Современные браузеры *!*/
-    color:#FFFFFF;
+    color: #FFFFFF;
     font-size: 0.8vw;
 }
 
 
-
-.wrapper{
+.wrapper {
     display: block;
-    width:600px;
-    height:100%;
+    width: 50vw;
+    height: 100%;
 }
 
+.color_select-box {
+    position: relative;
+    background: rgba(0, 0, 0, 0.6) 0% 0% no-repeat padding-box;
+    border-radius: 1vw;
+    width: 14.5vw;
+    height: 30vh;
+    left: 23vw;
+    top: 30%;
+    display: inline-block;
+    padding: 0.6vw 0.6vw 0.3vw 0.6vw;
+}
 
-.creator_box{
+.color_select-box .head {
+    height: 5vh;
+}
+
+.color_select-box .title {
+    margin: 0 0 0 0;
+}
+
+.color_select-box .title h2 {
+    font-size: 1.5vw !important;
+}
+
+.color_select-box .content {
+    height: 23vh;
+    width: 100%;
+}
+
+.color_select-box .content .palette {
+    width: 100%;
+    height: 100%;
+}
+
+.color_select-box .content .color {
+    width: 2vw;
+    height: 3.5vh;
+    background: #a545a5;
+    margin: 0.15vw 0.15vw 0.15vw 0.15vw;
+    cursor: pointer;
+    display: inline-block;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+}
+
+.creator_box {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0,0,0, 0.6) 0% 0% no-repeat padding-box;
+    background: rgba(0, 0, 0, 0.6) 0% 0% no-repeat padding-box;
     border-radius: 1vw;
-    width:21vw;
+    width: 21vw;
     height: 90vh;
     padding: 1px;
+    display: inline-block;
     margin-left: 1vw;
 }
 
-.head{
+.head {
     width: 100%;
-    height:15vh;
+    height: 18vh;
     padding: 1px;
 }
 
-.section{
+.section {
     width: 100%;
     text-align: center;
 }
 
+.section_button-label {
+    z-index: 99 !important;
+    position: relative;
+}
 
-.section_button{
+.section_button {
     padding: 0.9vh 0 0.9vh 0;
     font-family: Roboto-Bold;
     text-align: center;
-    width:5.5vw;
+    width: 5.5vw;
+    font-size: 0.7vw;
+    margin: 0 0.3vw 0 0.3vw;
+    border-radius: 4vw;
+    z-index: 5;
+    display: inline-block;
+    cursor: pointer;
+    background: rgb(211, 22, 73) 0% 0% no-repeat padding-box;
+}
+
+.section .not_active {
+    background: rgb(104, 104, 104)
+}
+
+.color-red {
+    color: rgb(211, 22, 73);
+}
+
+.animation {
+    padding: 0.9vh 0 0.9vh 0;
+    font-family: Roboto-Bold;
+    text-align: center;
+    width: 5.52vw;
     font-size: 0.7vw;
     margin: 0 0.3vw 0 0.3vw;
     border-radius: 4vw;
     display: inline-block;
+    z-index: 6;
     cursor: pointer;
-    background: rgb(211,22,73) 0% 0% no-repeat padding-box;
+    position: absolute;
+    background: rgb(211, 22, 77) 0% 0% no-repeat padding-box;
 }
+
 .title {
-    width:100%;
+    width: 100%;
     margin: 4vh 0 3vh 0;
     padding: 1px;
 }
@@ -79,15 +154,15 @@ body {
 }
 
 .content {
-    width:100%;
-    height:64vh;
-    padding: 1px;
+    width: 100%;
+    height: 61vh;
+    overflow-x: hidden;
+    overflow-y: auto;
     font-size: 1.3vw;
 }
 
 .subject {
     width: 92%;
-    margin: 4vh 0 0 0;
     padding: 0 0 0 8%;
 }
 
@@ -97,7 +172,7 @@ body {
     margin: 1vh 0 0 0;
 }
 
-.gender{
+.gender {
     width: 100%;
     heigth: 11vh;
     padding: 1px;
@@ -112,11 +187,12 @@ body {
 
 .gender_chose {
     cursor: pointer;
-    background: rgb(211,22,73);
+    background: rgb(211, 22, 73);
     display: inline-block;
     border-radius: 100%;
     padding: 0.7vw;
 }
+
 .gender_chose > img {
     display: block;
     width: 1vw;
@@ -134,14 +210,51 @@ body {
     line-height: 6vh;
 }
 
-.line .property-name{
+.features_page .property-name {
+    font-size: 1vw !important;
+}
+
+.features_page .retreat {
+    margin-top: -0.7vh !important;
+}
+
+.features_page .retreat input[type='range'] {
+    width: 7.5vw !important;
+}
+
+.features_page .line .color-palette {
+    margin-left: 0.3vw !important;
+}
+
+.appearance_page .property-name {
+    font-size: 1.1vw !important;
+}
+
+.appearance_page .line .property-value {
+    width: 3vw !important;
+}
+
+.appearance_page .retreat input[type='range'] {
+    width: 9vw !important;
+}
+
+.line .color-palette {
+    width: 1.1vw;
+    height: 2.52vh;
+    vertical-align: middle;
+    margin-left: 1vw;
+    cursor: pointer;
+    border: none;
+}
+
+.line .property-name {
     vertical-align: middle;
     display: inline-block;
     font-family: Bebas-Neue, Regular, monospace;
     height: 2vw;
 }
 
-.line .property-value{
+.line .property-value {
     vertical-align: middle;
     text-align: center;
     font-family: SignPainter-HouseScript, Regular, cursive;
@@ -149,43 +262,48 @@ body {
     height: 5.5vh;
     display: inline-block;
 }
+
 .line .property-arrow_left,
-.line .property-arrow_right{
+.line .property-arrow_right {
     vertical-align: middle;
     cursor: pointer;
-    background: rgba(211,22,73, 0.51);
+    background: rgba(211, 22, 73, 0.51);
     display: inline-block;
     border-radius: 100%;
     padding: 0.5vw;
     text-align: center;
 }
+
 .line .property-arrow_left > img,
-.line .property-arrow_right > img{
+.line .property-arrow_right > img {
     display: block;
     width: 0.5vw;
     height: 0.5vw;
 }
-.line .property-arrow_left > img{
+
+.line .property-arrow_left > img {
     transform: rotate(180deg);
 }
+
 .line .retreat {
     display: inline-block;
     float: right;
     height: 6vh;
 }
+
 .line .retreat input[type='range'] {
     margin-top: 2.8vh;
     -webkit-appearance: none;
     width: 10vw;
     border-radius: 4vw;
     height: 0.5vh;
-    background: -webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%,  rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73,0.3) 50%);
+    background: -webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73, 0.3) 50%);
 }
 
 .line .retreat input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none !important;
     border-radius: 100%;
-    background-color: rgb(211,22,73);
+    background-color: rgb(211, 22, 73);
     height: 1vw;
     width: 1vw;
 }
@@ -194,29 +312,47 @@ input[type=range]:focus {
     outline: none;
 }
 
+.content::-webkit-scrollbar {
+    width: 0.5vh;
+    background: rgba(211, 22, 73, 0.3);
+    border-radius: 4vw;
+}
+
+.content::-webkit-scrollbar-track {
+    border-radius: 4vw;
+    width: 0.5vh;
+    background: rgba(211, 22, 73, 0.3);
+}
+
+.content::-webkit-scrollbar-thumb {
+    border-radius: 4vw;
+    background: rgba(211, 22, 73, 1);
+}
+
 .footer {
-    width:100%;
-    height: 10vh;
+    width: 100%;
+    height: 11vh;
     padding: 1px;
     text-align: center;
     line-height: 10vh;
 }
+
 .footer .button_cancel,
 .footer .button_save {
     display: inline-block;
-    vertical-align:middle;
+    vertical-align: middle;
     line-height: normal;
     padding: 1.3vh 0 1.3vh 0;
     font-family: Roboto-Bold, serif;
-    width:7vw;
+    width: 7vw;
     font-size: 0.9vw;
     margin: 0 1.7vw 0 1.7vw;
     border-radius: 4vw;
     cursor: pointer;
-    background: rgb(211,22,73) 0% 0% no-repeat padding-box;
+    background: rgb(211, 22, 73) 0% 0% no-repeat padding-box;
 }
 
-.footer .button_cancel{
+.footer .button_cancel {
     background: rgb(61, 58, 59) 0% 0% no-repeat padding-box;
 }
 

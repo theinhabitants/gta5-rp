@@ -104,7 +104,7 @@ let interface = {
             range: "#eyes_range",
             valueLabel: "#eyes_value",
             colorNumber: 0,
-            maxColor: 31,
+            maxColor: 30,
             value: 0
         },
 
@@ -234,7 +234,7 @@ let interface = {
         colorNumber: 0,
         maxColor: 63,
         highlightColor: {
-            value: 0,
+            value: 50,
             range: "#hair_highlightColor_range",
             valueLabel: "#color_count_highlightColor"
         },
@@ -259,7 +259,30 @@ let scopeCount = 1;
 
 const HOLD_SPEED = 100;
 let holdInButton = 0;
+let currentPage = "parents_page";
+let palette;
+let showPalette;
 
+$(document).ready(function () {
+    for(let i = 0; i < 64; i ++) {
+        $(".palette-other").append("<span id='select_color' color-index='"+ i +"' class='color palette_color-" + i + "'></span>");
+    }
+    for(let i = 0; i < 26; i ++) {
+        $(".palette-eyes").append("<span id='select_color' color-index='"+ i +"' class='color palette_color-eyes-" + i + "'></span>");
+    }
+});
+
+$("[id=menu_button-anim]").on("click", function () {
+    if(currentPage === $(this).attr("page")) {
+        return 1;
+    }
+    const position = 6.28 * $(this).attr("number");
+
+    currentPage = $(this).attr("page");
+    $(".parents_page, .features_page, .appearance_page").hide(200);
+    $("." + $(this).attr("page")).show(200);
+    $(".animation").css({"transform": "translate(" + position + "vw)", "transition": "all .20s ease-out"});
+});
 
 $('input[type="range"]').on('input', function () {
     const percent = Math.ceil(((this.value - this.min) / (this.max - this.min)) * 100);
@@ -341,28 +364,6 @@ $("[id=right_arrow_appearance]").on("click", function () {
     }
     $("#appearance_count_" + $(this).attr("appearance")).text(appearance.count + 1);
     mp.trigger("appearanceHandler", appearance.index, appearance.count, appearance.colorNumber);
-});
-
-$("[id=left_arrow_color]").on("click", function () {
-    let color = eval("interface." + $(this).attr("color"));
-
-    color.colorNumber--;
-    if (color.colorNumber < 0) {
-        color.colorNumber = color.maxColor;
-    }
-    $("#color_count_" + $(this).attr("for")).text(color.colorNumber);
-    mp.trigger("colorHandler", color.index, color.count, $(this).attr("for"), color.colorNumber, interface.hair.highlightColor.value);
-});
-
-$("[id=right_arrow_color]").on("click", function () {
-    let color = eval("interface." + $(this).attr("color"));
-
-    color.colorNumber++;
-    if (color.colorNumber > color.maxColor) {
-        color.colorNumber = 0;
-    }
-    $("#color_count_" + $(this).attr("for")).text(color.colorNumber);
-    mp.trigger("colorHandler", color.index, color.count, $(this).attr("for"), color.colorNumber, interface.hair.highlightColor.value);
 });
 
 $(interface.hair.highlightColor.range).on('input change', function () {
@@ -514,7 +515,43 @@ resetCharacter = function () {
     mp.trigger("resetHandler");
 }
 
+$("[id=chose-palette]").on("click", function () {
+    $(".palette-eyes, .palette-other").hide();
+    if($(this).attr("for") === "eyes") {
+        $(".palette-eyes").show();
+    }
+    else {
+        $(".palette-other").show();
+    }
 
+    palette = $(this);
+
+    $("[id=chose-palette]").attr("src", "style/images/art-palette-off.svg");
+
+    if(showPalette === undefined) {
+        $(".color_select-box").show(200);
+        showPalette = palette.attr("for");
+        $(this).attr("src", "style/images/art-palette-on.svg");
+    }
+    else if(showPalette === palette.attr("for")) {
+        $(".color_select-box").hide(200);
+        showPalette = undefined;
+        $(this).attr("src", "style/images/art-palette-off.svg");
+    }
+    else if(showPalette !== palette.attr("for")) {
+        $(".color_select-box").hide().show(200);
+        showPalette = palette.attr("for");
+        $(this).attr("src", "style/images/art-palette-on.svg");
+    }
+
+});
+
+
+$('.palette-other, .palette-eyes').on('click', "[id=select_color]", function() {
+    let color = eval("interface." + palette.attr("color"));
+    color.colorNumber = $(this).attr("color-index");
+    mp.trigger("colorHandler", color.index, color.count, palette.attr("for"), color.colorNumber, interface.hair.highlightColor.value);
+});
 
 
 

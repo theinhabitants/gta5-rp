@@ -29,15 +29,8 @@ var noClipCamera;
 var shiftModifier = false;
 var controlModifier = false;
 var localPlayer = mp.players.local;
-mp.keys.bind(bindVirtualKeys.F2, true, function() {
-  isNoClip = !isNoClip;
+mp.keys.bind(13, true, function() {
   mp.gui.cursor.show(false, false);
-  mp.game.ui.displayRadar(!isNoClip);
-  if (isNoClip) {
-    startNoClip();
-  } else {
-    stopNoClip();
-  }
 });
 function startNoClip() {
   mp.game.graphics.notify('NoClip ~g~activated');
