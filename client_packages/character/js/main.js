@@ -340,7 +340,7 @@ $("[id=right_arrow_parents]").on("click", function () {
     mp.trigger("parentsHandler", interface.parents.mother.count, interface.parents.father.count, interface.parents.similarity.value, interface.sex.gender);
 });
 
-$("#scope").on("click", function () {
+$(".zoom").on("click", function () {
     scopeCount++;
     if (scopeCount >= 3) {
         scopeCount = 0;
@@ -555,6 +555,7 @@ $("[id=chose-palette]").on("click", function () {
 $('.palette-other, .palette-eyes').on('click', "[id=select_color]", function() {
     let color = eval("interface." + palette.attr("color"));
     color.colorNumber = $(this).attr("color-index");
+    $(this).fadeOut('fast', 'linear').fadeIn('fast', 'linear');
     mp.trigger("colorHandler", color.index, color.count, palette.attr("for"), color.colorNumber, interface.hair.highlightColor.value);
 });
 
