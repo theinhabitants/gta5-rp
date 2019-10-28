@@ -1,19 +1,24 @@
+// hp restore player hp to 100
 mp.events.addCommand('hp', (player) => {
     player.health = 100;
 });
 
+// armor restore player armor to 100
 mp.events.addCommand('armor', (player) => {
     player.armour = 100;
 });
 
+// kill just kill player
 mp.events.addCommand('kill', (player) => {
     player.health = 0;
 });
 
+// coo prints player coordinates to console log
 mp.events.addCommand('coo', (player) => {
-    console.log(player.position); // return e.g. {x: 1337, y: 228, z: 70}
+    console.log(player.position);
 });
 
+// respawn spawn player at default spawn point
 mp.events.addCommand('respawn', (player) => {
     const spawnPoints = require('../spawn_points.json').SpawnPoints;
 
@@ -21,10 +26,12 @@ mp.events.addCommand('respawn', (player) => {
     player.health = 100;
 });
 
+// veh spawn any car buy its key-name (see gta5-docs for more info)
 mp.events.addCommand('veh', (player, _, vehName) => {
     mp.vehicles.new(mp.joaat(vehName), player.position);
 });
 
+//tp teleports player to another player or to coordinates
 mp.events.addCommand('tp', (player, args) => {
     if (args === undefined) {
         player.outputChatBox("Ошибка! Используйте /tp [id] или /tp [id] [id] или /tp [x] [y] [z] или /tp [id] [x] [y] [z]");

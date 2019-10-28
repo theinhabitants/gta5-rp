@@ -21,7 +21,7 @@ mp.events.add('playerDeath', (player) => {
 });
 
 mp.events.add("playerSuccessAuth", (player) => {
-    spawnPlayer(player)
+    //spawnPlayer(player)
 });
 
 function spawnPlayer(player) {
