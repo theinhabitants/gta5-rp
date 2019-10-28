@@ -5,14 +5,18 @@
     <meta charset="utf-8"/>
 </head>
 <body>
-<div class="warning_message" style="display: none">
-    <div style="text-align: center">
-        <h2>WARNING!</h2>
-        <h4>текст...</h4>
-        <div>
-            <button id="reject_warning">Нет</button>
-            <button id="accept_warning">Да</button>
+<div class="warning hide">
+    <div class="head">
+        <div class="title">
+            <h2>Предупреждение</h2>
         </div>
+    </div>
+    <div class="content">
+        <span class="text"><p>Упс, что-то пошло не так</p><p>Обратитесь в ТП.</p></span>
+    </div>
+    <div class="footer">
+            <span class="button_cancel" id="reject_warning">Нет</span>
+            <span class="button_save" id="accept_warning">Да</span>
     </div>
 </div>
 <div class="wrapper">
@@ -63,7 +67,7 @@
                             <span class="property-arrow_left" parent="father" id="left_arrow_parents">
                                 <img src="style/images/arrow-point-to-right.svg"/>
                             </span>
-                            <span class="property-value" clear="true" id="parents_count_father">Benjamin</span>
+                            <span class="property-value" id="parents_count_father">Ефрем</span>
                             <span class="property-arrow_right" parent="father" id="right_arrow_parents">
                                 <img src="style/images/arrow-point-to-right.svg"/>
                             </span>
@@ -76,7 +80,7 @@
                             <span class="property-arrow_left" parent="mother" id="left_arrow_parents">
                                 <img src="style/images/arrow-point-to-right.svg"/>
                             </span>
-                            <span class="property-value" clear="true" id="parents_count_mother">Hannah</span>
+                            <span class="property-value" id="parents_count_mother">Стелла</span>
                             <span class="property-arrow_right" parent="mother" id="right_arrow_parents">
                                 <img src="style/images/arrow-point-to-right.svg"/>
                             </span>
@@ -112,7 +116,7 @@
 
             </div>
 
-            <div class="features_page" style="display: none">
+            <div class="features_page hide">
 
                 <div class="subject">
 
@@ -301,7 +305,7 @@
 
             </div>
 
-            <div class="appearance_page" style="display: none">
+            <div class="appearance_page hide">
 
                 <div class="subject">
 
@@ -465,7 +469,7 @@
         </div>
 
     </div>
-    <div class="color_select-box" style="display: none">
+    <div class="color_select-box hide">
 
         <div class="head">
             <div class="title">
@@ -475,9 +479,9 @@
 
         <div class="content">
 
-            <span class="palette-other" style="display: none">
+            <span class="palette-other hide">
             </span>
-            <span class="palette-eyes" style="display: none">
+            <span class="palette-eyes hide">
             </span>
 
         </div>

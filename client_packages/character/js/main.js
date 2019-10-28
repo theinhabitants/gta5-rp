@@ -10,7 +10,7 @@ let interface = {
         },
         mother: {
             count: 0,
-            maxCount: 20,
+            maxCount: 21,
         },
         similarity: {
             value: 0.5,
@@ -251,11 +251,15 @@ let interface = {
     }
 }
 
-const fatherNames = ["Benjamin", "Daniel", "Joshua", "Noah", "Andrew", "Juan", "Alex", "Isaac", "Evan", "Ethan", "Vincent", "Angel", "Diego", "Adrian", "Gabriel", "Michael", "Santiago", "Kevin", "Louis", "Samuel", "Anthony", "Claude", "Niko", "John"];
-const motherNames = ["Hannah", "Aubrey", "Jasmine", "Gisele", "Amelia", "Isabella", "Zoe", "Ava", "Camila", "Violet", "Sophia", "Evelyn", "Nicole", "Ashley", "Gracie", "Brianna", "Natalie", "Olivia", "Elizabeth", "Charlotte", "Emma", "Misty"];
+const fatherNames = ["Ефрем", "Христофор", "Велимир", "Филипп", "Константин", "Динар", "Адольф", "Савва", "Елисей", "Альфред", "Оскар", "Харитон", "Арнольд", "Ким", "Гарри", "Ян", "Сантьяго", "Георгий", "Августин", "Льюис", "Лев", "Герман", "Яков", "Джозеф"];
+const motherNames = ["Стелла", "Агата", "Ханна", "Жасмин", "Глория", "Инесса", "Ева", "Алина", "Иоанна", "Анита", "Злата", "София", "Евелина", "Клеопатра", "Эшли", "Бриенна", "Аида", "Натали", "Инга", "Элизабет", "Селена", "Шарлотта"];
 
 const initInterface = JSON.parse(JSON.stringify(interface));
 let scopeCount = 1;
+
+const CHANGE_GENDER_MESSAGE = "<p>Вы точно хотите поменять пол персонажа?</p> <p>Все данные настройки персонажа будут утеряны,</p><p>их невозможно будет восстановить.</p>";
+const SAVE_MESSAGE = "<p>Вы точно хотите продолжить?</p> <p>В дальнейшем можно будет сделать только косметические изменения.</p>";
+const RESET_MESSAGE = "<p>Вы точно хотите сбросить все настройки?</p>";
 
 const HOLD_SPEED = 100;
 let holdInButton = 0;
@@ -432,8 +436,8 @@ $("#male").on("click", function () {
     if (interface.sex.gender === 0) {
         return 1;
     }
-    $(".warning_message").fadeIn('slow', 'linear');
-    $(".warning_message h4").text("Вы точно хотите поменять пол персонажа? Все данные настройки будут утеряны!");
+    $(".warning .content .text").html(CHANGE_GENDER_MESSAGE);
+    $(".warning").fadeIn('slow', 'linear');
     $("#accept_warning").attr("response", "male");
 });
 
@@ -441,13 +445,13 @@ $("#female").on("click", function () {
     if (interface.sex.gender === 1) {
         return 1;
     }
-    $(".warning_message").fadeIn('slow', 'linear');
-    $(".warning_message h4").text("Вы точно хотите поменять пол персонажа? Все данные настройки будут утеряны!");
+    $(".warning .content .text").html(CHANGE_GENDER_MESSAGE);
+    $(".warning").fadeIn('slow', 'linear');
     $("#accept_warning").attr("response", "female");
 });
 
 $("#reject_warning").on("click", function () {
-    $(".warning_message").fadeOut('slow', 'linear');
+    $(".warning").fadeOut('slow', 'linear');
 });
 
 $("#accept_warning").on("click", function () {
@@ -484,18 +488,18 @@ $("#accept_warning").on("click", function () {
         }
     }
 
-    $(".warning_message").fadeOut('slow', 'linear');
+    $(".warning").fadeOut('slow', 'linear');
 });
 
 $("#reset_character").on("click", function () {
-    $(".warning_message").show(500);
-    $(".warning_message h4").text("Вы точно хотите сбросить все настройки?");
+    $(".warning .content .text").html(RESET_MESSAGE);
+    $(".warning").fadeIn('slow', 'linear');
     $("#accept_warning").attr("response", "reset");
 });
 
 $("#save_character").on("click", function () {
-    $(".warning_message").show(500);
-    $(".warning_message h4").text("Вы точно хотите продолжить? В дальнейшем можно будет сделать только косметические изменения.");
+    $(".warning .content .text").html(SAVE_MESSAGE);
+    $(".warning").fadeIn('slow', 'linear');
     $("#accept_warning").attr("response", "save");
 });
 
@@ -505,12 +509,13 @@ resetCharacter = function () {
 
     $("#male").css("background", "rgb(211, 22, 73)");
     $("#female").css("background", "rgb(104,104,104)");
-    $("label[clear=true]").text(0);
+    $("span[clear=true]").text(0);
     $("#angle_text").text(180 + "°");
     $("input[type=range]").val(0);
-    $("input[type=range]").css('background', '-webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%,  rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73,0.3) 50%)');
+    $("#parents_count_father").text(fatherNames[0]);
+    $("#parents_count_mother").text(motherNames[0]);
     $(interface.parents.similarity.range).val(0.5);
-    $(interface.parents.similarity.range).css('background', '-webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%,  rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73,0.3) 50%)');
+    $("input[type=range]").css('background', '-webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%,  rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73,0.3) 50%)');
 
     mp.trigger("resetHandler");
 }

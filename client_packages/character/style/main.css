@@ -13,6 +13,12 @@
     src: url(fonts/Bebas-Neue.ttf);
 }
 
+@font-face {
+    font-family: Roboto-Light;
+    src: url(fonts/roboto-light.ttf);
+}
+
+
 body {
     /*background: url(images/bg.png) no-repeat center center fixed;*/
     /*background-size: cover; !* Современные браузеры *!*/
@@ -20,11 +26,69 @@ body {
     font-size: 0.8vw;
 }
 
+.hide{
+    display: none;
+}
 
 .wrapper {
     display: block;
     width: 50vw;
     height: 100%;
+}
+
+.warning{
+    width:20vw;
+    height: 20vh;
+    background: rgba(0, 0, 0, 0.6) 0% 0% no-repeat padding-box;
+    border-radius: 1vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 0.3vw;
+    transform: translate(-50%, -50%);
+}
+
+.warning .head{
+    height: 5vh;
+}
+
+.warning .title {
+    margin: 1vh 0 0 0;
+}
+
+.warning .title h2 {
+    font-size: 1.5vw !important;
+}
+
+.warning .content p{
+    margin-block-start: 0.2em;
+    margin-block-end: 0.2em;
+}
+
+.warning .content{
+     height: 10vh;
+     font-family: Roboto-Light;
+     font-size: 0.8vw !important;
+     text-align: center;
+     display: table;
+}
+
+.warning .content .text{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.warning .footer{
+    height: 5vh;
+    line-height: 3vh;
+}
+
+.warning .footer .button_cancel,
+.warning .footer .button_save {
+    padding: 1vh 0 1vh 0;
+    width: 5vw;
+    font-size: 0.7vw;
+    margin: 0 1.3vw 0 1.3vw;
 }
 
 .color_select-box {
@@ -35,7 +99,6 @@ body {
     height: 30vh;
     left: 23vw;
     top: 30%;
-    display: inline-block;
     padding: 0.6vw 0.6vw 0.3vw 0.6vw;
 }
 
@@ -355,14 +418,3 @@ input[type=range]:focus {
 .footer .button_cancel {
     background: rgb(61, 58, 59) 0% 0% no-repeat padding-box;
 }
-
-.warning_message {
-    background: cornflowerblue;
-    opacity: 0.8;
-    width: 400px;
-    height: 150px;
-    position: absolute;
-    top: 30%;
-    left: 40%;
-}
-
