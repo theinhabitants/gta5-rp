@@ -395,6 +395,7 @@ body {
     background: -webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73, 0.3) 50%);
 }
 
+
 .line .retreat input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none !important;
     border-radius: 100%;

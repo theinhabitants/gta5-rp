@@ -104,61 +104,74 @@ const featuresName = ["nose.width", "nose.height", "nose.length", "nose.bridge",
     "brow.height", "brow.width", "cheekbone.height", "cheekbone.width", "cheeks.width", "eyes",
     "lips", "jaw.width", "jaw.height", "chin.length", "chin.position", "chin.width", "chin.shape", "neck.width"];
 
-mp.events.add('saveHandlerServer', (player, json) => {
-    let character = JSON.parse(json);
+mp.events.add('saveCharacterInServer', (player, json) => {
+  //  player.model = freemodeCharacters[0];
+    console.log(json);
+    let char = JSON.parse(json);
 
     let features = [];
     let value;
 
+    //console.log("FEATURES:");
+
     for(let i = 0; i < featuresName.length; i++) {
-        value = eval("character.features." + featuresName[i] + ".value");
+        value = eval("char.features." + featuresName[i] + ".value");
         features.push(value);
         console.log(value);
     }
-    console.log("M:" + character.parents.mother.count);
-    console.log("F:" + character.parents.father.count);
-    console.log("S:" + character.parents.similarity.value);
 
+    // console.log("-------------");
+    //
+    // console.log("M:" + char.parents.mother.count);
+    // console.log("F:" + char.parents.father.count);
+    // console.log("S:" + char.parents.similarity.value);
+    //
+    // console.log("-------------");
 
-    player.setCustomization((character.sex.gender === 0),
+    const gender = char.sex.gender === 0;
 
-        mothers[character.parents.mother.count],
-        fathers[character.parents.father.count],
-        null,
+    player.setCustomization(gender,
 
-        mothers[character.parents.mother.count],
-        fathers[character.parents.father.count],
-        null,
+        mothers[char.parents.mother.count],
+        fathers[char.parents.father.count],
+        0,
 
-        character.parents.similarity.value,
-        character.parents.similarity.value,
+        mothers[char.parents.mother.count],
+        fathers[char.parents.father.count],
+        0,
+
+        char.parents.similarity.value,
+        char.parents.similarity.value,
         0.0,
 
-        character.features.eyes.colorNumber,
-        character.hair.colorNumber,
-        character.hair.highlightColor.value,
+        char.features.eyes.colorNumber,
+        char.hair.colorNumber,
+        char.hair.highlightColor.value,
 
         features
     );
 
-    player.setClothes(2, hairList[character.sex.gender][character.hair.number].ID, 0, 2);
+    player.setClothes(2, hairList[char.sex.gender][char.hair.number].ID, 0, 2);
 
-    console.log("-------------");
+    // console.log("-------------");
+    // console.log("APPEARANCE:");
 
     let item;
 
     for(let i = 0; i < appearanceName.length; i++) {
-        item = eval("character.appearance." + appearanceName[i]);
-        console.log(item.maxCount);
+        item = eval("char.appearance." + appearanceName[i]);
+        // console.log("IDX: " + item.index + " MAX COUNT: " + item.maxCount);
         player.setHeadOverlay(item.index, [item.count, 1, item.colorNumber, 0]);
     }
 
     for(let i = 0; i < 5; i++) {
-        player.setClothes(creatorClothes[character.sex.gender][i].index, creatorClothes[character.sex.gender][i].clothes,0, 2);
+        player.setClothes(creatorClothes[char.sex.gender][i].index, creatorClothes[char.sex.gender][i].clothes,0, 2);
     }
+
+    player.dimension = 0;
 });
 
-mp.events.add("genderHandlerServer", (player, number) => {
+mp.events.add("changeGenderInServer", (player, number) => {
     player.model = freemodeCharacters[number];
     player.position = creatorPlayerPos;
     player.heading = creatorPlayerHeading;

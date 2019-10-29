@@ -1,4 +1,4 @@
-let interface;
+let characterUI;
 
 const hairList = [
     // male
@@ -99,7 +99,6 @@ const creatorClothes = [
     [{index: 3, clothes: 15}, {index: 11, clothes: 18}, {index: 8, clothes: 17}, {index: 4, clothes: 17}, {index: 6, clothes: 5}]
 ];
 
-const HEAD_CAMERA = 2;
 const cameraCoords = [
     {
         camera: new mp.Vector3(402.8664, -997.5515, -98.5),
@@ -124,11 +123,11 @@ const cameraCoords = [
     }
 ];
 
-const smoothValue = 1;
+const DEFAULT_SIMILARITY = 0.5;
 
 
 mp.events.add('showCreator', () => {
-    interface = mp.browsers.new("package://character/index.html");
+    characterUI = mp.browsers.new("package://character/index.html");
 
     playerCamera = mp.cameras.new("creatorCamera", cameraCoords[1].camera, new mp.Vector3(0, 0, 0), cameraCoords[1].fov);
     playerCamera.pointAtCoord(cameraCoords[1].X, cameraCoords[1].Y, cameraCoords[1].Z);
@@ -140,85 +139,86 @@ mp.events.add('showCreator', () => {
     mp.game.ui.displayHud(false);
     mp.players.local.clearTasksImmediately();
     mp.players.local.freezePosition(true);
-    interface.active = true;
+    characterUI.active = true;
 
     mp.game.cam.renderScriptCams(true, false, 0, true, false);
 
     mp.gui.cursor.show(true, true);
 
+    currentPlayer.setHeadBlendData(mothers[0], fathers[0], 0, mothers[0], fathers[0], 0, DEFAULT_SIMILARITY, DEFAULT_SIMILARITY, 0.0, false);
+
 });
 
 
-mp.events.add('hairHandler', (number, gender) => {
+mp.events.add('changeHair', (number, gender) => {
     currentPlayer.setComponentVariation(2, hairList[gender][number].ID, 0, 2);
 });
 
-mp.events.add('scopeHandler', (index) => {
+mp.events.add('changeZoom', (index) => {
     setCamera("creatorCamera", cameraCoords[index].camera, cameraCoords[index].X, cameraCoords[index].Y, cameraCoords[index].Z, cameraCoords[index].fov);
 });
 
-mp.events.add('angleHandler', (angle) => {
+mp.events.add('changeModelAngle', (angle) => {
     currentPlayer.setHeading(angle);
 });
 
-mp.events.add('featureHandler', (index, value) => {
-    currentPlayer.setFaceFeature(index, value * smoothValue);
+mp.events.add('changeFeature', (index, value) => {
+    currentPlayer.setFaceFeature(index, value);
 });
 
-mp.events.add('resetHandler', () => {
+mp.events.add('resetCharacter', () => {
     setCamera("creatorCamera", cameraCoords[1].camera, cameraCoords[1].X, cameraCoords[1].Y, cameraCoords[1].Z, cameraCoords[1].fov);
 
-    mp.events.callRemote("genderHandlerServer", 0);
+    mp.events.callRemote("changeGenderInServer", 0);
 });
 
-mp.events.add("colorHandler", (index, count, name, color, highlightColor) => {
+mp.events.add("changeColor", (index, count, name, color, highlightColor) => {
     switch (name) {
         case "eyes": {
-            currentPlayer.setEyeColor(parseInt(color));
+            currentPlayer.setEyeColor(color);
             break;
         }
         case "hair": {
-            currentPlayer.setHairColor(parseInt(color), parseInt(highlightColor));
+            currentPlayer.setHairColor(color, highlightColor);
             break;
         }
         default: {
-            currentPlayer.setHeadOverlay(parseInt(index), parseInt(count), 1, parseInt(color), 0);
+            currentPlayer.setHeadOverlay(index, count, 1, color, 0);
             break;
         }
 
     }
 });
 
-mp.events.add("appearanceHandler", (index, count, color) => {
-    currentPlayer.setHeadOverlay(index, count, 1, parseInt(color), 0); //ДОРОБИТИ ОПАСИТИ
+mp.events.add("changeAppearance", (index, count, color) => {
+    currentPlayer.setHeadOverlay(index, count, 1, color, 0); //ДОРОБИТИ ОПАСИТИ
 });
 
-mp.events.add("saveHandler", (json) => {
+mp.events.add("saveCharacterInClient", (json) => {
     mp.gui.chat.show(true);
     mp.game.ui.displayRadar(true);
     mp.game.ui.displayHud(true);
     currentPlayer.freezePosition(false);
     mp.gui.cursor.show(false, false);
 
-    mp.events.callRemote("saveHandlerServer", json);
+    mp.events.callRemote("saveCharacterInServer", json);
 
-    interface.destroy();
+    characterUI.destroy();
 
     mp.game.cam.renderScriptCams(false, false, 0, true, false);
 
 });
 
-mp.events.add("parentsHandler", (mother, father, similarity) => {
+mp.events.add("changeParents", (mother, father, similarity) => {
     currentPlayer.setHeadBlendData(mothers[mother], fathers[father], 0,
-        mothers[mother], fathers[father], 0,
-        similarity * smoothValue, similarity * smoothValue, 0.0, false);
+        mothers[mother], fathers[father], 0, similarity, similarity, 0.0, false);
 });
 
 
-mp.events.add("genderHandler", (number) => {
+mp.events.add("changeGenderInClient", (number) => {
     setCamera("creatorCamera", cameraCoords[1].camera, cameraCoords[1].X, cameraCoords[1].Y, cameraCoords[1].Z, cameraCoords[1].fov);
 
-    mp.events.callRemote("genderHandlerServer", number);
+    mp.events.callRemote("changeGenderInServer", number);
 });
 
 mp.events.add("changeHead", (gender) => {
