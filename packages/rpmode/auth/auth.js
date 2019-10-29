@@ -2,6 +2,7 @@ const userDao = require("../datasources/dao/userDao");
 const characterDao = require("../datasources/dao/characterDao");
 const encrypt = require("../util/encrypt");
 const logger = require("../logger/logger");
+const chCreation = require("../character/index");
 
 // OnlineUsers represents all online users as map [localID]userObj
 let OnlineUsers = new Map();
@@ -27,6 +28,7 @@ mp.events.add("userLogin", async (player, email, password) => {
 
     player.name = character.name + " " + character.surname;
     OnlineUsers.set(player.id, user);
+    chCreation.setPlayerSkin(player, character.skin);
 
     logger.log.info("User %s(%s) successfully authorized", player.name, user.id);
     player.call("loginHandler", ["success", character]);

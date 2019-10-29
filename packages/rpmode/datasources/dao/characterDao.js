@@ -15,11 +15,25 @@ const getByUserID = function (id) {
                     id: characterFromDB.id,
                     name: characterFromDB.name,
                     surname: characterFromDB.surname,
-                    skin: characterFromDB.skin
+                    skin: characterFromDB.skin.toString(),
                 });
             }
         });
     });
 };
 
+const createCharacter = function (name, surname, skin, user_id) {
+    return new Promise(function (resolve, reject) {
+        const level = 1;
+        connectionPool.query("INSERT INTO `character` SET ?",
+            {name, surname, level, skin, user_id}, function (err, res) {
+                if (err) {
+                    reject(err);
+                }
+                resolve(null);
+            });
+    });
+};
+
 module.exports.getByUserID = getByUserID;
+module.exports.createCharacter = createCharacter;
