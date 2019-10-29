@@ -1,4 +1,5 @@
 characterDao = require('../datasources/dao/characterDao');
+userDao = require('../datasources/dao/userDao');
 auth = require('../auth/auth');
 
 const hairList = [
@@ -115,11 +116,18 @@ const featuresName = ["nose.width", "nose.height", "nose.length", "nose.bridge",
 
 mp.events.add('saveCharacterInServer', async (player, json) => {
     setPlayerSkin(player, json);
-    let user = auth.getOnlineUser(player.id);
-    let name = "test";
-    let surname = "test";
 
-    await characterDao.createCharacter(name, surname, json, user.id + 123123);
+    let user = auth.getOnlineUser(player.id);
+    let isCharExist = await characterDao.isExist(user.id);
+
+    if (isCharExist) {
+        await characterDao.updateSkin(json, user.id);
+    } else {
+        let name = "test";
+        let surname = "test";
+
+        await characterDao.create(name, surname, json, user.id + 123123);
+    }
 });
 
 mp.events.add("changeGenderInServer", (player, number) => {
@@ -130,12 +138,14 @@ mp.events.add("changeGenderInServer", (player, number) => {
     player.changedGender = true;
 });
 
-mp.events.addCommand('test', (player) => {
+mp.events.addCommand('editskin', async (player) => {
+    let user = auth.getOnlineUser(player.id);
+    let character = await characterDao.getByUserID(user.id);
+
     player.preCreatorPos = player.position;
     player.preCreatorHeading = player.heading;
     player.preCreatorDimension = player.dimension;
 
-    player.model = freemodeCharacters[0];
     for (let i = 0; i < 5; i++) {
         player.setClothes(creatorClothes[0][i].index, creatorClothes[0][i].clothes, 0, 2);
     }
@@ -145,7 +155,7 @@ mp.events.addCommand('test', (player) => {
     player.dimension = player.id + 1000;
     player.usingCreator = true;
     player.changedGender = false;
-    player.call("showCreator");
+    player.call("showEditor", [character.skin]);
 });
 
 mp.events.addCommand('setclothes', (player, args) => {
