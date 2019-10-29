@@ -197,15 +197,13 @@ mp.events.addCommand('test', (player) => {
     player.call("showCreator");
 });
 
-mp.events.addCommand('r', (player,args) => {
+mp.events.addCommand('setclothes', (player,args) => {
     args = args.split(" ");
     const firstID = parseInt(args[0]);
     const secondID = parseInt(args[1]);
     const thirdID = parseInt(args[2]);
-    const thidrdID = parseInt(args[3]);
 
-    console.log(firstID +" "+secondID +" "+thirdID+" "+thidrdID);
-    player.setClothes(firstID, secondID, thirdID, thidrdID);
+    player.setClothes(firstID, secondID, thirdID, 0);
 });
 
 
