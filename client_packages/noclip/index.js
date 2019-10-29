@@ -1,6 +1,10 @@
+mp.keys.bind(13, true, function() {
+  mp.gui.cursor.show(false, false);
+});
+
 var getNormalizedVector = function(vector) {
   var mag = Math.sqrt(
-    vector.x * vector.x + vector.y * vector.y + vector.z * vector.z
+      vector.x * vector.x + vector.y * vector.y + vector.z * vector.z
   );
   vector.x = vector.x / mag;
   vector.y = vector.y / mag;
@@ -29,15 +33,21 @@ var noClipCamera;
 var shiftModifier = false;
 var controlModifier = false;
 var localPlayer = mp.players.local;
-mp.keys.bind(13, true, function() {
-  mp.gui.cursor.show(false, false);
+mp.keys.bind(bindVirtualKeys.F2, true, function() {
+  isNoClip = !isNoClip;
+  mp.game.ui.displayRadar(!isNoClip);
+  if (isNoClip) {
+    startNoClip();
+  } else {
+    stopNoClip();
+  }
 });
 function startNoClip() {
   mp.game.graphics.notify('NoClip ~g~activated');
   var camPos = new mp.Vector3(
-    localPlayer.position.x,
-    localPlayer.position.y,
-    localPlayer.position.z
+      localPlayer.position.x,
+      localPlayer.position.y,
+      localPlayer.position.z
   );
   var camRot = mp.game.cam.getGameplayCamRot(2);
   noClipCamera = mp.cameras.new('default', camPos, camRot, 45);
@@ -88,8 +98,8 @@ mp.events.add('render', function() {
   vector.z = rr.z * leftAxisY * fastMult * slowMult;
   var upVector = new mp.Vector3(0, 0, 1);
   var rightVector = getCrossProduct(
-    getNormalizedVector(rr),
-    getNormalizedVector(upVector)
+      getNormalizedVector(rr),
+      getNormalizedVector(upVector)
   );
   rightVector.x *= leftAxisX * 0.5;
   rightVector.y *= leftAxisX * 0.5;
@@ -103,20 +113,20 @@ mp.events.add('render', function() {
     downMovement = 0.5;
   }
   mp.players.local.position = new mp.Vector3(
-    pos.x + vector.x + 1,
-    pos.y + vector.y + 1,
-    pos.z + vector.z + 1
+      pos.x + vector.x + 1,
+      pos.y + vector.y + 1,
+      pos.z + vector.z + 1
   );
   mp.players.local.heading = rr.z;
   noClipCamera.setCoord(
-    pos.x - vector.x + rightVector.x,
-    pos.y - vector.y + rightVector.y,
-    pos.z - vector.z + rightVector.z + upMovement - downMovement
+      pos.x - vector.x + rightVector.x,
+      pos.y - vector.y + rightVector.y,
+      pos.z - vector.z + rightVector.z + upMovement - downMovement
   );
   noClipCamera.setRot(
-    rot.x + rightAxisY * -5.0,
-    0.0,
-    rot.z + rightAxisX * -5.0,
-    2
+      rot.x + rightAxisY * -5.0,
+      0.0,
+      rot.z + rightAxisX * -5.0,
+      2
   );
 });
