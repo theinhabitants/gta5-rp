@@ -1,3 +1,7 @@
+characterDao = require('../datasources/dao/characterDao');
+userDao = require('../datasources/dao/userDao');
+auth = require('../auth/auth');
+
 const hairList = [
     // male
     [
@@ -94,8 +98,14 @@ const creatorPlayerPos = new mp.Vector3(402.8664, -996.4108, -99.00027);
 const creatorPlayerHeading = 180;
 
 const creatorClothes = [
-    [{index: 3, clothes: 15}, {index: 11, clothes: 15}, {index: 8, clothes: 15}, {index: 4, clothes: 14}, {index: 6, clothes: 5}],
-    [{index: 3, clothes: 15}, {index: 11, clothes: 18}, {index: 8, clothes: 17}, {index: 4, clothes: 17}, {index: 6, clothes: 5}]
+    [{index: 3, clothes: 15}, {index: 11, clothes: 15}, {index: 8, clothes: 15}, {index: 4, clothes: 14}, {
+        index: 6,
+        clothes: 5
+    }],
+    [{index: 3, clothes: 15}, {index: 11, clothes: 18}, {index: 8, clothes: 17}, {index: 4, clothes: 17}, {
+        index: 6,
+        clothes: 5
+    }]
 ];
 
 const appearanceName = ["blemishes", "facialHair", "eyebrows", "ageing", "blush", "complexion", "sunDamage", "freckles", "chestHair"];
@@ -104,29 +114,70 @@ const featuresName = ["nose.width", "nose.height", "nose.length", "nose.bridge",
     "brow.height", "brow.width", "cheekbone.height", "cheekbone.width", "cheeks.width", "eyes",
     "lips", "jaw.width", "jaw.height", "chin.length", "chin.position", "chin.width", "chin.shape", "neck.width"];
 
-mp.events.add('saveCharacterInServer', (player, json) => {
-  //  player.model = freemodeCharacters[0];
-    //console.log(json);
-    let char = JSON.parse(json);
+mp.events.add('saveCharacterInServer', async (player, json) => {
+    setPlayerSkin(player, json);
 
+    let user = auth.getOnlineUser(player.id);
+    let isCharExist = await characterDao.isExist(user.id);
+
+    if (isCharExist) {
+        await characterDao.updateSkin(json, user.id);
+    } else {
+        let name = "test";
+        let surname = "test";
+
+        await characterDao.create(name, surname, json, user.id + 123123);
+    }
+});
+
+mp.events.add("changeGenderInServer", (player, number) => {
+    player.model = freemodeCharacters[number];
+    player.position = creatorPlayerPos;
+    player.heading = creatorPlayerHeading;
+    player.call("changeHead", [number]);
+    player.changedGender = true;
+});
+
+mp.events.addCommand('editskin', async (player) => {
+    let user = auth.getOnlineUser(player.id);
+    let character = await characterDao.getByUserID(user.id);
+
+    player.preCreatorPos = player.position;
+    player.preCreatorHeading = player.heading;
+    player.preCreatorDimension = player.dimension;
+
+    for (let i = 0; i < 5; i++) {
+        player.setClothes(creatorClothes[0][i].index, creatorClothes[0][i].clothes, 0, 2);
+    }
+
+    player.position = creatorPlayerPos;
+    player.heading = creatorPlayerHeading;
+    player.dimension = player.id + 1000;
+    player.usingCreator = true;
+    player.changedGender = false;
+    player.call("showEditor", [character.skin]);
+});
+
+mp.events.addCommand('setclothes', (player, args) => {
+    args = args.split(" ");
+    const firstID = parseInt(args[0]);
+    const secondID = parseInt(args[1]);
+    const thirdID = parseInt(args[2]);
+
+    player.setClothes(firstID, secondID, thirdID, 0);
+});
+
+// setPlayerSkin parse json with skin data and set it to player
+function setPlayerSkin(player, jsonSkin) {
+    let char = JSON.parse(jsonSkin);
     let features = [];
     let value;
 
-    //console.log("FEATURES:");
-
-    for(let i = 0; i < featuresName.length; i++) {
+    for (let i = 0; i < featuresName.length; i++) {
         value = eval("char.features." + featuresName[i] + ".value");
         features.push(value);
-        //console.log(value);
+        console.log(value);
     }
-
-    // console.log("-------------");
-    //
-    // console.log("M:" + char.parents.mother.count);
-    // console.log("F:" + char.parents.father.count);
-    // console.log("S:" + char.parents.similarity.value);
-    //
-    // console.log("-------------");
 
     const gender = char.sex.gender === 0;
 
@@ -153,59 +204,18 @@ mp.events.add('saveCharacterInServer', (player, json) => {
 
     player.setClothes(2, hairList[char.sex.gender][char.hair.number].ID, 0, 2);
 
-    // console.log("-------------");
-    // console.log("APPEARANCE:");
-
     let item;
 
-    for(let i = 0; i < appearanceName.length; i++) {
+    for (let i = 0; i < appearanceName.length; i++) {
         item = eval("char.appearance." + appearanceName[i]);
-        // console.log("IDX: " + item.index + " MAX COUNT: " + item.maxCount);
         player.setHeadOverlay(item.index, [item.count, 1, item.colorNumber, 0]);
     }
 
-    for(let i = 0; i < 5; i++) {
-        player.setClothes(creatorClothes[char.sex.gender][i].index, creatorClothes[char.sex.gender][i].clothes,0, 2);
+    for (let i = 0; i < 5; i++) {
+        player.setClothes(creatorClothes[char.sex.gender][i].index, creatorClothes[char.sex.gender][i].clothes, 0, 2);
     }
 
     player.dimension = 0;
-});
+}
 
-mp.events.add("changeGenderInServer", (player, number) => {
-    player.model = freemodeCharacters[number];
-    player.position = creatorPlayerPos;
-    player.heading = creatorPlayerHeading;
-    player.call("changeHead", [number]);
-    player.changedGender = true;
-});
-
-mp.events.addCommand('test', (player) => {
-    player.preCreatorPos = player.position;
-    player.preCreatorHeading = player.heading;
-    player.preCreatorDimension = player.dimension;
-
-    player.model = freemodeCharacters[0];
-    for(let i = 0; i < 5; i++) {
-        player.setClothes(creatorClothes[0][i].index, creatorClothes[0][i].clothes, 0, 2);
-    }
-
-    player.position = creatorPlayerPos;
-    player.heading = creatorPlayerHeading;
-    player.dimension = player.id + 1000;
-    player.usingCreator = true;
-    player.changedGender = false;
-    player.call("showCreator");
-});
-
-mp.events.addCommand('setclothes', (player,args) => {
-    args = args.split(" ");
-    const firstID = parseInt(args[0]);
-    const secondID = parseInt(args[1]);
-    const thirdID = parseInt(args[2]);
-
-    player.setClothes(firstID, secondID, thirdID, 0);
-});
-
-
-
-
+module.exports.setPlayerSkin = setPlayerSkin;

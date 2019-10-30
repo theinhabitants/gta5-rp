@@ -95,8 +95,14 @@ let currentPlayer = mp.players.local;
 let playerCamera;
 
 const creatorClothes = [
-    [{index: 3, clothes: 15}, {index: 11, clothes: 15}, {index: 8, clothes: 15}, {index: 4, clothes: 14}, {index: 6, clothes: 5}],
-    [{index: 3, clothes: 15}, {index: 11, clothes: 18}, {index: 8, clothes: 17}, {index: 4, clothes: 17}, {index: 6, clothes: 5}]
+    [{index: 3, clothes: 15}, {index: 11, clothes: 15}, {index: 8, clothes: 15}, {index: 4, clothes: 14}, {
+        index: 6,
+        clothes: 5
+    }],
+    [{index: 3, clothes: 15}, {index: 11, clothes: 18}, {index: 8, clothes: 17}, {index: 4, clothes: 17}, {
+        index: 6,
+        clothes: 5
+    }]
 ];
 
 const cameraCoords = [
@@ -127,28 +133,13 @@ const DEFAULT_SIMILARITY = 0.5;
 
 
 mp.events.add('showCreator', () => {
-    characterUI = mp.browsers.new("package://character/index.html");
-
-    playerCamera = mp.cameras.new("creatorCamera", cameraCoords[1].camera, new mp.Vector3(0, 0, 0), cameraCoords[1].fov);
-    playerCamera.pointAtCoord(cameraCoords[1].X, cameraCoords[1].Y, cameraCoords[1].Z);
-
-    playerCamera.setActive(true);
-
-    //mp.gui.chat.show(false);
-    mp.game.ui.displayRadar(false);
-    mp.game.ui.displayHud(false);
-    mp.players.local.clearTasksImmediately();
-    mp.players.local.freezePosition(true);
-    characterUI.active = true;
-
-    mp.game.cam.renderScriptCams(true, false, 0, true, false);
-
-    mp.gui.cursor.show(true, true);
-
-    currentPlayer.setHeadBlendData(mothers[0], fathers[0], 0, mothers[0], fathers[0], 0, DEFAULT_SIMILARITY, DEFAULT_SIMILARITY, 0.0, false);
-
+    showEditor();
 });
 
+mp.events.add('showEditor', (skinJSON) => {
+    showEditor();
+    characterUI.execute("character = " + skinJSON);
+});
 
 mp.events.add('changeHair', (number, gender) => {
     currentPlayer.setComponentVariation(2, hairList[gender][number].ID, 0, 2);
@@ -227,8 +218,8 @@ mp.events.add("changeHead", (gender) => {
     currentPlayer.setHeadBlendData(fathers[0], mothers[0], 0, fathers[0], mothers[0], 0,
         similarityTo, similarityTo, 0.0, false);
 
-    for(let i = 0; i < 5; i++) {
-        currentPlayer.setComponentVariation(creatorClothes[gender][i].index, creatorClothes[gender][i].clothes,0, 2);
+    for (let i = 0; i < 5; i++) {
+        currentPlayer.setComponentVariation(creatorClothes[gender][i].index, creatorClothes[gender][i].clothes, 0, 2);
     }
 });
 
@@ -239,3 +230,24 @@ function setCamera(name, vector, X, Y, Z, fov) {
     playerCamera.pointAtCoord(X, Y, Z);
 }
 
+function showEditor() {
+    characterUI = mp.browsers.new("package://character/index.html");
+
+    playerCamera = mp.cameras.new("creatorCamera", cameraCoords[1].camera, new mp.Vector3(0, 0, 0), cameraCoords[1].fov);
+    playerCamera.pointAtCoord(cameraCoords[1].X, cameraCoords[1].Y, cameraCoords[1].Z);
+
+    playerCamera.setActive(true);
+
+    //mp.gui.chat.show(false);
+    mp.game.ui.displayRadar(false);
+    mp.game.ui.displayHud(false);
+    mp.players.local.clearTasksImmediately();
+    mp.players.local.freezePosition(true);
+    characterUI.active = true;
+
+    mp.game.cam.renderScriptCams(true, false, 0, true, false);
+
+    mp.gui.cursor.show(true, true);
+
+    currentPlayer.setHeadBlendData(mothers[0], fathers[0], 0, mothers[0], fathers[0], 0, DEFAULT_SIMILARITY, DEFAULT_SIMILARITY, 0.0, false);
+}

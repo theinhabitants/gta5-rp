@@ -53,7 +53,6 @@ function enableChatInput(enable) {
 
 var chatAPI = {
     push: (text) => {
-
         chat.size++;
         if (chat.size >= 50) {
             chat.container.children(":first").remove();
@@ -65,7 +64,7 @@ var chatAPI = {
         chat.container.html("");
     },
     activate: (toggle) => {
-        if (toggle == false
+        if (toggle === false
             && (chat.input != null))
             enableChatInput(false);
 
@@ -109,14 +108,13 @@ $(document).ready(function () {
         }
         if (chat.input != null) {
             switch (event.which) {
-
                 case BUTTON_ENTER: {
-                    var value = chat.input.children("input").val();
+                    let value = chat.input.children("input").val();
 
                     if (value.length > 0) {
                         chat.previous[chat.messageNumber] = value;
                         chat.messageNumber++;
-                        if (value[0] == "/") {
+                        if (value[0] === "/") {
                             value = value.substr(1);
 
                             if (value.length > 0 && value.length <= 100)
