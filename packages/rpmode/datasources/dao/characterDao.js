@@ -49,11 +49,12 @@ const updateSkin = function (skin, user_id) {
 
 const isExist = function (user_id) {
     return new Promise(function (resolve, reject) {
-        connectionPool.query("SELECT EXISTS (SELECT * FROM `character` WHERE `user_id` = ?)", [user_id], function (err, res) {
+        connectionPool.query("SELECT 1 FROM `character` WHERE `user_id` = ?", [user_id], function (err, res) {
             if (err) {
                 reject(err);
             }
-            resolve(res[0]);
+            let response = res.length === 1;
+            resolve(response);
         });
     });
 };

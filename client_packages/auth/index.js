@@ -12,12 +12,11 @@ mp.events.add("registration", (email, pass) => {
     mp.events.callRemote("userRegistration", email, pass);
 });
 
-mp.events.add("loginHandler", (response, char) => {
+mp.events.add("loginHandler", (response) => {
     switch (response) {
         case "success":
             if (authBrowser) {
                 mp.events.callRemote("playerSuccessAuth");
-                setSkin(char);
                 authBrowser.destroy();
                 mp.gui.cursor.show(false, false);
                 mp.gui.chat.show(true);
@@ -52,11 +51,10 @@ mp.events.add("registrationHandler", (response) => {
     switch (response) {
         case "success":
             if (authBrowser) {
-                mp.events.callRemote("playerSuccessAuth");
-                //TODO complete registration with char creator etc...
-                authBrowser.destroy();
+                authBrowser.active = false;
                 mp.gui.cursor.show(false, false);
                 mp.gui.chat.show(true);
+                mp.events.callRemote("moveToCreationSpace");
             }
             break;
         case "email-already-exist":
@@ -75,7 +73,3 @@ mp.events.add("registrationHandler", (response) => {
             break;
     }
 });
-
-function setSkin(character) {
-    //TODO set character skin
-}

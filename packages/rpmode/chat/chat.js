@@ -5,6 +5,8 @@ mp.events.add("playerChat", (player, message) => {
     const time = "[" + ("0" + (date.getHours())).slice(-2) + ":" + ("0" + (date.getMinutes())).slice(-2) + ":" + ("0" + (date.getSeconds())).slice(-2) + "]";
 
     let user = auth.getOnlineUser(player.id);
+    if(!user) return; // to avoid error of undefined user in moment when user connected but not authorized
+
     const id = `(${user.id})`;
 
     let str = time + " - " + "!{white}" + player.name + id + ": " + message;

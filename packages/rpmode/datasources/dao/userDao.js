@@ -51,7 +51,7 @@ const save = function (email, password, ip) {
                 if (err) {
                     reject(err);
                 }
-                resolve(null);
+                resolve(res.insertId);
             });
     });
 };

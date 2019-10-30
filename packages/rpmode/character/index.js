@@ -2,6 +2,7 @@ characterDao = require('../datasources/dao/characterDao');
 userDao = require('../datasources/dao/userDao');
 auth = require('../auth/auth');
 characterData = require('./characterData');
+spawn = require('./characterData');
 
 
 mp.events.add('saveCharacterInServer', async (player, json) => {
@@ -12,11 +13,17 @@ mp.events.add('saveCharacterInServer', async (player, json) => {
 
     if (isCharExist) {
         await characterDao.updateSkin(json, user.id);
-    } else {
-        let name = "test";
-        let surname = "test";
+        player.position = player.preCreatorPos;
+        player.heading = player.preCreatorHeading;
+        player.dimension = player.preCreatorDimension;
+    }
+    else {
+        let name = "test2" + user.id;
+        let surname = "test2" + user.id;
 
-        await characterDao.create(name, surname, json, user.id + 123123);
+        await characterDao.create(name, surname, json, user.id);
+
+        mp.events.call("playerSuccessAuth", player);
     }
 });
 
@@ -28,23 +35,20 @@ mp.events.add("changeGenderInServer", (player, number) => {
     player.changedGender = true;
 });
 
+mp.events.add("moveToCreationSpace", (player) => {
+    player.model = characterData.freemodeCharacters[0];
+
+    movePlayerToCreationSpace(player);
+
+    player.call("showCreator");
+});
+
 mp.events.addCommand('editskin', async (player) => {
     let user = auth.getOnlineUser(player.id);
     let character = await characterDao.getByUserID(user.id);
 
-    player.preCreatorPos = player.position;
-    player.preCreatorHeading = player.heading;
-    player.preCreatorDimension = player.dimension;
+    movePlayerToCreationSpace(player);
 
-    for (let i = 0; i < 5; i++) {
-        player.setClothes(characterData.creatorClothes[0][i].index, characterData.creatorClothes[0][i].clothes, 0, 2);
-    }
-
-    player.position = characterData.creatorPlayerPos;
-    player.heading = characterData.creatorPlayerHeading;
-    player.dimension = player.id + 1000;
-    player.usingCreator = true;
-    player.changedGender = false;
     player.call("showEditor", [character.skin]);
 });
 
@@ -103,8 +107,22 @@ function setPlayerSkin(player, jsonSkin) {
     for (let i = 0; i < 5; i++) {
         player.setClothes(characterData.creatorClothes[char.sex.gender][i].index, characterData.creatorClothes[char.sex.gender][i].clothes, 0, 2);
     }
+}
 
-    player.dimension = 0;
+function movePlayerToCreationSpace(player) {
+    player.preCreatorPos = player.position;
+    player.preCreatorHeading = player.heading;
+    player.preCreatorDimension = player.dimension;
+
+    for (let i = 0; i < 5; i++) {
+        player.setClothes(characterData.creatorClothes[0][i].index, characterData.creatorClothes[0][i].clothes, 0, 2);
+    }
+
+    player.position = characterData.creatorPlayerPos;
+    player.heading = characterData.creatorPlayerHeading;
+    player.dimension = player.id + 1000;
+    player.usingCreator = true;
+    player.changedGender = false;
 }
 
 module.exports.setPlayerSkin = setPlayerSkin;

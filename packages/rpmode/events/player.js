@@ -1,13 +1,5 @@
-auth = require("../auth/auth");
-logger = require("../logger/logger");
-
-function playerJoinHandler(player) {
-    console.log(player.name + " has joined. ID:" + player.id);
-    let str = player.name + " has joined. ID:" + player.id;
-    mp.players.broadcast(str);
-}
-
-mp.events.add("playerJoin", playerJoinHandler);
+const auth = require("../auth/auth");
+const logger = require("../logger/logger");
 
 function playerQuitHandler(player) {
     auth.removeOnlineUser(player.id);
@@ -21,12 +13,15 @@ mp.events.add('playerDeath', (player) => {
 });
 
 mp.events.add("playerSuccessAuth", (player) => {
-    spawnPlayer(player)
+    spawnPlayer(player);
 });
 
 function spawnPlayer(player) {
     const spawnPoints = require('../spawn_points.json').SpawnPoints;
 
+    player.dimension = 0;
+
     player.spawn(spawnPoints[Math.floor(Math.random() * spawnPoints.length)]);
+
     player.health = 100;
 }

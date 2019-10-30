@@ -1,4 +1,5 @@
-let mysql = require('mysql');
+const mysql = require('mysql');
+const logger = require("../logger/logger");
 
 const config = {
     host     : 'remotemysql.com',
@@ -12,8 +13,10 @@ let pool = mysql.createPool(config);
 
 // Added to avoid situations if DB is down
 pool.getConnection(function (err) {
-    console.log(err);
-    if (err) throw err; // not connected!
+    if (err) {
+        logger.log.error(err);
+        throw err;
+    } // not connected!
 });
 
 module.exports = pool;

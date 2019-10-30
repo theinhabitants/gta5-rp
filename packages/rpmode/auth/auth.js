@@ -42,15 +42,22 @@ mp.events.add("userRegistration", async (player, email, password) => {
         return;
     }
 
+    let createdUserId;
+
     try {
-        await userDao.save(email, password, player.ip);
+        const hashPass = encrypt.cryptPassword(password);
+        createdUserId = await userDao.save(email, hashPass, player.ip);
     } catch (e) {
         logger.log.error(e);
         player.call("registrationHandler", "internal-server-error");
     }
 
-    logger.log.info("New user registered! email: %s, ip: %s", email, player.ip);
-    player.call("registrationHandler", "success");
+    let createdUser = await userDao.getByEmail(email);
+
+    logger.log.info("New user registered! userId: %d, email: %s, ip: %s", createdUserId, email, player.ip);
+    OnlineUsers.set(player.id, createdUser);
+
+    player.call("registrationHandler", ["success"]);
 });
 
 function getOnlineUser(userID) {
