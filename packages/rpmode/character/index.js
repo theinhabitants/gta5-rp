@@ -106,7 +106,7 @@ const featuresName = ["nose.width", "nose.height", "nose.length", "nose.bridge",
 
 mp.events.add('saveCharacterInServer', (player, json) => {
   //  player.model = freemodeCharacters[0];
-    console.log(json);
+    //console.log(json);
     let char = JSON.parse(json);
 
     let features = [];
@@ -117,7 +117,7 @@ mp.events.add('saveCharacterInServer', (player, json) => {
     for(let i = 0; i < featuresName.length; i++) {
         value = eval("char.features." + featuresName[i] + ".value");
         features.push(value);
-        console.log(value);
+        //console.log(value);
     }
 
     // console.log("-------------");
