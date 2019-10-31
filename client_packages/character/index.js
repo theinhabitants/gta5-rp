@@ -70,6 +70,7 @@ mp.events.add("saveCharacterInClient", (json) => {
     mp.events.callRemote("saveCharacterInServer", json);
 
     characterUI.destroy();
+    playerCamera.destroy(true);
 
     mp.game.cam.renderScriptCams(false, false, 0, true, false);
 

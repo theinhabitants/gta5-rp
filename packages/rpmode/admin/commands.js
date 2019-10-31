@@ -11,7 +11,7 @@ mp.events.addCommand('kill', (player) => {
 });
 
 mp.events.addCommand('coo', (player) => {
-    console.log(player.position); // return e.g. {x: 1337, y: 228, z: 70}
+    console.log("COO: " + player.position + ", head: " + player.heading); // return e.g. {x: 1337, y: 228, z: 70}
 });
 
 mp.events.addCommand('respawn', (player) => {

@@ -23,5 +23,7 @@ function spawnPlayer(player) {
 
     player.spawn(spawnPoints[Math.floor(Math.random() * spawnPoints.length)]);
 
+    player.heading = 180;
+
     player.health = 100;
 }
