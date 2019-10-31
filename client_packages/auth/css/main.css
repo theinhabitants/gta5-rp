@@ -29,7 +29,14 @@ body {
     color: #FFFFFF;
     font-size: 0.8vw;
 }
-
+/*.video-player {*/
+/*    width:100%;*/
+/*    height: 100%;*/
+/*    position: absolute;*/
+/*    left:0;*/
+/*    top:0;*/
+/*    pointer-events: none;*/
+/*}*/
 .wrapper{
     background: transparent url(images/blockbg.png) 0 -5vh no-repeat padding-box;
     background-size: 102% 115%;
@@ -126,17 +133,18 @@ body {
 
 .content .hide-pass input + label,
 .content .show-pass input + label{
-    position: relative;
-    vertical-align: middle;
-    top:2.7vh;
     opacity: 0.3;
+    position: relative;
 }
 .content .hide-pass input + label:before,
 .content .show-pass input + label:before {
     content: url(images/hide.png);
     transform: scale(.7);
+    position: absolute;  /* подробнее про position: absolute; */
+    top: 0;
+    bottom: 1vh;
     right: 1vw;
-    position: absolute;
+    margin: auto;
 }
 
 .content .show-pass input + label:before {
@@ -259,12 +267,6 @@ body {
     cursor: pointer;
     color: rgb(102, 179, 230);
 }
-
-.registration .content .hide-pass input + label,
-.registration .content .show-pass input + label{
-    top:2.4vh;
-}
-
 
 
 
