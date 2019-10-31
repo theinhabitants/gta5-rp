@@ -1,18 +1,14 @@
+const chat = require("chat/index");
 let authBrowser;
 let authCamera;
 
 const coordinates = {
     camera: new mp.Vector3(-80.07012939453125, -820.6597900390625, 326.83221435546875),
     cameraLookAt: {
-        X:-90.29067993164062, Y: -821.4169311523438, Z: 330.1753234863281
+        X: -90.29067993164062, Y: -821.4169311523438, Z: 330.1753234863281
     },
     playerPos: new mp.Vector3(-75.07012939453125, -820.6597900390625, 326.83221435546875),
 };
-
-mp.keys.bind(0x45, false, function() {
-    if (mp.gui.cursor.visible) return;
-    //for disabled T chat(probably don't work)
-});
 
 mp.events.add("showLogin", () => {
     showLogin();
@@ -62,8 +58,8 @@ mp.events.add("registrationHandler", (response) => {
     switch (response) {
         case "success":
             if (authBrowser) {
-                mp.events.callRemote("playerSuccessAuth");
                 hideLogin();
+                mp.events.callRemote("moveToCreationSpace");
             }
             break;
         case "email-already-exist":
@@ -86,15 +82,14 @@ mp.events.add("registrationHandler", (response) => {
 function showLogin() {
     authBrowser = mp.browsers.new("package://auth/index.html");
 
-    authCamera = mp.cameras.new("authCamera", coordinates.camera, new mp.Vector3(0,0,0), 20);
+    authCamera = mp.cameras.new("authCamera", coordinates.camera, new mp.Vector3(0, 0, 0), 20);
     authCamera.pointAtCoord(coordinates.cameraLookAt.X, coordinates.cameraLookAt.Y, coordinates.cameraLookAt.Z);
 
     mp.players.local.position = coordinates.playerPos;
 
     authCamera.setActive(true);
 
-    mp.gui.chat.show(false);
-    mp.gui.chat.activate(false);
+    chat.disable(true);
     mp.game.ui.displayRadar(false);
     mp.game.ui.displayHud(false);
     mp.players.local.clearTasksImmediately();
@@ -107,7 +102,8 @@ function showLogin() {
 }
 
 function hideLogin() {
-    mp.gui.chat.show(true);
+    chat.disable(false);
+    mp.gui.chat.activate(true);
     mp.game.ui.displayRadar(true);
     mp.game.ui.displayHud(true);
     mp.players.local.freezePosition(false);

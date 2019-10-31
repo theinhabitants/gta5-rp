@@ -3,6 +3,7 @@ const BUTTON_T = 84,
     BUTTON_ESCAPE = 27,
     BUTTON_ARROW_UP = 38,
     BUTTON_ARROW_DOWN = 40;
+let chatEnable = true;
 
 let chat = {
     size: 0,
@@ -22,7 +23,7 @@ var langRegex = {
 };
 
 function enableChatInput(enable) {
-    if (chat.active === false && enable === true) {
+    if (chat.active === false && enable === true || !chatEnable) {
         return;
     }
     if (enable !== (chat.input != null)) {
@@ -132,6 +133,7 @@ $(document).ready(function () {
                 case BUTTON_ESCAPE: {
                     enableChatInput(false);
                     hide();
+                    mp.trigger("disableEsc", true);
                     break;
                 }
 
@@ -160,3 +162,10 @@ $(document).ready(function () {
         }
     });
 });
+
+function disable(val) {
+    chat.active = val;
+    chat.enabled = val;
+    chatEnable = val;
+    mp.trigger("changeChatState", true);
+}
