@@ -226,8 +226,8 @@ body {
 .registration .right-side img{
     position: absolute;
     bottom: 0;
-    left: -5.5vw;
-    width:21vw;
+    left: -6vw;
+    width:21.5vw;
     height: calc(100% + 7.5vw);
 }
 

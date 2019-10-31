@@ -3,7 +3,6 @@ const characterDao = require("../datasources/dao/characterDao");
 const encrypt = require("../util/encrypt");
 const logger = require("../logger/logger");
 const chCreation = require("../character/index");
-const spawnPoints = require('../spawn_points.json').SpawnPoints;
 
 // OnlineUsers represents all online users as map [localID]userObj
 let OnlineUsers = new Map();
