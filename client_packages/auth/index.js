@@ -9,6 +9,10 @@ const coordinates = {
     playerPos: new mp.Vector3(-75.07012939453125, -820.6597900390625, 326.83221435546875),
 };
 
+mp.keys.bind(0x45, false, function() {
+    if (mp.gui.cursor.visible) return;
+    //for disabled T chat(probably don't work)
+});
 
 mp.events.add("showLogin", () => {
     showLogin();
@@ -114,4 +118,5 @@ function hideLogin() {
 
     mp.game.cam.renderScriptCams(false, false, 0, true, false);
 }
+
 
