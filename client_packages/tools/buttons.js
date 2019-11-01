@@ -1,4 +1,4 @@
-function disableButton(val, groupId, buttonId){
+function disableInternalButton(val, groupId, buttonId){
     if(val) {
         mp.events.add('render', () => {
             mp.game.controls.disableControlAction(groupId, buttonId, true);
@@ -12,5 +12,5 @@ function disableButton(val, groupId, buttonId){
 }
 
 exports = {
-    disableButton: disableButton
+    disableInternalButton: disableInternalButton
 };
