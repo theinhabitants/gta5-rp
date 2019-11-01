@@ -173,6 +173,7 @@ body {
 .color_select-box .content {
     height: 23vh;
     width: 100%;
+    overflow-y: scroll;
 }
 
 .color_select-box .content .palette {
@@ -276,7 +277,7 @@ body {
     width: 100%;
     height: 61vh;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     font-size: 1.3vw;
 }
 

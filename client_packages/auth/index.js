@@ -1,3 +1,5 @@
+const tools = require('tools/buttons');
+
 let authBrowser;
 let authCamera;
 
@@ -79,6 +81,7 @@ mp.events.add("registrationHandler", (response) => {
 });
 
 function showLogin() {
+    tools.disableInternalButton(true, 13, 245);
     authBrowser = mp.browsers.new("package://auth/index.html");
 
     authCamera = mp.cameras.new("authCamera", coordinates.camera, new mp.Vector3(0, 0, 0), 20);
@@ -90,8 +93,6 @@ function showLogin() {
 
     mp.gui.chat.activate(false);
     mp.gui.chat.show(false);
-
-    mp.game.controls.disableAllControlActions(32);
 
     mp.game.ui.displayRadar(false);
     mp.game.ui.displayHud(false);
@@ -105,14 +106,13 @@ function showLogin() {
 }
 
 function hideLogin() {
+    tools.disableInternalButton(false, 13, 245);
     mp.gui.chat.activate(true);
     mp.gui.chat.show(true);
     mp.game.ui.displayRadar(true);
     mp.game.ui.displayHud(true);
     mp.players.local.freezePosition(false);
     mp.gui.cursor.show(false, false);
-
-    mp.game.controls.enableAllControlActions(32);
 
     authBrowser.destroy();
     authCamera.destroy(true);

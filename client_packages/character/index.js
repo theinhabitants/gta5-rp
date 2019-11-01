@@ -73,7 +73,7 @@ mp.events.add("saveCharacterInClient", (json) => {
     characterUI.destroy();
     playerCamera.destroy(true);
 
-    mp.game.cam.renderScriptCams(false, false, 0, true, false);
+    mp.game.cam.renderScriptCams(false, true, 600, true, false);
 
 });
 

@@ -1,5 +1,10 @@
+@font-face {
+    font-family: UniNeueBold;
+    src: url(fonts/UniNeueBold.ttf);
+}
+
 #chat, #chat input#chat_msg, #chat ul#chat_messages {
-    font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: UniNeueBold, sans-serif;
 }
 
 #chat, #chat input#chat_msg {
@@ -13,7 +18,7 @@ body {
 #chat {
     line-height: 24px;
     font-weight: 700;
-    letter-spacing: .4px;
+    letter-spacing: 0.4px;
     user-select: none;
     margin: 20px 0 0 25px;
 }
@@ -33,8 +38,8 @@ body {
     min-height: 2vh;
     font-size: 15px;
     word-wrap: break-word;
-    text-shadow: -1px 1px 2px rgba(0, 0, 0, 1);
-    overflow: overlay;
+    text-shadow: 0px 0px 2px black, 0px 0px 2px black, 0px 0px 2px black, 0px 0px 2px black;
+    overflow: auto;
     direction: rtl;
 }
 
@@ -43,22 +48,11 @@ body {
     background: rgba(24, 20, 20, 0.5);
     outline: 0;
     border: none;
-    font-size: 13px;
-    line-height: 30px;
+    font-size: 15px;
+    line-height: 35px;
     width: 35%;
     padding: 5px 5px 5px 15px;
-    border-radius: 0 26.5px 26.5px 0;
-}
-
-#chat_lang {
-    float: left;
-    text-align: center;
-    background: rgba(24, 20, 20, 0.8);
-    display: inline-block;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 26.5px 0 0 26.5px;
-    font-size: 10px !important;
+    border-radius: 26.5px;
 }
 
 #chat_channels li {
@@ -89,5 +83,6 @@ body {
     list-style-type: none;
     direction: ltr;
     text-align: left;
-    margin-left: 10px
+    left: 10px;
+    position: relative;
 }
