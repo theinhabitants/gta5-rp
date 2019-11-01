@@ -1,24 +1,10 @@
 mp.gui.execute("window.location = 'package://chat/index.html'");
 
+const buttons = require('tools/buttons');
 
-mp.events.add("disableEsc", (val) => {
-    if (val) {
-        mp.keys.bind(27, false, function () {
-            return 0;
-        });
-    } else {
-        mp.keys.unbind(27, false, function () {
-        });
-    }
+mp.events.add("disableEsc", function () {
+    buttons.disableButton(true, 13, 200);
+    setTimeout(() => buttons.disableButton(false, 13, 200), 200);
 });
 
 
-mp.keys.bind(27, false, function () {
-
-});
-
-function disable(val) {
-    mp.gui.execute("disable();");
-}
-
-exports.disable = disable;

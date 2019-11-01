@@ -96,11 +96,11 @@ const creatorPlayerHeading = 180;
 const creatorClothes = [
     [{index: 3, clothes: 15}, {index: 11, clothes: 15}, {index: 8, clothes: 15}, {index: 4, clothes: 14}, {
         index: 6,
-        clothes: 5
+        clothes: 34
     }],
     [{index: 3, clothes: 15}, {index: 11, clothes: 18}, {index: 8, clothes: 17}, {index: 4, clothes: 17}, {
         index: 6,
-        clothes: 5
+        clothes: 35
     }]
 ];
 

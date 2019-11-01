@@ -1,4 +1,3 @@
-const chat = require("chat/index");
 let authBrowser;
 let authCamera;
 
@@ -89,7 +88,11 @@ function showLogin() {
 
     authCamera.setActive(true);
 
-    chat.disable(true);
+    mp.gui.chat.activate(false);
+    mp.gui.chat.show(false);
+
+    mp.game.controls.disableAllControlActions(32);
+
     mp.game.ui.displayRadar(false);
     mp.game.ui.displayHud(false);
     mp.players.local.clearTasksImmediately();
@@ -102,12 +105,14 @@ function showLogin() {
 }
 
 function hideLogin() {
-    chat.disable(false);
     mp.gui.chat.activate(true);
+    mp.gui.chat.show(true);
     mp.game.ui.displayRadar(true);
     mp.game.ui.displayHud(true);
     mp.players.local.freezePosition(false);
     mp.gui.cursor.show(false, false);
+
+    mp.game.controls.enableAllControlActions(32);
 
     authBrowser.destroy();
     authCamera.destroy(true);

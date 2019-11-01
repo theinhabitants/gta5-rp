@@ -1,5 +1,5 @@
-require('./auth');
 require('./chat');
+require('./auth');
 require('./noclip');
 require('./character');
 require('./camera');

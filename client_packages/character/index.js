@@ -1,5 +1,4 @@
 characterData = require('character/js/characterData');
-chat = require('chat/index');
 
 let characterUI;
 
@@ -62,7 +61,8 @@ mp.events.add("changeAppearance", (index, count, color) => {
 });
 
 mp.events.add("saveCharacterInClient", (json) => {
-    disable(true);
+    mp.gui.chat.activate(true);
+    mp.gui.chat.show(true);
     mp.game.ui.displayRadar(true);
     mp.game.ui.displayHud(true);
     currentPlayer.freezePosition(false);
@@ -115,7 +115,8 @@ function showEditor() {
 
     playerCamera.setActive(true);
 
-    disable(false);
+    mp.gui.chat.activate(false);
+    mp.gui.chat.show(false);
     mp.game.ui.displayRadar(false);
     mp.game.ui.displayHud(false);
     mp.players.local.clearTasksImmediately();
