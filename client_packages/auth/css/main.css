@@ -221,7 +221,6 @@ body {
     bottom: 0;
     left: 59.5%;
 }
-
 .registration .left-side{
     float:right;
     padding-top: 1.5vw;
@@ -235,8 +234,8 @@ body {
     position: absolute;
     bottom: 0;
     left: -6vw;
-    width:21.5vw;
-    height: calc(100% + 7.5vw);
+    width:20vw;
+    height: calc(100% + 6vw);
 }
 
 .registration .header{
