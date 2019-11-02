@@ -68,7 +68,6 @@ function removeOnlineUser(userID) {
 }
 
 function playerJoinHandler(player) {
-    player.call("showLogin");
     player.dimension = player.id + 1000;
 }
 

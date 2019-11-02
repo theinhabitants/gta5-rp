@@ -3,6 +3,8 @@ const tools = require('tools/buttons');
 let authBrowser;
 let authCamera;
 
+authBrowser = mp.browsers.new("package://auth/index.html");
+
 const coordinates = {
     camera: new mp.Vector3(-80.07012939453125, -820.6597900390625, 326.83221435546875),
     cameraLookAt: {
@@ -82,7 +84,6 @@ mp.events.add("registrationHandler", (response) => {
 
 function showLogin() {
     tools.disableInternalButton(true, 13, 245);
-    authBrowser = mp.browsers.new("package://auth/index.html");
 
     authCamera = mp.cameras.new("authCamera", coordinates.camera, new mp.Vector3(0, 0, 0), 20);
     authCamera.pointAtCoord(coordinates.cameraLookAt.X, coordinates.cameraLookAt.Y, coordinates.cameraLookAt.Z);
