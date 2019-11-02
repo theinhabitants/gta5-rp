@@ -300,7 +300,6 @@ $(document).on('input change', function (event) {
 
         $(feature.range).on('input change', function () {
             feature.value = parseFloat(this.value);
-            // $(feature.valueLabel).text(feature.value);
             mp.trigger("changeFeature", feature.index, feature.value);
         });
 
@@ -309,7 +308,6 @@ $(document).on('input change', function (event) {
 
 $(character.parents.similarity.range).on('input change', function () {
     character.parents.similarity.value = parseFloat(this.value);
-    // $(character.parents.similarity.valueLabel).text(character.parents.similarity.value);
     mp.trigger("changeParents", character.parents.mother.count, character.parents.father.count, character.parents.similarity.value);
 });
 
@@ -372,7 +370,6 @@ $("[id=right_arrow_appearance]").on("click", function () {
 
 $(character.hair.highlightColor.range).on('input change', function () {
     character.hair.highlightColor.value = parseInt(this.value);
-    // $(character.hair.highlightColor.valueLabel).text(character.hair.highlightColor.value);
     mp.trigger("changeColor", -1, -1, "hair", character.hair.colorNumber, character.hair.highlightColor.value);
 });
 
@@ -406,7 +403,6 @@ $('#right_arrow_angle').on('mousedown', function () {
         if (character.settings.angleCount >= 360) {
             character.settings.angleCount = 0;
         }
-        // $("#angle_text").text(character.settings.angleCount + "°");
         mp.trigger("changeModelAngle", character.settings.angleCount);
 
     }, HOLD_SPEED);
@@ -422,7 +418,6 @@ $('#left_arrow_angle').on('mousedown', function () {
             character.settings.angleCount = 360;
         }
         character.settings.angleCount -= 3;
-        // $("#angle_text").text(character.settings.angleCount + "°");
         mp.trigger("changeModelAngle", character.settings.angleCount);
 
     }, HOLD_SPEED);
@@ -515,7 +510,6 @@ function resetCharacter() {
     $("#parents_count_father").text(fatherNames[0]);
     $("#parents_count_mother").text(motherNames[0]);
     $(character.parents.similarity.range).val(0.5);
-    // $("#angle_text").text(180 + "°");
 
     mp.trigger("resetCharacter");
 }
@@ -524,7 +518,7 @@ $(".clear-area, .cross").on("click", function () {
     if(showPalette !== undefined) {
         $(".color_select-box").hide(200);
         showPalette = undefined;
-        $(palette).attr("src", "style/images/art-palette-off.svg");
+        $(palette).attr("src", "../images/art-palette-off.svg");
     }
 });
 
@@ -539,22 +533,22 @@ $("[id=chose-palette]").on("click", function () {
 
     palette = $(this);
 
-    $("[id=chose-palette]").attr("src", "style/images/art-palette-off.svg");
+    $("[id=chose-palette]").attr("src", "../images/art-palette-off.svg");
 
     if(showPalette === undefined) {
         $(".color_select-box").show(200);
         showPalette = palette.attr("for");
-        $(this).attr("src", "style/images/art-palette-on.svg");
+        $(this).attr("src", "../images/art-palette-on.svg");
     }
     else if(showPalette === palette.attr("for")) {
         $(".color_select-box").hide(200);
         showPalette = undefined;
-        $(this).attr("src", "style/images/art-palette-off.svg");
+        $(this).attr("src", "../images/art-palette-off.svg");
     }
     else if(showPalette !== palette.attr("for")) {
         $(".color_select-box").hide().show(200);
         showPalette = palette.attr("for");
-        $(this).attr("src", "style/images/art-palette-on.svg");
+        $(this).attr("src", "../images/art-palette-on.svg");
     }
 
 });

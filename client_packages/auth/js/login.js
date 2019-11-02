@@ -29,7 +29,7 @@ let confirm_password = $("#passwordRegisterRepeat");
 
 let validatePassword = function () {
     if (password[0].value != confirm_password[0].value) {
-        confirm_password[0].setCustomValidity("Passwords Don't Match");
+        confirm_password[0].setCustomValidity("Пароли не совпадают!");
     } else {
         confirm_password[0].setCustomValidity('');
     }

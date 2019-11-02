@@ -2,10 +2,11 @@ const userDao = require("../datasources/dao/userDao");
 const characterDao = require("../datasources/dao/characterDao");
 const encrypt = require("../util/encrypt");
 const logger = require("../logger/logger");
-const chCreation = require("../character/index");
+const characterCreationModule = require("../character/index");
 
 // OnlineUsers represents all online users as map [localID]userObj
 let OnlineUsers = new Map();
+
 mp.events.add("userLogin", async (player, email, password) => {
     let user = await userDao.getByEmail(email);
     if (user === null) {
@@ -25,9 +26,10 @@ mp.events.add("userLogin", async (player, email, password) => {
         return;
     }
 
-    player.name = character.name + " " + character.surname;
     OnlineUsers.set(player.id, user);
-    chCreation.setPlayerSkin(player, character.skin);
+
+    player.name = character.name + " " + character.surname;
+    characterCreationModule.applyCharacterSkin(player, character.skin);
 
     logger.log.info("User %s(%s) successfully authorized", player.name, user.id);
     player.call("loginHandler", ["success"]);
@@ -67,11 +69,9 @@ function removeOnlineUser(userID) {
     OnlineUsers.delete(userID);
 }
 
-function playerJoinHandler(player) {
+mp.events.add("playerJoin", () => {
     player.dimension = player.id + 1000;
-}
-
-mp.events.add("playerJoin", playerJoinHandler);
+});
 
 module.exports.getOnlineUser = getOnlineUser;
 module.exports.removeOnlineUser = removeOnlineUser;

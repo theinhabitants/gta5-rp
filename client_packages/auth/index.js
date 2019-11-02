@@ -1,10 +1,6 @@
-const tools = require('tools/buttons');
+const authBrowser = mp.browsers.new("package://auth/index.html");
 
-let authBrowser;
 let authCamera;
-
-authBrowser = mp.browsers.new("package://auth/index.html");
-
 const coordinates = {
     camera: new mp.Vector3(-80.07012939453125, -820.6597900390625, 326.83221435546875),
     cameraLookAt: {
@@ -13,9 +9,7 @@ const coordinates = {
     playerPos: new mp.Vector3(-75.07012939453125, -820.6597900390625, 326.83221435546875),
 };
 
-mp.events.add("showLogin", () => {
-    showLogin();
-});
+mp.events.add("showLogin", showLoginForm);
 
 mp.events.add("login", (email, pass) => {
     mp.events.callRemote("userLogin", email, pass);
@@ -26,65 +20,52 @@ mp.events.add("registration", (email, pass) => {
 });
 
 mp.events.add("loginHandler", (response) => {
+    if (!authBrowser) return;
+
     switch (response) {
         case "success":
-            if (authBrowser) {
-                mp.events.callRemote("playerSuccessAuth");
-                hideLogin();
-            }
+            mp.events.callRemote("playerSuccessAuth");
+            hideLoginForm();
             break;
         case "wrong-email":
-            if (authBrowser) {
-                authBrowser.execute(`$("#login-wrong-email").show();`);
-                authBrowser.execute(`hide();`);
-                authBrowser.execute(`$("[id=sub]").attr("disabled", false);`);
-            }
+            authBrowser.execute(`$("#login-wrong-email").show();`);
+            authBrowser.execute(`hide();`);
+            authBrowser.execute(`$("[id=sub]").attr("disabled", false);`);
             break;
         case "wrong-password":
-            if (authBrowser) {
-                authBrowser.execute(`$("#login-wrong-password").show(); $('#passsword').val("");`);
-                authBrowser.execute(`hide();`);
-                authBrowser.execute(`$("[id=sub]").attr("disabled", false);`);
-            }
+            authBrowser.execute(`$("#login-wrong-password").show(); $('#passsword').val("");`);
+            authBrowser.execute(`hide();`);
+            authBrowser.execute(`$("[id=sub]").attr("disabled", false);`);
             break;
         case "internal-server-error":
-            if (authBrowser) {
-                authBrowser.execute(`$("#login-server-error").show();`);
-                authBrowser.execute(`hide();`);
-                authBrowser.execute(`$("[id=sub]").attr("disabled", false);`);
-            }
+            authBrowser.execute(`$("#login-server-error").show();`);
+            authBrowser.execute(`hide();`);
+            authBrowser.execute(`$("[id=sub]").attr("disabled", false);`);
             break;
     }
 });
 
 mp.events.add("registrationHandler", (response) => {
+    if (!authBrowser) return;
     switch (response) {
         case "success":
-            if (authBrowser) {
-                hideLogin();
-                mp.events.callRemote("moveToCreationSpace");
-            }
+            hideLoginForm();
+            mp.events.callRemote("movePlayerToCreationSpace");
             break;
         case "email-already-exist":
-            if (authBrowser) {
-                authBrowser.execute(`$("#reg-wrong-email").show();`);
-                authBrowser.execute(`hide();`);
-                authBrowser.execute(`$("#sub").attr("disabled", false);`);
-            }
+            authBrowser.execute(`$("#reg-wrong-email").show();`);
+            authBrowser.execute(`hide();`);
+            authBrowser.execute(`$("#sub").attr("disabled", false);`);
             break;
         case "internal-server-error":
-            if (authBrowser) {
-                authBrowser.execute(`$("#reg-server-error").show();`);
-                authBrowser.execute(`hide();`);
-                authBrowser.execute(`$("#sub").attr("disabled", false);`);
-            }
+            authBrowser.execute(`$("#reg-server-error").show();`);
+            authBrowser.execute(`hide();`);
+            authBrowser.execute(`$("#sub").attr("disabled", false);`);
             break;
     }
 });
 
-function showLogin() {
-    tools.disableInternalButton(true, 13, 245);
-
+function showLoginForm() {
     authCamera = mp.cameras.new("authCamera", coordinates.camera, new mp.Vector3(0, 0, 0), 20);
     authCamera.pointAtCoord(coordinates.cameraLookAt.X, coordinates.cameraLookAt.Y, coordinates.cameraLookAt.Z);
 
@@ -106,8 +87,7 @@ function showLogin() {
     mp.gui.cursor.show(true, true);
 }
 
-function hideLogin() {
-    tools.disableInternalButton(false, 13, 245);
+function hideLoginForm() {
     mp.gui.chat.activate(true);
     mp.gui.chat.show(true);
     mp.game.ui.displayRadar(true);

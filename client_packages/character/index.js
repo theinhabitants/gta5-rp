@@ -8,17 +8,16 @@ let playerCamera;
 
 const DEFAULT_SIMILARITY = 0.5;
 
-mp.events.add('showCreator', () => {
+mp.events.add('showCharacterCreator', (skinJson) => {
     showEditor();
-});
-
-mp.events.add('showEditor', (skinJSON) => {
-    showEditor();
-    characterUI.execute("character = " + skinJSON);
+    if (skinJson) {
+        characterUI.execute("character = " + skinJson);
+    }
 });
 
 mp.events.add('changeHair', (number, gender) => {
-    currentPlayer.setComponentVariation(2, characterData.hairList[gender][number].ID, 0, 2);
+    const hairId = characterData.hairList[gender][number].ID;
+    currentPlayer.setComponentVariation(2, hairId, 0, 2);
 });
 
 mp.events.add('changeZoom', (index) => {
@@ -65,6 +64,7 @@ mp.events.add("saveCharacterInClient", (json) => {
     mp.gui.chat.show(true);
     mp.game.ui.displayRadar(true);
     mp.game.ui.displayHud(true);
+
     currentPlayer.freezePosition(false);
     mp.gui.cursor.show(false, false);
 

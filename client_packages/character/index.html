@@ -1,7 +1,7 @@
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="style/main.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="style/colors.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="css/main.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="css/colors.css" media="screen">
     <meta charset="utf-8"/>
 </head>
 <body>
@@ -13,7 +13,9 @@
         </div>
     </div>
     <div class="content">
-        <span class="text"><p>Упс, что-то пошло не так</p><p>Обратитесь в ТП.</p></span>
+        <span class="text">
+            <p>Упс, что-то пошло не так</p><p>Обратитесь в ТП.</p>
+        </span>
     </div>
     <div class="footer">
             <span class="button_cancel" id="reject_warning">Нет</span>
@@ -22,12 +24,10 @@
 </div>
 <div class="wrapper">
     <div class="creator_box">
-
         <div class="head">
             <div class="title">
                 <h2>Создание персонажа</h2>
             </div>
-
             <div class="section">
                 <span class="animation">
                     <span class="section_button-label color-red">anim</span>
@@ -43,452 +43,360 @@
                 </span>
             </div>
         </div>
-
         <div class="content">
             <div class="parents_page">
-
                 <div class="subject">
-
                     <div class="line">
                         <span class="property-name">Отец</span>
                         <span class="retreat">
                             <span class="property-arrow_left" parent="father" id="left_arrow_parents">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
                             <span class="property-value" id="parents_count_father">Ефрем</span>
                             <span class="property-arrow_right" parent="father" id="right_arrow_parents">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Мать</span>
                         <span class="retreat">
                             <span class="property-arrow_left" parent="mother" id="left_arrow_parents">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
                             <span class="property-value" id="parents_count_mother">Стелла</span>
                             <span class="property-arrow_right" parent="mother" id="right_arrow_parents">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Схожесть</span>
                         <span class="retreat">
-                            <input feature="nose.width" type="range" id="parents_similarity_range" min="0.0" max="1.0"
-                                   step="0.01"
-                                   value="0.5"/>
+                            <input feature="nose.width" type="range" id="parents_similarity_range" min="0.0" max="1.0" step="0.01" value="0.5"/>
                         </span>
                     </div>
-
-
                 </div>
-
                 <div class="subject-gender">
                     <div class="gender">
                         <div class="gender_item">
                         <span id="male" class="gender_chose">
-                            <img src="style/images/gender_male.svg"/>
+                            <img src="images/gender_male.svg"/>
                         </span>
                         </div>
                         <div class="gender_item">
-                        <span id="female" class="gender_chose" style="background: rgb(104,104,104)">
-                            <img src="style/images/gender_female.svg"/>
-                        </span>
+                            <span id="female" class="gender_chose" style="background: rgb(104,104,104)">
+                                <img src="images/gender_female.svg"/>
+                            </span>
                         </div>
                     </div>
                 </div>
-
             </div>
-
             <div class="features_page hide">
-
                 <div class="subject">
-
                     <div class="line">
                         <span class="property-name">Ширина носа</span>
                         <span class="retreat">
                             <input feature="nose.width" type="range" id="nose_width_range" min="-1.0" max="1.0"
                                    step="0.01" value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Высота носа</span>
                         <span class="retreat">
-                            <input feature="nose.height" type="range" id="nose_height_range" min="-1.0" max="1.0"
-                                   step="0.01"
-                                   value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                            <input feature="nose.height" type="range" id="nose_height_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Длина носа</span>
                         <span class="retreat">
-                            <input feature="nose.length" type="range" id="nose_length_range" min="-1.0" max="1.0"
-                                   step="0.01"
-                                   value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                            <input feature="nose.length" type="range" id="nose_length_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Переносица</span>
                         <span class="retreat">
-                             <input feature="nose.bridge" type="range" id="nose_bridge_range" min="-1.0" max="1.0"
-                                    step="0.01"
-                                    value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                             <input feature="nose.bridge" type="range" id="nose_bridge_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Кончик носа</span>
                         <span class="retreat">
-                             <input feature="nose.tip" type="range" id="nose_tip_range" min="-1.0" max="1.0" step="0.01"
-                                    value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                             <input feature="nose.tip" type="range" id="nose_tip_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Сдвиг переносицы</span>
                         <span class="retreat">
-                             <input feature="nose.bridgeShift" type="range" id="nose_bridgeShift_range" min="-1.0" max="1.0" step="0.01"
-                                    value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                             <input feature="nose.bridgeShift" type="range" id="nose_bridgeShift_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Высота бровей</span>
                         <span class="retreat">
-                           <input feature="brow.height" type="range" id="brow_height_range" min="-1.0" max="1.0"
-                                  step="0.01"
-                                  value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                           <input feature="brow.height" type="range" id="brow_height_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Ширина бровей</span>
                         <span class="retreat">
-                           <input feature="brow.width" type="range" id="brow_width_range" min="-1.0" max="1.0"
-                                  step="0.01"
-                                  value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                           <input feature="brow.width" type="range" id="brow_width_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Высота скул</span>
                         <span class="retreat">
-                           <input feature="cheekbone.height" type="range" id="cheekbone_height_range" min="-1.0"
-                                  max="1.0" step="0.01"
-                                  value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                           <input feature="cheekbone.height" type="range" id="cheekbone_height_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Ширина скул</span>
                         <span class="retreat">
-                           <input feature="cheekbone.width" type="range" id="cheekbone_width_range" min="-1.0" max="1.0"
-                                  step="0.01"
-                                  value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                           <input feature="cheekbone.width" type="range" id="cheekbone_width_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Ширина щек</span>
                         <span class="retreat">
-                           <input feature="cheeks.width" type="range" id="cheeks_width_range" min="-1.0" max="1.0"
-                                  step="0.01"
-                                  value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                           <input feature="cheeks.width" type="range" id="cheeks_width_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Глаза</span>
                         <span class="retreat">
-                            <input feature="eyes" type="range" id="eyes_range" min="-1.0" max="1.0" step="0.01"
-                                   value="0"/>
-                            <img for="eyes" color="features.eyes" id="chose-palette" class="color-palette" src="style/images/art-palette-off.svg"/>
+                            <input feature="eyes" type="range" id="eyes_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img for="eyes" color="features.eyes" id="chose-palette" class="color-palette" src="images/art-palette-off.svg"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Размер губей</span>
                         <span class="retreat">
-                            <input feature="lips" type="range" id="lips_range" min="-1.0" max="1.0" step="0.01"
-                                   value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                            <input feature="lips" type="range" id="lips_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Ширина челюсти</span>
                         <span class="retreat">
-                            <input feature="jaw.width" type="range" id="jaw_width_range" min="-1.0" max="1.0"
-                                   step="0.01" value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                            <input feature="jaw.width" type="range" id="jaw_width_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Высота челюсти</span>
                         <span class="retreat">
-                            <input feature="jaw.height" type="range" id="jaw_height_range" min="-1.0" max="1.0"
-                                   step="0.01" value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                            <input feature="jaw.height" type="range" id="jaw_height_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Длина подбородка</span>
                         <span class="retreat">
-                             <input feature="chin.length" type="range" id="chin_length_range" min="-1.0" step="0.01"
-                                    max="1.0"
-                                    value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                             <input feature="chin.length" type="range" id="chin_length_range" min="-1.0" step="0.01" max="1.0" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Позиция подбородка</span>
                         <span class="retreat">
-                            <input feature="chin.position" type="range" id="chin_position_range" min="-1.0" max="1.0"
-                                   step="0.01"
-                                   value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                            <input feature="chin.position" type="range" id="chin_position_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Форма подбородка</span>
                         <span class="retreat">
                             <input feature="chin.shape" type="range" id="chin_shape_range" min="-1.0" max="1.0"
                                    step="0.01" value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Ширина шеи</span>
                         <span class="retreat">
-                            <input feature="neck.width" type="range" id="neck_width_range" min="-1.0" max="1.0"
-                                   step="0.01" value="0"/>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                            <input feature="neck.width" type="range" id="neck_width_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                 </div>
-
             </div>
-
             <div class="appearance_page hide">
-
                 <div class="subject">
-
                     <div class="line">
                         <span class="property-name">Волосы</span>
                         <span class="retreat">
                             <span class="property-arrow_left" id="left_arrow_hair">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
                             <span class="property-value" clear="true" id="hair_number">0</span>
                             <span class="property-arrow_right" id="right_arrow_hair">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
-                            <img for="hair" color="hair" id="chose-palette" class="color-palette" src="style/images/art-palette-off.svg"/>
+                            <img for="hair" color="hair" id="chose-palette" class="color-palette" src="images/art-palette-off.svg"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Пятна</span>
                         <span class="retreat">
                             <span class="property-arrow_left" id="left_arrow_appearance" appearance="blemishes">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
                             <span class="property-value" clear="true" id="appearance_count_blemishes">0</span>
                             <span class="property-arrow_right" id="right_arrow_appearance" appearance="blemishes">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Борода</span>
                         <span class="retreat">
                             <span class="property-arrow_left" id="left_arrow_appearance" appearance="facialHair">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
                             <span class="property-value" clear="true" id="appearance_count_facialHair">0</span>
                             <span class="property-arrow_right" id="right_arrow_appearance" appearance="facialHair">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
-                            <img for="facialHair" color="appearance.facialHair" id="chose-palette" class="color-palette" src="style/images/art-palette-off.svg"/>
+                            <img for="facialHair" color="appearance.facialHair" id="chose-palette" class="color-palette" src="images/art-palette-off.svg"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Брови</span>
                         <span class="retreat">
                             <span class="property-arrow_left" id="left_arrow_appearance" appearance="eyebrows">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
                             <span class="property-value" clear="true" id="appearance_count_eyebrows">0</span>
                             <span class="property-arrow_right" id="right_arrow_appearance" appearance="eyebrows">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
-                            <img for="eyebrows" color="appearance.eyebrows" id="chose-palette" class="color-palette" src="style/images/art-palette-off.svg"/>
+                            <img for="eyebrows" color="appearance.eyebrows" id="chose-palette" class="color-palette" src="images/art-palette-off.svg"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Старость</span>
                         <span class="retreat">
                             <span class="property-arrow_left" id="left_arrow_appearance" appearance="ageing">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
                             <span class="property-value" clear="true" id="appearance_count_ageing">0</span>
                             <span class="property-arrow_right" id="right_arrow_appearance" appearance="ageing">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Румянец</span>
                         <span class="retreat">
                             <span class="property-arrow_left" id="left_arrow_appearance" appearance="blush">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
                             <span class="property-value" clear="true" id="appearance_count_blush">0</span>
                             <span class="property-arrow_right" id="right_arrow_appearance" appearance="blush">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
-                            <img for="blush" color="appearance.blush" id="chose-palette" class="color-palette" src="style/images/art-palette-off.svg"/>
+                            <img for="blush" color="appearance.blush" id="chose-palette" class="color-palette" src="images/art-palette-off.svg"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Оттенок лица</span>
                         <span class="retreat">
                             <span class="property-arrow_left" id="left_arrow_appearance" appearance="complexion">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
                             <span class="property-value" clear="true" id="appearance_count_complexion">0</span>
                             <span class="property-arrow_right" id="right_arrow_appearance" appearance="complexion">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Загар</span>
                         <span class="retreat">
                             <span class="property-arrow_left" id="left_arrow_appearance" appearance="sunDamage">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
                             <span class="property-value" clear="true" id="appearance_count_sunDamage">0</span>
                             <span class="property-arrow_right" id="right_arrow_appearance" appearance="sunDamage">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Веснушки</span>
                         <span class="retreat">
                             <span class="property-arrow_left" id="left_arrow_appearance" appearance="freckles">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
                             <span class="property-value" clear="true" id="appearance_count_freckles">0</span>
                             <span class="property-arrow_right" id="right_arrow_appearance" appearance="freckles">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
-                            <img class="color-palette" src="style/images/clear.png"/>
+                            <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Волосы на груди</span>
                         <span class="retreat">
                             <span class="property-arrow_left" id="left_arrow_appearance" appearance="chestHair">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
                             <span class="property-value" clear="true" id="appearance_count_chestHair">0</span>
                             <span class="property-arrow_right" id="right_arrow_appearance" appearance="chestHair">
-                                <img src="style/images/arrow-point-to-right.svg"/>
+                                <img src="images/arrow-point-to-right.svg"/>
                             </span>
-                            <img for="chestHair" color="appearance.chestHair" id="chose-palette" class="color-palette" src="style/images/art-palette-off.svg"/>
+                            <img for="chestHair" color="appearance.chestHair" id="chose-palette" class="color-palette" src="images/art-palette-off.svg"/>
                         </span>
                     </div>
-
                     <div class="line">
                         <span class="property-name">Высветление волос</span>
                         <span class="retreat">
-                             <input type="range" id="hair_highlightColor_range" min="0" max="100"
-                                    value="50"/>
+                             <input type="range" id="hair_highlightColor_range" min="0" max="100" value="50"/>
                         </span>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
 
         <div class="footer">
-            <span class="button_cancel" id="reset_character">отмена</span>
+            <span class="button_cancel" id="reset_character">скинуть</span>
             <span class="button_save" id="save_character">сохранить</span>
         </div>
-
     </div>
     <div class="color_select-box hide">
-
         <div class="head">
             <span class="cross"></span>
             <div class="title">
                 <h2>Выберите цвет</h2>
             </div>
         </div>
-
         <div class="content">
-
-            <span class="palette-other hide">
-            </span>
-            <span class="palette-eyes hide">
-            </span>
-
+            <span class="palette-other hide"></span>
+            <span class="palette-eyes hide"></span>
         </div>
-
     </div>
 </div>
 <div class="settings">
-
-    <img id="left_arrow_angle" class="arrow_angle" src="style/images/arrow.svg"/>
-    <img class="zoom" src="style/images/zoom.svg"/>
-    <img id="right_arrow_angle" class="arrow_angle right_arrow" src="style/images/arrow.svg"/>
-
+    <img id="left_arrow_angle" class="arrow_angle" src="images/arrow.svg"/>
+    <img class="zoom" src="images/zoom.svg"/>
+    <img id="right_arrow_angle" class="arrow_angle right_arrow" src="images/arrow.svg"/>
 </div>
-
-
+</body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="js/main.js"></script>
-</body>
 </html>
-
-

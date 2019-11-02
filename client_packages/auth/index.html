@@ -4,7 +4,6 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu&display=swap" rel="stylesheet">
 
 <body>
-<!--<iframe class="video-player" width="100%" height="100%" src="http://www.youtube.com/embed/P38r_d0hPSE?autoplay=1&controls=0" frameborder="0"></iframe>-->
 <div class="wrapper">
     <div class="background-dark"></div>
 
@@ -18,8 +17,7 @@
                 </div>
                 <div class="error-box">
                     <b class="alert hide" id="reg-wrong-email">Такой email уже зарегистрирован в системе</b>
-                    <b class="alert hide" id="reg-server-error" style="display: none">Внутренняя ошибка сервера, обратитесь в
-                        ТП</b>
+                    <b class="alert hide" id="reg-server-error" style="display: none">Внутренняя ошибка сервера, обратитесь в ТП</b>
                 </div>
                 <div class="content">
                     <div class="email">
@@ -32,27 +30,30 @@
                         </div>
                     </div>
                     <div class="password">
-                        <input id="passwordRegisterRepeat" type="password" minlength="6" placeholder="повторите пароль"
-                               required/>
-                        <span class="license-accept"><span>Регистрируясь, вы соглашаетесь с условиями</span> <span
-                                class="blue">Лицензионного соглашения</span></span>
+                        <input id="passwordRegisterRepeat" type="password" minlength="6" placeholder="повторите пароль" required/>
+                        <span class="license-accept">
+                            <span>Регистрируясь, вы соглашаетесь с условиями</span>
+                            <span class="blue">Лицензионного соглашения</span>
+                        </span>
                     </div>
                 </div>
                 <div class="footer">
                     <span class="url">
-                    <a id="to-login">уже зарегистрированы?</a>
-            </span>
+                        <a id="to-login">уже зарегистрированы?</a>
+                    </span>
                     <span class="button-login">
-                <input id="sub" type="submit" value="регистрация" align="center"/>
-            </span>
+                        <input id="sub" type="submit" value="регистрация" align="center"/>
+                    </span>
                 </div>
             </div>
         </div>
         <div class="right-side">
-            <img src="css/images/man.png"/>
-            <div class="letters"><p class="first_col">иди</p>
+            <img src="images/man.png"/>
+            <div class="letters">
+                <p class="first_col">иди</p>
                 <p>к</p>
-                <p>мечте</p></div>
+                <p>мечте</p>
+            </div>
         </div>
     </form>
     <form class="authorization" id="form" action="" method="POST">
@@ -60,7 +61,8 @@
             <div class="content-box">
                 <div class="header">
                     <span class="project-name">
-                        <span>Real</span><span class="red">P</span>
+                        <span>Real</span>
+                        <span class="red">P</span>
                     </span>
                     <span class="project-description">выбери свой путь к успеху</span>
                 </div>
@@ -68,8 +70,7 @@
                     <b class="alert" id="login-wrong-email" style="display: none">Указанный e-mail не зарегистрирован в
                         системе</b>
                     <b class="alert" id="login-wrong-password" style="display: none">Указазанный пароль не верный</b>
-                    <b class="alert" id="login-server-error" style="display: none">Внутренняя ошибка сервера, обратитесь в
-                        ТП</b>
+                    <b class="alert" id="login-server-error" style="display: none">Внутренняя ошибка сервера, обратитесь в ТП</b>
                 </div>
                 <div class="content">
                     <div class="email">
@@ -83,27 +84,29 @@
                     </div>
                 </div>
                 <div class="footer">
-            <span class="url">
-                <a href="#">забыл пароль</a>
-            </span>
                     <span class="url">
-                <a id="to-register">регистрация</a>
-            </span>
+                        <a href="#">забыл пароль</a>
+                    </span>
+                    <span class="url">
+                        <a id="to-register">регистрация</a>
+                    </span>
                     <span class="button-login">
-                <input id="sub" type="submit" value="войти" align="center"/>
-            </span>
+                        <input id="sub" type="submit" value="войти" align="center"/>
+                    </span>
                 </div>
             </div>
         </div>
         <div class="right-side">
-            <img src="css/images/woman.png"/>
-            <div class="letters"><p class="first_col">иди</p>
+            <img src="images/woman.png"/>
+            <div class="letters">
+                <p class="first_col">иди</p>
                 <p>к</p>
                 <p>мечте</p></div>
-        </div>
+            </div>
     </form>
 </div>
 </body>
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="js/lodash.js"></script>
 <script type="text/javascript" src="js/login.js"></script>

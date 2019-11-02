@@ -1,21 +1,21 @@
 @font-face {
     font-family: SignPainter-HouseScript;
-    src: url(fonts/SignPainter-HouseScript.otf);
+    src: url(../fonts/SignPainter-HouseScript.otf);
 }
 
 @font-face {
     font-family: Roboto-Bold;
-    src: url(fonts/roboto-bold.ttf);
+    src: url(../fonts/roboto-bold.ttf);
 }
 
 @font-face {
     font-family: Bebas-Neue;
-    src: url(fonts/Bebas-Neue.ttf);
+    src: url(../fonts/Bebas-Neue.ttf);
 }
 
 @font-face {
     font-family: Roboto-Light;
-    src: url(fonts/roboto-light.ttf);
+    src: url(../fonts/roboto-light.ttf);
 }
 
 

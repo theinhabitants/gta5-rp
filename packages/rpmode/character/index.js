@@ -1,12 +1,10 @@
-characterDao = require('../datasources/dao/characterDao');
-userDao = require('../datasources/dao/userDao');
-auth = require('../auth/auth');
-characterData = require('./characterData');
-spawn = require('./characterData');
+const characterDao = require('../datasources/dao/characterDao');
+const auth = require('../auth/auth');
+const characterData = require('./characterData');
 
 
 mp.events.add('saveCharacterInServer', async (player, json) => {
-    setPlayerSkin(player, json);
+    applyCharacterSkin(player, json);
 
     let user = auth.getOnlineUser(player.id);
     let isCharExist = await characterDao.isExist(user.id);
@@ -35,12 +33,12 @@ mp.events.add("changeGenderInServer", (player, number) => {
     player.changedGender = true;
 });
 
-mp.events.add("moveToCreationSpace", (player) => {
+mp.events.add("movePlayerToCreationSpace", (player) => {
     player.model = characterData.freemodeCharacters[0];
 
     movePlayerToCreationSpace(player);
 
-    player.call("showCreator");
+    player.call("showCharacterCreator");
 });
 
 mp.events.addCommand('editskin', async (player) => {
@@ -49,7 +47,7 @@ mp.events.addCommand('editskin', async (player) => {
 
     movePlayerToCreationSpace(player);
 
-    player.call("showEditor", [character.skin]);
+    player.call("showCharacterCreator", [character.skin]);
 });
 
 mp.events.addCommand('setclothes', (player, args) => {
@@ -61,51 +59,50 @@ mp.events.addCommand('setclothes', (player, args) => {
     player.setClothes(firstID, secondID, thirdID, 0);
 });
 
-// setPlayerSkin parse json with skin data and set it to player
-function setPlayerSkin(player, jsonSkin) {
-    let char = JSON.parse(jsonSkin);
+function applyCharacterSkin(player, jsonSkin) {
+    let characterSkin = JSON.parse(jsonSkin);
     let features = [];
     let value;
 
     for (let i = 0; i < characterData.featuresName.length; i++) {
-        value = eval("char.features." + characterData.featuresName[i] + ".value");
+        value = eval("characterSkin.features." + characterData.featuresName[i] + ".value");
         features.push(value);
     }
 
-    const gender = char.sex.gender === 0;
+    const gender = characterSkin.sex.gender === 0;
 
     player.setCustomization(gender,
 
-        characterData.mothers[char.parents.mother.count],
-        characterData.fathers[char.parents.father.count],
+        characterData.mothers[characterSkin.parents.mother.count],
+        characterData.fathers[characterSkin.parents.father.count],
         0,
 
-        characterData.mothers[char.parents.mother.count],
-        characterData.fathers[char.parents.father.count],
+        characterData.mothers[characterSkin.parents.mother.count],
+        characterData.fathers[characterSkin.parents.father.count],
         0,
 
-        char.parents.similarity.value,
-        char.parents.similarity.value,
+        characterSkin.parents.similarity.value,
+        characterSkin.parents.similarity.value,
         0.0,
 
-        char.features.eyes.colorNumber,
-        char.hair.colorNumber,
-        char.hair.highlightColor.value,
+        characterSkin.features.eyes.colorNumber,
+        characterSkin.hair.colorNumber,
+        characterSkin.hair.highlightColor.value,
 
         features
     );
 
-    player.setClothes(2, characterData.hairList[char.sex.gender][char.hair.number].ID, 0, 2);
+    player.setClothes(2, characterData.hairList[characterSkin.sex.gender][characterSkin.hair.number].ID, 0, 2);
 
     let item;
 
     for (let i = 0; i < characterData.appearanceName.length; i++) {
-        item = eval("char.appearance." + characterData.appearanceName[i]);
+        item = eval("characterSkin.appearance." + characterData.appearanceName[i]);
         player.setHeadOverlay(item.index, [item.count, 1, item.colorNumber, 0]);
     }
 
     for (let i = 0; i < 5; i++) {
-        player.setClothes(characterData.creatorClothes[char.sex.gender][i].index, characterData.creatorClothes[char.sex.gender][i].clothes, 0, 2);
+        player.setClothes(characterData.creatorClothes[characterSkin.sex.gender][i].index, characterData.creatorClothes[characterSkin.sex.gender][i].clothes, 0, 2);
     }
 }
 
@@ -125,4 +122,4 @@ function movePlayerToCreationSpace(player) {
     player.changedGender = false;
 }
 
-module.exports.setPlayerSkin = setPlayerSkin;
+module.exports.applyCharacterSkin = applyCharacterSkin;

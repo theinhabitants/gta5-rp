@@ -1,44 +1,35 @@
 @font-face {
     font-family: UniSans-Light;
-    src: url(fonts/UniSans-Light.otf);
+    src: url(../fonts/UniSans-Light.otf);
 }
 @font-face {
     font-family: UniSans-Heavy;
-    src: url(fonts/UniSans-Heavy.otf);
+    src: url(../fonts/UniSans-Heavy.otf);
 }
 @font-face {
     font-family: Ubuntu-Bold;
-    src: url(fonts/ubuntu-bold.ttf);
+    src: url(../fonts/ubuntu-bold.ttf);
 }
 @font-face {
     font-family: Ubuntu-Condensed;
-    src: url(fonts/Ubuntu-Condensed.ttf);
+    src: url(../fonts/Ubuntu-Condensed.ttf);
 }
 @font-face {
     font-family: Ubuntu-Light;
-    src: url(fonts/ubuntu-light.ttf);
+    src: url(../fonts/ubuntu-light.ttf);
 }
 @font-face {
     font-family: Ubuntu-Medium;
-    src: url(fonts/ubuntu-medium.ttf);
+    src: url(../fonts/ubuntu-medium.ttf);
 }
 
 body {
-    /*background: url(images/background.png) no-repeat center center fixed;*/
-    /*background-size: cover; !* Современные браузеры *!*/
     color: #FFFFFF;
     font-size: 0.8vw;
 }
-/*.video-player {*/
-/*    width:100%;*/
-/*    height: 100%;*/
-/*    position: absolute;*/
-/*    left:0;*/
-/*    top:0;*/
-/*    pointer-events: none;*/
-/*}*/
+
 .wrapper{
-    background: transparent url(images/blockbg.png) 0 -5vh no-repeat padding-box;
+    background: transparent url(../images/blockbg.png) 0 -5vh no-repeat padding-box;
     background-size: 102% 115%;
     border-radius: 1vw;
     width:42.5vw;
@@ -54,7 +45,7 @@ body {
     height: 45vh;
     z-index: -1;
     border-radius: 1vw;
-    background: transparent url(images/darken.svg) 0% 0% no-repeat padding-box;
+    background: transparent url(../images/darken.svg) 0 0 no-repeat padding-box;
     position: absolute;
 }
 
@@ -112,7 +103,7 @@ body {
 }
 
 .content input{
-    background: rgba(255, 255, 255, 1) 0% 0% no-repeat padding-box;
+    background: rgba(255, 255, 255, 1) 0 0 no-repeat padding-box;
     width: 16vw;
     height: 4vh;
     font-size: 0.7vw;
@@ -136,11 +127,12 @@ body {
     opacity: 0.3;
     position: relative;
 }
+
 .content .hide-pass input + label:before,
 .content .show-pass input + label:before {
-    content: url(images/hide.png);
+    content: url(../images/hide.png);
     transform: scale(.7);
-    position: absolute;  /* подробнее про position: absolute; */
+    position: absolute;
     top: 0;
     bottom: 1vh;
     right: 1vw;
@@ -148,7 +140,7 @@ body {
 }
 
 .content .show-pass input + label:before {
-    content: url(images/show.png);
+    content: url(../images/show.png);
 }
 
 .content input + label:hover {
@@ -162,7 +154,6 @@ body {
     margin: 0 auto;
 }
 
-
 .footer{
     height: 5vh;
     line-height: 4.5vh;
@@ -170,22 +161,26 @@ body {
     padding: 0.5vw;
     font-size: 0.6vw;
 }
+
 .footer .url{
     float:left;
     margin: 0 0.3vw 0 0.3vw;
 }
+
 .footer .url a{
     font-family: Ubuntu-Light, sans-serif;
     color: rgba(255, 255, 255, 0.4);
     text-decoration: none;
 }
+
 .footer .button-login{
     float: right;
     display: inline-block;
 }
+
 .footer .button-login input[type=submit]{
     font-family: Ubuntu-Bold, sans-serif;
-    background: rgba(211, 22, 73, 1) 0% 0% no-repeat padding-box;
+    background: rgba(211, 22, 73, 1) 0 0 no-repeat padding-box;
     border: none;
     color: white;
     border-radius: 1.8vw;
@@ -209,6 +204,7 @@ body {
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.12);
 }
+
 .right-side .letters p{
     margin-block-start: 1vh;
     margin-block-end: 1vh;
@@ -221,10 +217,12 @@ body {
     bottom: 0;
     left: 59.5%;
 }
+
 .registration .left-side{
     float:right;
     padding-top: 1.5vw;
 }
+
 .registration .right-side{
     float:left;
     text-align: right;
@@ -233,9 +231,9 @@ body {
 .registration .right-side img{
     position: absolute;
     bottom: 0;
-    left: -6vw;
-    width:20vw;
-    height: calc(100% + 6vw);
+    left: -6.5vw;
+    width:22vw;
+    height: calc(100% + 7.8vw);
 }
 
 .registration .header{
