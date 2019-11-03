@@ -69,10 +69,24 @@ function removeOnlineUser(userID) {
     OnlineUsers.delete(userID);
 }
 
-mp.events.add("playerJoin", () => {
+async function getUserGameIDByName(name) {
+    let charObj, charName;
+    for (let [key, value] of OnlineUsers.entries()) {
+        charObj = await characterDao.getByUserID(value.id);
+        charName = charObj.name + " " + charObj.surname;
+
+        if (charName.includes(name)) {
+            return {id: key, name: charName};
+        }
+    }
+    return undefined;
+}
+
+mp.events.add("playerJoin", (player) => {
     player.dimension = player.id + 1000;
 });
 
 module.exports.getOnlineUser = getOnlineUser;
 module.exports.removeOnlineUser = removeOnlineUser;
+module.exports.getUserGameIDByName = getUserGameIDByName;
 

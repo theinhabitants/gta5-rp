@@ -1,7 +1,7 @@
 const characterDao = require('../datasources/dao/characterDao');
 const auth = require('../auth/auth');
 const characterData = require('./characterData');
-
+require('./commands');
 
 mp.events.add('saveCharacterInServer', async (player, json) => {
     applyCharacterSkin(player, json);
@@ -14,8 +14,7 @@ mp.events.add('saveCharacterInServer', async (player, json) => {
         player.position = player.preCreatorPos;
         player.heading = player.preCreatorHeading;
         player.dimension = player.preCreatorDimension;
-    }
-    else {
+    } else {
         let name = "test2" + user.id;
         let surname = "test2" + user.id;
 

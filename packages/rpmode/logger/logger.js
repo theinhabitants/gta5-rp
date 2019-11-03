@@ -24,7 +24,7 @@ log4js.configure({
         },
         file: {
             appenders: ['file'],
-            level: 'trace'
+            level: 'all'
         }
     }
 });
