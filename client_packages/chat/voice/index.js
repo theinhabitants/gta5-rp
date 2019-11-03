@@ -1,58 +1,50 @@
 const BUTTON_G = 71,
     VOICE_CHAT_RANGE = 50.0;
 
-const currentPlayer = mp.players.local;
-const playerPosition = currentPlayer.position;
 
 let listeners = [];
 
-// mp.keys.bind(BUTTON_G, true, function () {
-//     mp.voiceChat.muted = !mp.voiceChat.muted;
-//     mp.gui.chat.push(((!mp.voiceChat.muted) ? "Activated" : "Disabled"));
-// });
-
 setInterval(function () {
-    if(mp.keys.isDown(BUTTON_G) && mp.voiceChat.muted) {
+    let currentPlayer = mp.players.local;
+    let playerPosition = currentPlayer.position;
+
+
+    if (mp.keys.isDown(BUTTON_G) && mp.voiceChat.muted) {
         mp.voiceChat.muted = false;
         mp.gui.chat.push("Activated");
-        mp.players.forEachInRange(playerPosition, VOICE_CHAT_RANGE, (target) => {
-
-            if ( currentPlayer === target || target.alreadyListener) {
-                return 0;
-            }
-
-            const targetPosition = target.position;
-
-            const distance = mp.game.system.vdist(targetPosition.x, targetPosition.y, targetPosition.z, playerPosition.x, playerPosition.y, playerPosition.z);
-
-            listeners.push(target);
-            target.alreadyListener = true;
-            target.voiceVolume = 1 - (distance / VOICE_CHAT_RANGE);
-
-            mp.events.callRemote("enableVoiceChat", target);
-        });
-
-    }
-    else if(mp.keys.isUp(BUTTON_G) && !mp.voiceChat.muted) {
+        currentPlayer.playFacialAnim("mic_chatter", "mp_facial");
+    } else if (mp.keys.isUp(BUTTON_G) && !mp.voiceChat.muted) {
         mp.voiceChat.muted = true;
         mp.gui.chat.push("Disabled");
+        currentPlayer.playFacialAnim("mood_normal_1", "facials@gen_male@variations@normal");
     }
 
+    mp.players.forEachInStreamRange(target => {
+        if (currentPlayer === target || target.alreadyListener) {
+            return 0;
+        }
+        let targetPosition = target.position;
+        let distance = mp.game.system.vdist(playerPosition.x, playerPosition.y, playerPosition.z, targetPosition.x, targetPosition.y, targetPosition.z);
+
+        if (distance <= VOICE_CHAT_RANGE) {
+            listeners.push(target);
+            target.alreadyListener = true;
+            mp.events.callRemote("enableVoiceChat", target);
+
+            target.voice3d = true;
+            target.voiceVolume = 1;
+        }
+    });
+
     listeners.forEach((target) => {
+        let targetPosition = target.position;
+        let distance = mp.game.system.vdist(playerPosition.x, playerPosition.y, playerPosition.z, targetPosition.x, targetPosition.y, targetPosition.z);
 
-        if (target.alreadyListener) {
-
-            const targetPosition = target.position;
-
-            const distance = mp.game.system.vdist(targetPosition.x, targetPosition.y, targetPosition.z, playerPosition.x, playerPosition.y, playerPosition.z);
-
-            if(distance > VOICE_CHAT_RANGE) {
-                disableVoice(target);
-            }
-            else {
-                target.voiceVolume = 1 - (distance / VOICE_CHAT_RANGE);
-            }
-
+        mp.gui.chat.push("DST: " + distance);
+        if (distance > VOICE_CHAT_RANGE) {
+            disableVoice(target);
+        } else {
+            target.voiceVolume = 1 - (distance / VOICE_CHAT_RANGE);
         }
     });
 }, 300);
@@ -68,10 +60,8 @@ function disableVoice(player) {
     mp.events.callRemote("disableVoiceChat", player);
 }
 
-mp.events.add("playerQuit", (player) =>
-{
-    if(player.alreadyListener)
-    {
+mp.events.add("playerQuit", (player) => {
+    if (player.alreadyListener) {
         disableVoice(player);
     }
 });

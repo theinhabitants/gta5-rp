@@ -13,8 +13,8 @@
     "sequelize": "^5.19.6"
   },
   "devDependencies": {
-    "@types/ragemp-c": "https://github.com/CocaColaBear/types-ragemp-c/tarball/master",
-    "@types/ragemp-s": "https://github.com/CocaColaBear/types-ragemp-s/tarball/master",
+    "@types/ragemp-c": "github:CocaColaBear/types-ragemp-c#master",
+    "@types/ragemp-s": "github:CocaColaBear/types-ragemp-s#master",
     "data": "^0.6.1"
   },
   "scripts": {
