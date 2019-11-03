@@ -1,8 +1,8 @@
 const BUTTON_G = 71,
     VOICE_CHAT_RANGE = 50.0;
 
-const player = mp.players.local;
-const playerPosition = player.position;
+const currentPlayer = mp.players.local;
+const playerPosition = currentPlayer.position;
 
 let listeners = [];
 
@@ -15,23 +15,23 @@ setInterval(function () {
     if(mp.keys.isDown(BUTTON_G) && mp.voiceChat.muted) {
         mp.voiceChat.muted = false;
         mp.gui.chat.push("Activated");
-        mp.players.forEachInStreamRange(target =>
-        {
-            if (player === target && !target.isListener) {
+        mp.players.forEachInRange(playerPosition, VOICE_CHAT_RANGE, (target) => {
+
+            if ( currentPlayer === target || target.alreadyListener) {
                 return 0;
             }
+
             const targetPosition = target.position;
 
             const distance = mp.game.system.vdist(targetPosition.x, targetPosition.y, targetPosition.z, playerPosition.x, playerPosition.y, playerPosition.z);
 
-            if(distance <= VOICE_CHAT_RANGE) {
-                listeners.push(target);
-                target.isListener = true;
-                target.voiceVolume = 1 - (distance / VOICE_CHAT_RANGE);
+            listeners.push(target);
+            target.alreadyListener = true;
+            target.voiceVolume = 1 - (distance / VOICE_CHAT_RANGE);
 
-                mp.events.callRemote("enableVoiceChat", target);
-            }
+            mp.events.callRemote("enableVoiceChat", target);
         });
+
     }
     else if(mp.keys.isUp(BUTTON_G) && !mp.voiceChat.muted) {
         mp.voiceChat.muted = true;
@@ -40,7 +40,7 @@ setInterval(function () {
 
     listeners.forEach((target) => {
 
-        if (target.isListener) {
+        if (target.alreadyListener) {
 
             const targetPosition = target.position;
 
