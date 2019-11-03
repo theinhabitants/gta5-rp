@@ -64,13 +64,13 @@ function disableVoice(player) {
         listeners.splice(idx, 1);
     }
 
-    player.isListener = false;
+    player.alreadyListener = false;
     mp.events.callRemote("disableVoiceChat", player);
 }
 
 mp.events.add("playerQuit", (player) =>
 {
-    if(player.isListener)
+    if(player.alreadyListener)
     {
         disableVoice(player);
     }
