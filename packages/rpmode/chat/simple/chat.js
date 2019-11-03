@@ -1,4 +1,4 @@
-auth = require("../auth/auth");
+auth = require("../../auth/auth");
 require("./commands");
 
 mp.events.add("playerChat", (player, message) => {

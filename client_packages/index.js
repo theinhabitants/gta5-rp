@@ -1,4 +1,5 @@
-require('./chat');
+require('./chat/simple');
+require('./chat/voice');
 require('./noclip');
 require('./character');
 require('./camera');

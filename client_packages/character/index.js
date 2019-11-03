@@ -70,8 +70,8 @@ mp.events.add("changeAppearance", (index, count, color) => {
 
 mp.events.add("saveCharacterInClient", (json) => {
     utils.fadeScreen(() => {
-        mp.events.callRemote("saveCharacterInServer", json);
         hideEditor();
+        mp.events.callRemote("saveCharacterInServer", json);
     }, 1000);
 });
 

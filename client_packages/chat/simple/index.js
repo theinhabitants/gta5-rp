@@ -1,4 +1,4 @@
-mp.gui.execute("window.location = 'package://chat/index.html'");
+mp.gui.execute("window.location = 'package://chat/simple/index.html'");
 
 const utils = require('utils');
 
