@@ -11,7 +11,6 @@ mp.events.add('saveCharacterInServer', async (player, json) => {
 
     if (isCharExist) {
         await characterDao.updateSkin(json, user.id);
-        player.heading = player.preCreatorHeading;
         player.dimension = player.preCreatorDimension;
     } else {
         let name = "test2" + user.id;
@@ -28,7 +27,6 @@ mp.events.add("changeGenderInServer", (player, number) => {
     player.position = characterData.creatorPlayerPos;
     player.heading = characterData.creatorPlayerHeading;
     player.call("changeHead", [number]);
-    player.changedGender = true;
 });
 
 mp.events.add("movePlayerToCreationSpace", (player) => {
@@ -36,7 +34,7 @@ mp.events.add("movePlayerToCreationSpace", (player) => {
 
     movePlayerToCreationSpace(player);
 
-    player.call("showCharacterCreator");
+    player.call("showCharacterCreator", [false]);
 });
 
 mp.events.addCommand('editskin', async (player) => {
@@ -105,17 +103,13 @@ function applyCharacterSkin(player, jsonSkin) {
 }
 
 function movePlayerToCreationSpace(player) {
-    player.preCreatorHeading = player.heading;
     player.preCreatorDimension = player.dimension;
+
+    player.dimension = player.id + 1000;
 
     for (let i = 0; i < 5; i++) {
         player.setClothes(characterData.creatorClothes[0][i].index, characterData.creatorClothes[0][i].clothes, 0, 2);
     }
-
-    player.heading = characterData.creatorPlayerHeading;
-    player.dimension = player.id + 1000;
-    player.usingCreator = true;
-    player.changedGender = false;
 }
 
 module.exports.applyCharacterSkin = applyCharacterSkin;

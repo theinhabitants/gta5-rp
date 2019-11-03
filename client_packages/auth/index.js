@@ -49,8 +49,8 @@ mp.events.add("registrationHandler", (response) => {
     if (!authBrowser) return;
     switch (response) {
         case "success":
-            hideLoginForm();
             mp.events.callRemote("movePlayerToCreationSpace");
+            hideLoginForm();
             break;
         case "email-already-exist":
             authBrowser.execute(`$("#reg-wrong-email").show();`);

@@ -7,15 +7,21 @@ let currentPlayer = mp.players.local;
 
 let playerCamera;
 
+let isEdit = false;
+
 const DEFAULT_SIMILARITY = 0.5;
 
 mp.events.add('showCharacterCreator', (skinJson) => {
-    utils.fadeScreen(() => {
-        showEditor();
-        if (skinJson) {
+    if (skinJson) {
+        utils.fadeScreen(() => {
+            showEditor();
+            isEdit = true;
             characterUI.execute("character = " + skinJson);
-        }
-    }, 1000);
+        }, 1000);
+    }
+    else {
+        showEditor();
+    }
 });
 
 mp.events.add('changeHair', (number, gender) => {
@@ -63,9 +69,10 @@ mp.events.add("changeAppearance", (index, count, color) => {
 });
 
 mp.events.add("saveCharacterInClient", (json) => {
-    mp.events.callRemote("saveCharacterInServer", json);
-
-    utils.fadeScreen(() => hideEditor(), 1000);
+    utils.fadeScreen(() => {
+        mp.events.callRemote("saveCharacterInServer", json);
+        hideEditor();
+    }, 1000);
 });
 
 mp.events.add("changeParents", (mother, father, similarity) => {
@@ -99,8 +106,6 @@ function setCamera(name, vector, X, Y, Z, fov) {
 }
 
 function hideEditor() {
-    currentPlayer.position = currentPlayer.preCreatorPos;
-
     mp.gui.chat.activate(true);
     mp.gui.chat.show(true);
     mp.game.ui.displayRadar(true);
@@ -113,12 +118,20 @@ function hideEditor() {
     playerCamera.destroy(true);
 
     mp.game.cam.renderScriptCams(false, false, 0, true, false);
+
+    if(isEdit) {
+        currentPlayer.position = currentPlayer.preCreatorPos;
+        currentPlayer.setHeading(currentPlayer.preCreatorHeading);
+        isEdit = false;
+    }
 }
 
 function showEditor() {
     currentPlayer.preCreatorPos = currentPlayer.position;
+    currentPlayer.preCreatorHeading = currentPlayer.getHeading();
 
     currentPlayer.position = characterData.creatorPlayerPos;
+    currentPlayer.setHeading(characterData.creatorPlayerHeading);
 
     characterUI = mp.browsers.new("package://character/index.html");
 

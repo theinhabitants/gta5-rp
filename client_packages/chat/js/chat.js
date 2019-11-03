@@ -103,11 +103,11 @@ $(document).ready(function () {
                         if (value[0] === "/") {
                             value = value.substr(1);
 
-                            if (value.length > 0 && value.length <= 100)
-                                mp.invoke("command", value);
+                           if (value.length > 0 && value.length <= 100)
+                               mp.invoke("command", value);
                         } else {
                             if (value.length <= 100)
-                                mp.invoke("chatMessage", value);
+                               mp.invoke("chatMessage", value);
                         }
                     }
                     enableChatInput(false);
@@ -123,6 +123,7 @@ $(document).ready(function () {
                 }
 
                 case BUTTON_ARROW_UP: {
+                    event.preventDefault();
                     if (chat.input.children("input").is(":focus")) {
                         number--;
                         if (number < 0) {
@@ -134,6 +135,7 @@ $(document).ready(function () {
                 }
 
                 case BUTTON_ARROW_DOWN: {
+                    event.preventDefault();
                     if (chat.input.children("input").is(":focus")) {
                         number++;
                         if (number > chat.previous.length) {
