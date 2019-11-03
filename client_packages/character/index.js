@@ -1,4 +1,5 @@
-characterData = require('character/js/characterData');
+const characterData = require('character/js/characterData');
+const utils = require('utils');
 
 let characterUI;
 
@@ -9,10 +10,12 @@ let playerCamera;
 const DEFAULT_SIMILARITY = 0.5;
 
 mp.events.add('showCharacterCreator', (skinJson) => {
-    showEditor();
-    if (skinJson) {
-        characterUI.execute("character = " + skinJson);
-    }
+    utils.fadeScreen(() => {
+        showEditor();
+        if (skinJson) {
+            characterUI.execute("character = " + skinJson);
+        }
+    }, 1000);
 });
 
 mp.events.add('changeHair', (number, gender) => {
@@ -60,21 +63,9 @@ mp.events.add("changeAppearance", (index, count, color) => {
 });
 
 mp.events.add("saveCharacterInClient", (json) => {
-    mp.gui.chat.activate(true);
-    mp.gui.chat.show(true);
-    mp.game.ui.displayRadar(true);
-    mp.game.ui.displayHud(true);
-
-    currentPlayer.freezePosition(false);
-    mp.gui.cursor.show(false, false);
-
     mp.events.callRemote("saveCharacterInServer", json);
 
-    characterUI.destroy();
-    playerCamera.destroy(true);
-
-    mp.game.cam.renderScriptCams(false, true, 600, true, false);
-
+    utils.fadeScreen(() => hideEditor(), 1000);
 });
 
 mp.events.add("changeParents", (mother, father, similarity) => {
@@ -107,7 +98,28 @@ function setCamera(name, vector, X, Y, Z, fov) {
     playerCamera.pointAtCoord(X, Y, Z);
 }
 
+function hideEditor() {
+    currentPlayer.position = currentPlayer.preCreatorPos;
+
+    mp.gui.chat.activate(true);
+    mp.gui.chat.show(true);
+    mp.game.ui.displayRadar(true);
+    mp.game.ui.displayHud(true);
+
+    currentPlayer.freezePosition(false);
+    mp.gui.cursor.show(false, false);
+
+    characterUI.destroy();
+    playerCamera.destroy(true);
+
+    mp.game.cam.renderScriptCams(false, false, 0, true, false);
+}
+
 function showEditor() {
+    currentPlayer.preCreatorPos = currentPlayer.position;
+
+    currentPlayer.position = characterData.creatorPlayerPos;
+
     characterUI = mp.browsers.new("package://character/index.html");
 
     playerCamera = mp.cameras.new("creatorCamera", characterData.cameraCoords[1].camera, new mp.Vector3(0, 0, 0), characterData.cameraCoords[1].fov);

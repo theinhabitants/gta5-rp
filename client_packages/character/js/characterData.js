@@ -88,6 +88,8 @@ const hairList = [
 const fathers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 42, 43, 44];
 const mothers = [21, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 45];
 
+const creatorPlayerPos = new mp.Vector3(402.8664, -996.4108, -99.00027);
+
 const creatorClothes = [
     [{index: 3, clothes: 15}, {index: 11, clothes: 15}, {index: 8, clothes: 15}, {index: 4, clothes: 14}, {
         index: 6,
@@ -127,6 +129,7 @@ exports = {
     hairList : hairList,
     creatorClothes : creatorClothes,
     fathers : fathers,
+    creatorPlayerPos: creatorPlayerPos,
     mothers : mothers,
     cameraCoords : cameraCoords
 };

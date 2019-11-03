@@ -11,6 +11,16 @@ function disableInternalButton(val, groupId, buttonId){
     }
 }
 
+function fadeScreen(afterFade, time){
+    mp.game.cam.doScreenFadeOut(time);
+    setTimeout(() =>{
+        mp.game.cam.doScreenFadeIn(time);
+        afterFade();
+    }, time);
+}
+
+
 exports = {
-    disableInternalButton: disableInternalButton
+    disableInternalButton: disableInternalButton,
+    fadeScreen:fadeScreen
 };
