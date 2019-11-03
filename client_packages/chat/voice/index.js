@@ -6,10 +6,10 @@ const playerPosition = player.position;
 
 let listeners = [];
 
-mp.keys.bind(BUTTON_G, true, function () {
-    mp.voiceChat.muted = !mp.voiceChat.muted;
-    mp.gui.chat.push(((!mp.voiceChat.muted) ? "Activated" : "Disabled"));
-});
+// mp.keys.bind(BUTTON_G, true, function () {
+//     mp.voiceChat.muted = !mp.voiceChat.muted;
+//     mp.gui.chat.push(((!mp.voiceChat.muted) ? "Activated" : "Disabled"));
+// });
 
 setInterval(function () {
     if(mp.keys.isDown(BUTTON_G) && mp.voiceChat.muted === true) {
