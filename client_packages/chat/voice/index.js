@@ -12,11 +12,11 @@ let listeners = [];
 // });
 
 setInterval(function () {
-    if(mp.keys.isDown(BUTTON_G) && mp.voiceChat.muted === true) {
+    if(mp.keys.isDown(BUTTON_G) && mp.voiceChat.muted) {
         mp.voiceChat.muted = false;
         mp.gui.chat.push("Activated");
         mp.players.forEachInRange(player.position, VOICE_CHAT_RANGE, (target) => {
-            if (player.dimension !== target.dimension || player === target || target.isListener) {
+            if  player === target) {
                 return 0;
             }
 
@@ -31,7 +31,7 @@ setInterval(function () {
             mp.events.callRemote("enableVoiceChat", target);
         });
     }
-    else if(mp.keys.isUp(BUTTON_G) && mp.voiceChat.muted === false) {
+    else if(mp.keys.isUp(BUTTON_G) && !mp.voiceChat.muted) {
         mp.voiceChat.muted = true;
         mp.gui.chat.push("Disabled");
     }
