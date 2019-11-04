@@ -4,6 +4,7 @@ require('./noclip');
 require('./character');
 require('./camera');
 require('./auth');
+require('./player/nametags');
 
 let isClicked = false;
 

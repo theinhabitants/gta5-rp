@@ -9,5 +9,5 @@ mp.events.add("playerChat", (player, message) => {
 
     let str = "!{white}" + player.name + id + ": " + message;
 
-    mp.players.broadcastInRange(player.position, 25, str);
+    mp.players.broadcastInRange(player.position, 26, str);
 });

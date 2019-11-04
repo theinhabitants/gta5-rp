@@ -1,5 +1,5 @@
 const BUTTON_G = 71,
-    VOICE_CHAT_RANGE = 50.0;
+    VOICE_CHAT_RANGE = 26.0;
 
 
 let listeners = [];
@@ -32,7 +32,7 @@ setInterval(function () {
             mp.events.callRemote("enableVoiceChat", target);
 
             target.voice3d = true;
-            target.voiceVolume = 1;
+            target.voiceVolume = 1.0;
         }
     });
 
@@ -40,7 +40,6 @@ setInterval(function () {
         let targetPosition = target.position;
         let distance = mp.game.system.vdist(playerPosition.x, playerPosition.y, playerPosition.z, targetPosition.x, targetPosition.y, targetPosition.z);
 
-        mp.gui.chat.push("DST: " + distance);
         if (distance > VOICE_CHAT_RANGE) {
             disableVoice(target);
         } else {
@@ -64,4 +63,15 @@ mp.events.add("playerQuit", (player) => {
     if (player.alreadyListener) {
         disableVoice(player);
     }
+});
+
+// Using for enable 3D voice
+mp.events.add('playerStartTalking', (player) => {
+    player.voice3d = true;
+    player.playFacialAnim("mic_chatter", "mp_facial");
+
+});
+
+mp.events.add('playerStopTalking', (player) => {
+    player.playFacialAnim("mood_normal_1", "facials@gen_male@variations@normal");
 });

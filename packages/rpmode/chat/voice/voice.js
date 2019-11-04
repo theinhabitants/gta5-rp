@@ -1,8 +1,5 @@
-const VOICE_CHAT_RANGE = 50;
-
 mp.events.add('enableVoiceChat', (player, target) => {
     if(target) {
-        target.outputChatBox("xui");
         player.enableVoiceTo(target);
     }
 });
