@@ -262,52 +262,58 @@ const SAVE_MESSAGE = "<p>Вы точно хотите продолжить?</p> 
 const RESET_MESSAGE = "<p>Вы точно хотите сбросить все настройки?</p>";
 
 const HOLD_SPEED = 100;
+
 let holdInButton = 0;
 let currentPage = "parents_page";
 let palette;
 let showPalette;
 
 $(document).ready(function () {
-    for(let i = 0; i < 64; i ++) {
-        $(".palette-other").append("<span id='select_color' color-index='"+ i +"' class='color palette_color-" + i + "'></span>");
-    }
-    for(let i = 0; i < 26; i ++) {
-        $(".palette-eyes").append("<span id='select_color' color-index='"+ i +"' class='color palette_color-eyes-" + i + "'></span>");
-    }
+    connectSliders();
+    loadColors();
 });
 
 $("[id=menu_button-anim]").on("click", function () {
-    if(currentPage === $(this).attr("page")) {
+    const page = $(this).attr("page");
+
+    if (currentPage === page) {
         return 1;
     }
-    const position = 6.28 * $(this).attr("number");
 
-    currentPage = $(this).attr("page");
-    $(".parents_page, .features_page, .appearance_page").hide(200);
-    $("." + $(this).attr("page")).show(200);
+    const
+        pageNumber = $(this).attr("number"),
+        allPages = ".parents_page, .features_page, .appearance_page",
+        position = 6.28 * pageNumber;
+
+    currentPage = page;
+
+    $(".content").scrollTop(0);
+    $(allPages).hide(200);
+    $("." + page).show(200);
+
     $(".animation").css({"transform": "translate(" + position + "vw)", "transition": "all .20s ease-out"});
 });
 
-$('input[type="range"]').on('input', function () {
-    const percent = Math.ceil(((this.value - this.min) / (this.max - this.min)) * 100);
-    $(this).css('background', '-webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) ' + percent + '%, rgba(211, 22, 73,0.3) ' + percent + '%)');
+$('[class=slider]').on('slide', function (e, range) {
+    const
+        min = $(this).slider("option", "min"),
+        max = $(this).slider("option", "max"),
+        percent = Math.ceil(((range.value - min) / (max - min)) * 100);
+
+    $(this).css('background' , '-webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) ' + percent + '%, rgba(211, 22, 73,0.3) ' + percent + '%)');
 });
 
-$(document).on('input change', function (event) {
-    if ($(event.target).attr("feature") != null) {
+$('[slider=feature_slider]').on('slide', function (event, range) {
+    const
+        feature = $(event.target).attr("feature"),
+        featureObject = eval("character.features." + feature);
 
-        let feature = eval("character.features." + $(event.target).attr("feature"));
-
-        $(feature.range).on('input change', function () {
-            feature.value = parseFloat(this.value);
-            mp.trigger("changeFeature", feature.index, feature.value);
-        });
-
-    }
+    featureObject.value = parseFloat(range.value);
+    mp.trigger("changeFeature", featureObject.index, featureObject.value);
 });
 
-$(character.parents.similarity.range).on('input change', function () {
-    character.parents.similarity.value = parseFloat(this.value);
+$(character.parents.similarity.range).on('slide', function (e, range) {
+    character.parents.similarity.value = parseFloat(range.value);
     mp.trigger("changeParents", character.parents.mother.count, character.parents.father.count, character.parents.similarity.value);
 });
 
@@ -368,8 +374,8 @@ $("[id=right_arrow_appearance]").on("click", function () {
     mp.trigger("changeAppearance", appearance.index, appearance.count, appearance.colorNumber);
 });
 
-$(character.hair.highlightColor.range).on('input change', function () {
-    character.hair.highlightColor.value = parseInt(this.value);
+$(character.hair.highlightColor.range).on('slide', function (e, range) {
+    character.hair.highlightColor.value = parseInt(range.value);
     mp.trigger("changeColor", -1, -1, "hair", character.hair.colorNumber, character.hair.highlightColor.value);
 });
 
@@ -515,7 +521,7 @@ function resetCharacter() {
 }
 
 $(".clear-area, .cross").on("click", function () {
-    if(showPalette !== undefined) {
+    if (showPalette !== undefined) {
         $(".color_select-box").hide(200);
         showPalette = undefined;
         $(palette).attr("src", "../images/art-palette-off.svg");
@@ -524,10 +530,9 @@ $(".clear-area, .cross").on("click", function () {
 
 $("[id=chose-palette]").on("click", function () {
     $(".palette-eyes, .palette-other").hide();
-    if($(this).attr("for") === "eyes") {
+    if ($(this).attr("for") === "eyes") {
         $(".palette-eyes").show();
-    }
-    else {
+    } else {
         $(".palette-other").show();
     }
 
@@ -535,17 +540,15 @@ $("[id=chose-palette]").on("click", function () {
 
     $("[id=chose-palette]").attr("src", "../images/art-palette-off.svg");
 
-    if(showPalette === undefined) {
+    if (showPalette === undefined) {
         $(".color_select-box").show(200);
         showPalette = palette.attr("for");
         $(this).attr("src", "../images/art-palette-on.svg");
-    }
-    else if(showPalette === palette.attr("for")) {
+    } else if (showPalette === palette.attr("for")) {
         $(".color_select-box").hide(200);
         showPalette = undefined;
         $(this).attr("src", "../images/art-palette-off.svg");
-    }
-    else if(showPalette !== palette.attr("for")) {
+    } else if (showPalette !== palette.attr("for")) {
         $(".color_select-box").hide().show(200);
         showPalette = palette.attr("for");
         $(this).attr("src", "../images/art-palette-on.svg");
@@ -554,13 +557,40 @@ $("[id=chose-palette]").on("click", function () {
 });
 
 
-$('.palette-other, .palette-eyes').on('click', "[id=select_color]", function() {
+$('.palette-other, .palette-eyes').on('click', "[id=select_color]", function () {
     let color = eval("character." + palette.attr("color"));
     color.colorNumber = parseInt($(this).attr("color-index"));
     $(this).fadeOut('fast', 'linear').fadeIn('fast', 'linear');
     mp.trigger("changeColor", color.index, color.count, palette.attr("for"), color.colorNumber, character.hair.highlightColor.value);
 });
 
+function connectSliders() {
+    $(character.parents.similarity.range).slider({
+        min: 0.0,
+        max: 1.0,
+        step: 0.01,
+        value: 0.5
+    });
 
+    $("[slider=feature_slider]").slider({
+        min: -1.0,
+        max: 1.0,
+        step: 0.01,
+        value: 0
+    });
 
+    $(character.hair.highlightColor.range).slider({
+        min: 0,
+        max: 100,
+        value: 50
+    });
+}
 
+function loadColors() {
+    for (let i = 0; i < 64; i++) {
+        $(".palette-other").append("<span id='select_color' color-index='" + i + "' class='color palette_color-" + i + "'></span>");
+    }
+    for (let i = 0; i < 26; i++) {
+        $(".palette-eyes").append("<span id='select_color' color-index='" + i + "' class='color palette_color-eyes-" + i + "'></span>");
+    }
+}

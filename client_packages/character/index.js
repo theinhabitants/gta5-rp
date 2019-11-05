@@ -20,7 +20,7 @@ mp.events.add('showCharacterCreator', (skinJson) => {
         }, 1000);
     }
     else {
-        showEditor();
+            showEditor();
     }
 });
 
@@ -69,6 +69,8 @@ mp.events.add("changeAppearance", (index, count, color) => {
 });
 
 mp.events.add("saveCharacterInClient", (json) => {
+    characterUI.destroy();
+    mp.gui.cursor.show(false, false);
     utils.fadeScreen(() => {
         mp.events.callRemote("saveCharacterInServer", json);
         hideEditor();
@@ -112,9 +114,7 @@ function hideEditor() {
     mp.game.ui.displayHud(true);
 
     currentPlayer.freezePosition(false);
-    mp.gui.cursor.show(false, false);
 
-    characterUI.destroy();
     playerCamera.destroy(true);
 
     mp.game.cam.renderScriptCams(false, false, 0, true, false);

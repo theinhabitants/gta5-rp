@@ -338,12 +338,12 @@ body {
     margin-top: -0.7vh !important;
 }
 
-.features_page .retreat input[type='range'] {
+.features_page .retreat .slider {
     width: 7.5vw !important;
 }
 
 .features_page .line .color-palette {
-    margin-left: 0.3vw !important;
+    margin-left: 0.4vw !important;
 }
 
 .appearance_page .property-name {
@@ -354,7 +354,7 @@ body {
     width: 3vw !important;
 }
 
-.appearance_page .retreat input[type='range'] {
+.appearance_page .retreat .slider {
     width: 9vw !important;
 }
 
@@ -411,26 +411,24 @@ body {
     height: 6vh;
 }
 
-.line .retreat input[type='range'] {
+
+.line .retreat .slider {
+    display: inline-block;
     margin-top: 2.8vh;
+    border: none;
     -webkit-appearance: none;
     width: 10vw;
     border-radius: 4vw;
     height: 0.5vh;
     background: -webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73, 0.3) 50%);
 }
-
-
-.line .retreat input[type='range']::-webkit-slider-thumb {
-    -webkit-appearance: none !important;
+.slider .ui-slider-handle {
     border-radius: 100%;
-    background-color: rgb(211, 22, 73);
+    background: rgb(211, 22, 73);
+    border: none;
+    outline: none;
     height: 1vw;
     width: 1vw;
-}
-
-input[type=range]:focus {
-    outline: none;
 }
 
 .content::-webkit-scrollbar {
