@@ -272,10 +272,13 @@ let currentPage = "parents_page";
 let palette;
 let showPalette;
 
+
 $(document).ready(function () {
     connectSliders();
     loadColors();
 });
+
+
 
 $("[id=menu_button-anim]").on("click", function () {
     const page = $(this).attr("page");
@@ -297,6 +300,8 @@ $("[id=menu_button-anim]").on("click", function () {
 
     $(".animation").css({"transform": "translate(" + position + "vw)", "transition": "all .20s ease-out"});
 });
+
+
 
 $('[class=slider]').on('slide', function (e, range) {
     const
@@ -320,6 +325,9 @@ $(character.parents.similarity.range).on('slide', function (e, range) {
     character.parents.similarity.value = parseFloat(range.value);
     mp.trigger("changeParents", character.parents.mother.count, character.parents.father.count, character.parents.similarity.value);
 });
+
+
+
 
 $("[id=left_arrow_parents]").on("click", function () {
     const
@@ -353,6 +361,8 @@ $("[id=right_arrow_parents]").on("click", function () {
     mp.trigger("changeParents", character.parents.mother.count, character.parents.father.count, character.parents.similarity.value, character.sex.gender);
 });
 
+
+
 $(".zoom").on("click", function () {
     zoomCount++;
 
@@ -362,6 +372,8 @@ $(".zoom").on("click", function () {
 
     mp.trigger("changeZoom", zoomCount);
 });
+
+
 
 $("[id=left_arrow_appearance]").on("click", function () {
     const
@@ -393,10 +405,14 @@ $("[id=right_arrow_appearance]").on("click", function () {
     mp.trigger("changeAppearance", appearanceObject.index, appearance.count, appearanceObject.colorNumber);
 });
 
+
+
 $(character.hair.highlightColor.range).on('slide', function (e, range) {
     character.hair.highlightColor.value = parseInt(range.value);
     mp.trigger("changeColor", -1, -1, "hair", character.hair.colorNumber, character.hair.highlightColor.value);
 });
+
+
 
 $("#left_arrow_hair").on("click", function () {
     let hair = character.hair;
@@ -424,6 +440,8 @@ $("#right_arrow_hair").on("click", function () {
     mp.trigger("changeHair", hair.number, character.sex.gender);
 });
 
+
+
 $('#right_arrow_angle').on('mousedown', function () {
     holdInButton = setInterval(function () {
 
@@ -431,6 +449,7 @@ $('#right_arrow_angle').on('mousedown', function () {
         if (character.settings.angleCount >= 360) {
             character.settings.angleCount = 0;
         }
+
         mp.trigger("changeModelAngle", character.settings.angleCount);
 
     }, HOLD_SPEED);
@@ -448,6 +467,7 @@ $('#left_arrow_angle').on('mousedown', function () {
             character.settings.angleCount = 360;
         }
         character.settings.angleCount -= 3;
+
         mp.trigger("changeModelAngle", character.settings.angleCount);
 
     }, HOLD_SPEED);
@@ -459,27 +479,35 @@ $('#left_arrow_angle').on('mousedown', function () {
     clearInterval(holdInButton);
 });
 
+
+
 $('#male').on("click", function () {
+    const warningText = ".warning .content .text";
+
     if (character.sex.gender === 0) {
         return 1;
     }
 
-    $(".warning .content .text").html(CHANGE_GENDER_MESSAGE);
+    $(warningText).html(CHANGE_GENDER_MESSAGE);
 
     $(".warning").fadeIn('slow', 'linear');
     $("#accept_warning").attr("response", "male");
 });
 
 $('#female').on("click", function () {
+    const warningText = ".warning .content .text";
+
     if (character.sex.gender === 1) {
         return 1;
     }
 
-    $(".warning .content .text").html(CHANGE_GENDER_MESSAGE);
+    $(warningText).html(CHANGE_GENDER_MESSAGE);
 
     $(".warning").fadeIn('slow', 'linear');
     $("#accept_warning").attr("response", "female");
 });
+
+
 
 $("#reject_warning").on("click", function () {
 
@@ -525,20 +553,90 @@ $("#accept_warning").on("click", function () {
     $(".warning").fadeOut('slow', 'linear');
 });
 
-$("#reset_character").on("click", function () {
 
-    $(".warning .content .text").html(RESET_MESSAGE);
+
+$("#reset_character").on("click", function () {
+    const warningText = ".warning .content .text";
+
+    $(warningText).html(RESET_MESSAGE);
 
     $(".warning").fadeIn('slow', 'linear');
     $("#accept_warning").attr("response", "reset");
 });
 
 $("#save_character").on("click", function () {
+    const warningText = ".warning .content .text";
 
-    $(".warning .content .text").html(SAVE_MESSAGE);
+    $(warningText).html(SAVE_MESSAGE);
 
     $(".warning").fadeIn('slow', 'linear');
     $("#accept_warning").attr("response", "save");
+});
+
+
+
+$('.palette-other, .palette-eyes').on('click', "[id=select_color]", function () {
+    const
+        paletteColor = palette.attr("color"),
+        colorIndex = $(this).attr("color-index"),
+        colorObject = eval("character." + paletteColor);
+
+    colorObject.colorNumber = parseInt(colorIndex);
+
+    $(this).fadeOut('fast', 'linear').fadeIn('fast', 'linear');
+
+    mp.trigger("changeColor", colorObject.index, colorObject.count, palette.attr("for"), colorObject.colorNumber, character.hair.highlightColor.value);
+});
+
+$(".clear-area, .cross").on("click", function () {
+    if (showPalette !== undefined) {
+        $(".color_select-box").hide(200);
+
+        showPalette = undefined;
+        $(palette).attr("src", "../images/art-palette-off.svg");
+
+    }
+});
+
+$("[id=chose-palette]").on("click", function () {
+    const
+        thisPalette = $(this).attr("for"),
+        attributePalette = palette.attr("for"),
+        imagePaletteOn = "../images/art-palette-on.svg",
+        imagePaletteOff = "../images/art-palette-off.svg";
+
+    $(".palette-eyes, .palette-other").hide();
+
+    if (thisPalette === "eyes") {
+        $(".palette-eyes").show();
+    }
+    else {
+        $(".palette-other").show();
+    }
+
+    palette = $(this);
+
+    $("[id=chose-palette]").attr("src", imagePaletteOff);
+
+    if (showPalette === undefined) {
+        $(".color_select-box").show(200);
+
+        showPalette = attributePalette;
+        $(this).attr("src", imagePaletteOn);
+    }
+    else if (showPalette === attributePalette) {
+        $(".color_select-box").hide(200);
+
+        showPalette = undefined;
+        $(this).attr("src", imagePaletteOff);
+    }
+    else if (showPalette !== attributePalette) {
+        $(".color_select-box").hide().show(200);
+
+        showPalette = attributePalette;
+        $(this).attr("src", imagePaletteOn);
+    }
+
 });
 
 
@@ -555,70 +653,6 @@ function resetCharacter() {
 
     mp.trigger("resetCharacter");
 }
-
-$(".clear-area, .cross").on("click", function () {
-    if (showPalette !== undefined) {
-        $(".color_select-box").hide(200);
-
-        showPalette = undefined;
-        $(palette).attr("src", "../images/art-palette-off.svg");
-
-    }
-});
-
-$("[id=chose-palette]").on("click", function () {
-    const
-        thisPalette = $(this).attr("for"),
-        attributePalette = palette.attr("for");
-
-    $(".palette-eyes, .palette-other").hide();
-
-    if (thisPalette === "eyes") {
-        $(".palette-eyes").show();
-    }
-    else {
-        $(".palette-other").show();
-    }
-
-    palette = $(this);
-
-    $("[id=chose-palette]").attr("src", "../images/art-palette-off.svg");
-
-    if (showPalette === undefined) {
-        $(".color_select-box").show(200);
-
-        showPalette = attributePalette;
-        $(this).attr("src", "../images/art-palette-on.svg");
-    }
-    else if (showPalette === attributePalette) {
-        $(".color_select-box").hide(200);
-
-        showPalette = undefined;
-        $(this).attr("src", "../images/art-palette-off.svg");
-    }
-    else if (showPalette !== attributePalette) {
-        $(".color_select-box").hide().show(200);
-
-        showPalette = attributePalette;
-        $(this).attr("src", "../images/art-palette-on.svg");
-    }
-
-});
-
-
-$('.palette-other, .palette-eyes').on('click', "[id=select_color]", function () {
-    const
-        paletteColor = palette.attr("color"),
-        colorIndex = $(this).attr("color-index"),
-        colorObject = eval("character." + paletteColor);
-
-    colorObject.colorNumber = parseInt(colorIndex);
-
-    $(this).fadeOut('fast', 'linear').fadeIn('fast', 'linear');
-
-    mp.trigger("changeColor", colorObject.index, colorObject.count, palette.attr("for"), colorObject.colorNumber, character.hair.highlightColor.value);
-});
-
 
 function connectSliders() {
     $(character.parents.similarity.range).slider({
@@ -641,6 +675,7 @@ function connectSliders() {
         value: 50
     });
 }
+
 function loadColors() {
     for (let i = 0; i < MAX_COLORS; i++) {
         $(".palette-other").append("<span id='select_color' color-index='" + i + "' class='color palette_color-" + i + "'></span>");
