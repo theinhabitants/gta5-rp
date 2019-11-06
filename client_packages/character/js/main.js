@@ -254,8 +254,11 @@ let character = {
 const fatherNames = ["Ефрем", "Христофор", "Велимир", "Филипп", "Константин", "Динар", "Адольф", "Савва", "Елисей", "Альфред", "Оскар", "Харитон", "Арнольд", "Ким", "Гарри", "Ян", "Сантьяго", "Георгий", "Августин", "Льюис", "Лев", "Герман", "Яков", "Джозеф"];
 const motherNames = ["Стелла", "Агата", "Ханна", "Жасмин", "Глория", "Инесса", "Ева", "Алина", "Иоанна", "Анита", "Злата", "София", "Евелина", "Клеопатра", "Эшли", "Бриенна", "Аида", "Натали", "Инга", "Элизабет", "Селена", "Шарлотта"];
 
+const
+    MAX_COLORS = 64,
+    MAX_EYE_COLORS = 26;
+
 const initCharacter = JSON.parse(JSON.stringify(character));
-let scopeCount = 1;
 
 const CHANGE_GENDER_MESSAGE = "<p>Вы точно хотите поменять пол персонажа?</p> <p>Все данные настройки персонажа будут утеряны,</p><p>их невозможно будет восстановить.</p>";
 const SAVE_MESSAGE = "<p>Вы точно хотите продолжить?</p> <p>В дальнейшем можно будет сделать только косметические изменения.</p>";
@@ -263,6 +266,7 @@ const RESET_MESSAGE = "<p>Вы точно хотите сбросить все �
 
 const HOLD_SPEED = 100;
 
+let zoomCount = 1;
 let holdInButton = 0;
 let currentPage = "parents_page";
 let palette;
@@ -318,60 +322,75 @@ $(character.parents.similarity.range).on('slide', function (e, range) {
 });
 
 $("[id=left_arrow_parents]").on("click", function () {
-    let parent = eval("character.parents." + $(this).attr("parent"));
+    const
+        parent = $(this).attr("parent"),
+        names = (parent === "father") ? fatherNames : motherNames,
+        parentObject = eval("character.parents." + parent);
 
-    const names = ($(this).attr("parent") === "father") ? fatherNames : motherNames;
+    parentObject.count--;
 
-    parent.count--;
-    if (parent.count < 0) {
-        parent.count = parent.maxCount;
+    if (parentObject.count < 0) {
+        parentObject.count = parentObject.maxCount;
     }
-    $("#parents_count_" + $(this).attr("parent")).text(names[parent.count]);
+
+    $("#parents_count_" + parent).text(names[parentObject.count]);
     mp.trigger("changeParents", character.parents.mother.count, character.parents.father.count, character.parents.similarity.value, character.sex.gender);
 });
 
 $("[id=right_arrow_parents]").on("click", function () {
-    let parent = eval("character.parents." + $(this).attr("parent"));
+    const
+        parent = $(this).attr("parent"),
+        names = (parent === "father") ? fatherNames : motherNames,
+        parentObject = eval("character.parents." + parent);
 
-    const names = ($(this).attr("parent") === "father") ? fatherNames : motherNames;
+    parentObject.count++;
 
-    parent.count++;
-    if (parent.count > parent.maxCount) {
-        parent.count = 0;
+    if (parentObject.count > parentObject.maxCount) {
+        parentObject.count = 0;
     }
 
-    $("#parents_count_" + $(this).attr("parent")).text(names[parent.count]);
+    $("#parents_count_" + parent).text(names[parentObject.count]);
     mp.trigger("changeParents", character.parents.mother.count, character.parents.father.count, character.parents.similarity.value, character.sex.gender);
 });
 
 $(".zoom").on("click", function () {
-    scopeCount++;
-    if (scopeCount >= 3) {
-        scopeCount = 0;
+    zoomCount++;
+
+    if (zoomCount >= 3) {
+        zoomCount = 0;
     }
-    mp.trigger("changeZoom", scopeCount);
+
+    mp.trigger("changeZoom", zoomCount);
 });
 
 $("[id=left_arrow_appearance]").on("click", function () {
-    let appearance = eval("character.appearance." + $(this).attr("appearance"));
+    const
+        appearance = $(this).attr("appearance"),
+        appearanceObject = eval("character.appearance." + appearance);
 
-    appearance.count--;
-    if (appearance.count < -1) {
-        appearance.count = appearance.maxCount;
+    appearanceObject.count--;
+
+    if (appearanceObject.count < -1) {
+        appearanceObject.count = appearanceObject.maxCount;
     }
-    $("#appearance_count_" + $(this).attr("appearance")).text(appearance.count + 1);
-    mp.trigger("changeAppearance", appearance.index, appearance.count, appearance.colorNumber);
+
+    $("#appearance_count_" + appearance).text(appearanceObject.count + 1);
+    mp.trigger("changeAppearance", appearanceObject.index, appearanceObject.count, appearanceObject.colorNumber);
 });
 
 $("[id=right_arrow_appearance]").on("click", function () {
-    let appearance = eval("character.appearance." + $(this).attr("appearance"));
+    const
+        appearance = $(this).attr("appearance"),
+        appearanceObject = eval("character.appearance." + appearance);
 
-    appearance.count++;
-    if (appearance.count > appearance.maxCount) {
-        appearance.count = -1;
+    appearanceObject.count++;
+
+    if (appearanceObject.count > appearanceObject.maxCount) {
+        appearanceObject.count = -1;
     }
-    $("#appearance_count_" + $(this).attr("appearance")).text(appearance.count + 1);
-    mp.trigger("changeAppearance", appearance.index, appearance.count, appearance.colorNumber);
+
+    $("#appearance_count_" + appearance).text(appearanceObject.count + 1);
+    mp.trigger("changeAppearance", appearanceObject.index, appearance.count, appearanceObject.colorNumber);
 });
 
 $(character.hair.highlightColor.range).on('slide', function (e, range) {
@@ -383,6 +402,7 @@ $("#left_arrow_hair").on("click", function () {
     let hair = character.hair;
 
     hair.number--;
+
     if (hair.number <= 0) {
         hair.number = eval("hair." + character.sex.name + ".maxNumber");
     }
@@ -395,9 +415,11 @@ $("#right_arrow_hair").on("click", function () {
     let hair = character.hair;
 
     hair.number++;
+
     if (hair.number > eval("hair." + character.sex.name + ".maxNumber")) {
         hair.number = 0;
     }
+
     $("#hair_number").text(hair.number);
     mp.trigger("changeHair", hair.number, character.sex.gender);
 });
@@ -412,9 +434,11 @@ $('#right_arrow_angle').on('mousedown', function () {
         mp.trigger("changeModelAngle", character.settings.angleCount);
 
     }, HOLD_SPEED);
-}).on('mouseup', function () {
+}).on('mouseup', function ()
+{
     clearInterval(holdInButton);
-}).on('mouseout', function () {
+}).on('mouseout', function ()
+{
     clearInterval(holdInButton);
 });
 
@@ -427,9 +451,11 @@ $('#left_arrow_angle').on('mousedown', function () {
         mp.trigger("changeModelAngle", character.settings.angleCount);
 
     }, HOLD_SPEED);
-}).on('mouseup', function () {
+}).on('mouseup', function ()
+{
     clearInterval(holdInButton);
-}).on('mouseout', function () {
+}).on('mouseout', function ()
+{
     clearInterval(holdInButton);
 });
 
@@ -437,7 +463,9 @@ $('#male').on("click", function () {
     if (character.sex.gender === 0) {
         return 1;
     }
+
     $(".warning .content .text").html(CHANGE_GENDER_MESSAGE);
+
     $(".warning").fadeIn('slow', 'linear');
     $("#accept_warning").attr("response", "male");
 });
@@ -446,13 +474,17 @@ $('#female').on("click", function () {
     if (character.sex.gender === 1) {
         return 1;
     }
+
     $(".warning .content .text").html(CHANGE_GENDER_MESSAGE);
+
     $(".warning").fadeIn('slow', 'linear');
     $("#accept_warning").attr("response", "female");
 });
 
 $("#reject_warning").on("click", function () {
+
     $(".warning").fadeOut('slow', 'linear');
+
 });
 
 $("#accept_warning").on("click", function () {
@@ -463,7 +495,7 @@ $("#accept_warning").on("click", function () {
             resetCharacter();
             character.sex.name = "female";
             character.sex.gender = 1;
-            scopeCount = 1;
+            zoomCount = 1;
             $("#male").css("background", "rgb(104,104,104)");
             $("#female").css("background", "rgb(211, 22, 73)");
             mp.trigger("changeGenderInClient", character.sex.gender);
@@ -473,7 +505,7 @@ $("#accept_warning").on("click", function () {
             resetCharacter();
             character.sex.name = "male";
             character.sex.gender = 0;
-            scopeCount = 1;
+            zoomCount = 1;
             $("#female").css("background", "rgb(104,104,104)");
             $("#male").css("background", "rgb(211, 22, 73)");
             mp.trigger("changeGenderInClient", character.sex.gender);
@@ -494,13 +526,17 @@ $("#accept_warning").on("click", function () {
 });
 
 $("#reset_character").on("click", function () {
+
     $(".warning .content .text").html(RESET_MESSAGE);
+
     $(".warning").fadeIn('slow', 'linear');
     $("#accept_warning").attr("response", "reset");
 });
 
 $("#save_character").on("click", function () {
+
     $(".warning .content .text").html(SAVE_MESSAGE);
+
     $(".warning").fadeIn('slow', 'linear');
     $("#accept_warning").attr("response", "save");
 });
@@ -523,16 +559,24 @@ function resetCharacter() {
 $(".clear-area, .cross").on("click", function () {
     if (showPalette !== undefined) {
         $(".color_select-box").hide(200);
+
         showPalette = undefined;
         $(palette).attr("src", "../images/art-palette-off.svg");
+
     }
 });
 
 $("[id=chose-palette]").on("click", function () {
+    const
+        thisPalette = $(this).attr("for"),
+        attributePalette = palette.attr("for");
+
     $(".palette-eyes, .palette-other").hide();
-    if ($(this).attr("for") === "eyes") {
+
+    if (thisPalette === "eyes") {
         $(".palette-eyes").show();
-    } else {
+    }
+    else {
         $(".palette-other").show();
     }
 
@@ -542,15 +586,20 @@ $("[id=chose-palette]").on("click", function () {
 
     if (showPalette === undefined) {
         $(".color_select-box").show(200);
-        showPalette = palette.attr("for");
+
+        showPalette = attributePalette;
         $(this).attr("src", "../images/art-palette-on.svg");
-    } else if (showPalette === palette.attr("for")) {
+    }
+    else if (showPalette === attributePalette) {
         $(".color_select-box").hide(200);
+
         showPalette = undefined;
         $(this).attr("src", "../images/art-palette-off.svg");
-    } else if (showPalette !== palette.attr("for")) {
+    }
+    else if (showPalette !== attributePalette) {
         $(".color_select-box").hide().show(200);
-        showPalette = palette.attr("for");
+
+        showPalette = attributePalette;
         $(this).attr("src", "../images/art-palette-on.svg");
     }
 
@@ -558,11 +607,18 @@ $("[id=chose-palette]").on("click", function () {
 
 
 $('.palette-other, .palette-eyes').on('click', "[id=select_color]", function () {
-    let color = eval("character." + palette.attr("color"));
-    color.colorNumber = parseInt($(this).attr("color-index"));
+    const
+        paletteColor = palette.attr("color"),
+        colorIndex = $(this).attr("color-index"),
+        colorObject = eval("character." + paletteColor);
+
+    colorObject.colorNumber = parseInt(colorIndex);
+
     $(this).fadeOut('fast', 'linear').fadeIn('fast', 'linear');
-    mp.trigger("changeColor", color.index, color.count, palette.attr("for"), color.colorNumber, character.hair.highlightColor.value);
+
+    mp.trigger("changeColor", colorObject.index, colorObject.count, palette.attr("for"), colorObject.colorNumber, character.hair.highlightColor.value);
 });
+
 
 function connectSliders() {
     $(character.parents.similarity.range).slider({
@@ -585,12 +641,12 @@ function connectSliders() {
         value: 50
     });
 }
-
 function loadColors() {
-    for (let i = 0; i < 64; i++) {
+    for (let i = 0; i < MAX_COLORS; i++) {
         $(".palette-other").append("<span id='select_color' color-index='" + i + "' class='color palette_color-" + i + "'></span>");
     }
-    for (let i = 0; i < 26; i++) {
+
+    for (let i = 0; i < MAX_EYE_COLORS; i++) {
         $(".palette-eyes").append("<span id='select_color' color-index='" + i + "' class='color palette_color-eyes-" + i + "'></span>");
     }
 }
