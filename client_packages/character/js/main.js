@@ -244,10 +244,6 @@ let character = {
         female: {
             maxNumber: 39
         }
-    },
-
-    settings: {
-        angleCount: 180
     }
 };
 
@@ -271,6 +267,7 @@ let holdInButton = 0;
 let currentPage = "parents_page";
 let palette;
 let showPalette;
+let angleCount = 180;
 
 
 $(document).ready(function () {
@@ -415,7 +412,7 @@ $(character.hair.highlightColor.range).on('slide', function (e, range) {
 
 
 $("#left_arrow_hair").on("click", function () {
-    let hair = character.hair;
+    const hair = character.hair;
 
     hair.number--;
 
@@ -428,7 +425,7 @@ $("#left_arrow_hair").on("click", function () {
 });
 
 $("#right_arrow_hair").on("click", function () {
-    let hair = character.hair;
+    const hair = character.hair;
 
     hair.number++;
 
@@ -445,12 +442,12 @@ $("#right_arrow_hair").on("click", function () {
 $('#right_arrow_angle').on('mousedown', function () {
     holdInButton = setInterval(function () {
 
-        character.settings.angleCount += 3;
-        if (character.settings.angleCount >= 360) {
-            character.settings.angleCount = 0;
+        angleCount += 3;
+        if (angleCount >= 360) {
+            angleCount = 0;
         }
 
-        mp.trigger("changeModelAngle", character.settings.angleCount);
+        mp.trigger("changeModelAngle", angleCount);
 
     }, HOLD_SPEED);
 }).on('mouseup mouseout', function () {
@@ -459,12 +456,12 @@ $('#right_arrow_angle').on('mousedown', function () {
 
 $('#left_arrow_angle').on('mousedown', function () {
     holdInButton = setInterval(function () {
-        if (character.settings.angleCount <= 0) {
-            character.settings.angleCount = 360;
+        if (angleCount <= 0) {
+            angleCount = 360;
         }
-        character.settings.angleCount -= 3;
+        angleCount -= 3;
 
-        mp.trigger("changeModelAngle", character.settings.angleCount);
+        mp.trigger("changeModelAngle", angleCount);
 
     }, HOLD_SPEED);
 }).on('mouseup mouseout', function () {
@@ -536,7 +533,7 @@ $("#accept_warning").on("click", function () {
             break;
         }
         case "save": {
-            let char = JSON.stringify(character);
+            const char = JSON.stringify(character);
             mp.trigger("saveCharacterInClient", char);
             break;
         }
