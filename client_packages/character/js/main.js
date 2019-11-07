@@ -636,7 +636,7 @@ function resetCharacter() {
     $("#male").css("background", "rgb(211, 22, 73)");
     $("#female").css("background", "rgb(104,104,104)");
     $("span[clear=true]").text(0);
-    $("input[type=range]").val(0).css('background', '-webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%,  rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73,0.3) 50%)');
+    $("[class=slider-range]").val(0).css('background', '-webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%,  rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73,0.3) 50%)');
     $("#parents_count_father").text(fatherNames[0]);
     $("#parents_count_mother").text(motherNames[0]);
     $(character.parents.similarity.range).val(0.5);
