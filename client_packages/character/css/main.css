@@ -411,14 +411,12 @@ body {
     height: 6vh;
 }
 
-
 .line .retreat .slider {
-    display: inline-block;
     margin-top: 2.8vh;
     border: none;
     -webkit-appearance: none;
-    width: 10vw;
     border-radius: 4vw;
+    width: 10vw;
     height: 0.5vh;
     background: -webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73, 0.3) 50%);
 }

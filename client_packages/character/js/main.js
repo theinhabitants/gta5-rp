@@ -310,6 +310,13 @@ $('[class=slider]').on('slide', function (e, range) {
         percent = Math.ceil(((range.value - min) / (max - min)) * 100);
 
     $(this).css('background' , '-webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) ' + percent + '%, rgba(211, 22, 73,0.3) ' + percent + '%)');
+
+    if(percent === 0) {
+        $('.ui-slider-handle').css('margin-left',"1px");
+    }
+    else {
+        $('.ui-slider-handle').css('margin-left',"-1vw");
+    }
 });
 
 $('[slider=feature_slider]').on('slide', function (event, range) {
@@ -323,7 +330,7 @@ $('[slider=feature_slider]').on('slide', function (event, range) {
 
 $(character.parents.similarity.range).on('slide', function (e, range) {
     character.parents.similarity.value = parseFloat(range.value);
-    mp.trigger("changeParents", character.parents.mother.count, character.parents.father.count, character.parents.similarity.value);
+    //mp.trigger("changeParents", character.parents.mother.count, character.parents.father.count, character.parents.similarity.value);
 });
 
 
@@ -453,11 +460,7 @@ $('#right_arrow_angle').on('mousedown', function () {
         mp.trigger("changeModelAngle", character.settings.angleCount);
 
     }, HOLD_SPEED);
-}).on('mouseup', function ()
-{
-    clearInterval(holdInButton);
-}).on('mouseout', function ()
-{
+}).on('mouseup mouseout', function () {
     clearInterval(holdInButton);
 });
 
@@ -471,11 +474,7 @@ $('#left_arrow_angle').on('mousedown', function () {
         mp.trigger("changeModelAngle", character.settings.angleCount);
 
     }, HOLD_SPEED);
-}).on('mouseup', function ()
-{
-    clearInterval(holdInButton);
-}).on('mouseout', function ()
-{
+}).on('mouseup mouseout', function () {
     clearInterval(holdInButton);
 });
 
@@ -579,13 +578,14 @@ $('.palette-other, .palette-eyes').on('click', "[id=select_color]", function () 
     const
         paletteColor = palette.attr("color"),
         colorIndex = $(this).attr("color-index"),
-        colorObject = eval("character." + paletteColor);
+        colorObject = eval("character." + paletteColor),
+        paletteFor = palette.attr("for");
 
     colorObject.colorNumber = parseInt(colorIndex);
 
     $(this).fadeOut('fast', 'linear').fadeIn('fast', 'linear');
 
-    mp.trigger("changeColor", colorObject.index, colorObject.count, palette.attr("for"), colorObject.colorNumber, character.hair.highlightColor.value);
+    mp.trigger("changeColor", colorObject.index, colorObject.count, paletteFor, colorObject.colorNumber, character.hair.highlightColor.value);
 });
 
 $(".clear-area, .cross").on("click", function () {
