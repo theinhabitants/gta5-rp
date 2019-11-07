@@ -268,6 +268,7 @@ let currentPage = "parents_page";
 let palette;
 let showPalette;
 let angleCount = 180;
+let clickAngle = false;
 
 
 $(document).ready(function () {
@@ -440,32 +441,48 @@ $("#right_arrow_hair").on("click", function () {
 
 
 $('#right_arrow_angle').on('mousedown', function () {
-    holdInButton = setInterval(function () {
+    if(clickAngle === false) {
+        holdInButton = setInterval(function () {
 
-        angleCount += 3;
-        if (angleCount >= 360) {
-            angleCount = 0;
-        }
+            angleCount += 3;
+            if (angleCount >= 360) {
+                angleCount = 0;
+            }
 
-        mp.trigger("changeModelAngle", angleCount);
+            mp.trigger("changeModelAngle", angleCount);
 
-    }, HOLD_SPEED);
+        }, HOLD_SPEED);
+        clickAngle = true;
+    }
+    else {
+        clearInterval(holdInButton);
+        clickAngle = false;
+    }
 }).on('mouseup mouseout', function () {
     clearInterval(holdInButton);
+    clickAngle = false;
 });
 
 $('#left_arrow_angle').on('mousedown', function () {
-    holdInButton = setInterval(function () {
-        if (angleCount <= 0) {
-            angleCount = 360;
-        }
-        angleCount -= 3;
+    if(clickAngle === false) {
+        holdInButton = setInterval(function () {
+            if (angleCount <= 0) {
+                angleCount = 360;
+            }
+            angleCount -= 3;
 
-        mp.trigger("changeModelAngle", angleCount);
+            mp.trigger("changeModelAngle", angleCount);
 
-    }, HOLD_SPEED);
+        }, HOLD_SPEED);
+        clickAngle = true;
+    }
+    else {
+        clearInterval(holdInButton);
+        clickAngle = false;
+    }
 }).on('mouseup mouseout', function () {
     clearInterval(holdInButton);
+    clickAngle = false;
 });
 
 
