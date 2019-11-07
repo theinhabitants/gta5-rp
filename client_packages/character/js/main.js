@@ -309,14 +309,7 @@ $('[class=slider]').on('slide', function (e, range) {
         max = $(this).slider("option", "max"),
         percent = Math.ceil(((range.value - min) / (max - min)) * 100);
 
-    $(this).css('background' , '-webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) ' + percent + '%, rgba(211, 22, 73,0.3) ' + percent + '%)');
-
-    if(percent === 0) {
-        $('.ui-slider-handle').css('margin-left',"1px");
-    }
-    else {
-        $('.ui-slider-handle').css('margin-left',"-1vw");
-    }
+    $(this).parents(".slider-range").css('background' , '-webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) ' + percent + '%, rgba(211, 22, 73,0.3) ' + percent + '%)');
 });
 
 $('[slider=feature_slider]').on('slide', function (event, range) {
@@ -330,7 +323,7 @@ $('[slider=feature_slider]').on('slide', function (event, range) {
 
 $(character.parents.similarity.range).on('slide', function (e, range) {
     character.parents.similarity.value = parseFloat(range.value);
-    //mp.trigger("changeParents", character.parents.mother.count, character.parents.father.count, character.parents.similarity.value);
+    mp.trigger("changeParents", character.parents.mother.count, character.parents.father.count, character.parents.similarity.value);
 });
 
 

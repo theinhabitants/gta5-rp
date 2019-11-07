@@ -338,7 +338,7 @@ body {
     margin-top: -0.7vh !important;
 }
 
-.features_page .retreat .slider {
+.features_page .retreat .slider-range {
     width: 7.5vw !important;
 }
 
@@ -354,7 +354,7 @@ body {
     width: 3vw !important;
 }
 
-.appearance_page .retreat .slider {
+.appearance_page .retreat .slider-range {
     width: 9vw !important;
 }
 
@@ -410,8 +410,8 @@ body {
     float: right;
     height: 6vh;
 }
-
-.line .retreat .slider {
+.line .retreat .slider-range {
+    display: inline-block;
     margin-top: 2.8vh;
     border: none;
     -webkit-appearance: none;
@@ -420,6 +420,12 @@ body {
     height: 0.5vh;
     background: -webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73, 0.3) 50%);
 }
+.line .retreat .slider {
+    border:none;
+    margin-left: 0.5vw;
+    background: none;
+}
+
 .slider .ui-slider-handle {
     border-radius: 100%;
     background: rgb(211, 22, 73);
