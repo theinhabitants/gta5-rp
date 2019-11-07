@@ -607,40 +607,37 @@ $(".clear-area, .cross").on("click", function () {
 
 $("[id=chose-palette]").on("click", function () {
     const
-        thisPalette = $(this).attr("for"),
-        attributePalette = palette.attr("for"),
+        palette = $(this).attr("for"),
         imagePaletteOn = "../images/art-palette-on.svg",
         imagePaletteOff = "../images/art-palette-off.svg";
 
     $(".palette-eyes, .palette-other").hide();
 
-    if (thisPalette === "eyes") {
+    if (palette === "eyes") {
         $(".palette-eyes").show();
     }
     else {
         $(".palette-other").show();
     }
 
-    palette = $(this);
-
     $("[id=chose-palette]").attr("src", imagePaletteOff);
 
     if (showPalette === undefined) {
         $(".color_select-box").show(200);
 
-        showPalette = attributePalette;
+        showPalette = palette;
         $(this).attr("src", imagePaletteOn);
     }
-    else if (showPalette === attributePalette) {
+    else if (showPalette === palette) {
         $(".color_select-box").hide(200);
 
         showPalette = undefined;
         $(this).attr("src", imagePaletteOff);
     }
-    else if (showPalette !== attributePalette) {
+    else if (showPalette !== palette) {
         $(".color_select-box").hide().show(200);
 
-        showPalette = attributePalette;
+        showPalette = palette;
         $(this).attr("src", imagePaletteOn);
     }
 
