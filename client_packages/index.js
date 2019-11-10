@@ -3,6 +3,7 @@ require('./noclip');
 require('./character');
 require('./camera');
 require('./auth');
+require('./choseway');
 
 let isClicked = false;
 

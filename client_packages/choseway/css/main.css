@@ -1,0 +1,13 @@
+.chose-block{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+.chose-way{
+    text-align: center;
+    display: inline-block;
+    width: calc(100% / 3.2);
+    height: 100%;
+    background: rgba(0,0,0, 0.5);
+}

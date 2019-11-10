@@ -472,6 +472,9 @@ body {
     margin: 0 1.7vw 0 1.7vw;
     border-radius: 4vw;
     cursor: pointer;
+    border: 0;
+    outline: 0;
+    color: #FFFFFF;
     background: rgb(211, 22, 73) 0% 0% no-repeat padding-box;
 }
 

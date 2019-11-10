@@ -234,7 +234,7 @@ let character = {
         colorNumber: 0,
         maxColor: 63,
         highlightColor: {
-            value: 50,
+            value: 0,
             range: "#hair_highlightColor_range",
             valueLabel: "#color_count_highlightColor"
         },
@@ -607,13 +607,17 @@ $(".clear-area, .cross").on("click", function () {
 
 $("[id=chose-palette]").on("click", function () {
     const
-        palette = $(this).attr("for"),
+        thisPalette = $(this).attr("for"),
         imagePaletteOn = "../images/art-palette-on.svg",
         imagePaletteOff = "../images/art-palette-off.svg";
 
+    $(".color_select-box .content").scrollTop(0);
+
     $(".palette-eyes, .palette-other").hide();
 
-    if (palette === "eyes") {
+    palette = $(this);
+
+    if (thisPalette === "eyes") {
         $(".palette-eyes").show();
     }
     else {
@@ -625,19 +629,19 @@ $("[id=chose-palette]").on("click", function () {
     if (showPalette === undefined) {
         $(".color_select-box").show(200);
 
-        showPalette = palette;
+        showPalette = thisPalette;
         $(this).attr("src", imagePaletteOn);
     }
-    else if (showPalette === palette) {
+    else if (showPalette === thisPalette) {
         $(".color_select-box").hide(200);
 
         showPalette = undefined;
         $(this).attr("src", imagePaletteOff);
     }
-    else if (showPalette !== palette) {
+    else if (showPalette !== thisPalette) {
         $(".color_select-box").hide().show(200);
 
-        showPalette = palette;
+        showPalette = thisPalette;
         $(this).attr("src", imagePaletteOn);
     }
 

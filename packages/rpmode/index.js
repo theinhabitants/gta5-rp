@@ -5,6 +5,7 @@ require('./admin/commands.js');
 require('./chat/chat.js');
 require('./character');
 require('./camera');
+require('./choseway');
 require('./events/player.js');
 
 logger.log.info("Modules are successfully loaded!");
