@@ -32,7 +32,7 @@ setInterval(function () {
             mp.events.callRemote("enableVoiceChat", target);
 
             target.voice3d = true;
-            target.voiceVolume = 1.0;
+            target.voiceVolume = 1.5;
         }
     });
 
@@ -43,7 +43,7 @@ setInterval(function () {
         if (distance > VOICE_CHAT_RANGE) {
             disableVoice(target);
         } else {
-            target.voiceVolume = 1 - (distance / VOICE_CHAT_RANGE);
+            target.voiceVolume = 1.5 - (distance / VOICE_CHAT_RANGE);
         }
     });
 }, 300);

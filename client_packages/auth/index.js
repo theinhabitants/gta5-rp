@@ -3,11 +3,11 @@ const utils = require('utils');
 
 let authCamera;
 const coordinates = {
-    camera: new mp.Vector3(-80.07012939453125, -820.6597900390625, 326.83221435546875),
+    camera: new mp.Vector3(-3419.60888671875, 967.689453125, 13.597350120544434),
     cameraLookAt: {
-        X: -90.29067993164062, Y: -821.4169311523438, Z: 330.1753234863281
+        X: -3270.4150390625, Y: 966.8079833984375, Z: 7.3521647453308105
     },
-    playerPos: new mp.Vector3(-75.07012939453125, -820.6597900390625, 326.83221435546875),
+    playerPos: new mp.Vector3(-3419.66, 967.70, 12.95),
 };
 
 mp.events.add("showLogin", showLoginForm);
@@ -75,7 +75,7 @@ mp.events.add("registrationHandler", (response) => {
 });
 
 function showLoginForm() {
-    authCamera = mp.cameras.new("authCamera", coordinates.camera, new mp.Vector3(0, 0, 0), 20);
+    authCamera = mp.cameras.new("authCamera", coordinates.camera, new mp.Vector3(0, 0, 0), 40);
     authCamera.pointAtCoord(coordinates.cameraLookAt.X, coordinates.cameraLookAt.Y, coordinates.cameraLookAt.Z);
 
     mp.players.local.position = coordinates.playerPos;

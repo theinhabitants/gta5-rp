@@ -6,12 +6,12 @@ let peds = new Array();
 let questBlip;
 
 const camCoordinates = {
-    camera: new mp.Vector3(-1040.2899169921875, -1076.11279296875, 4.646230697631836),
+    camera: new mp.Vector3(-3579.320556640625, 970.0040893554688, 44.14125061035156),
     cameraLookAt:
         {
-            X: -1126.150390625, Y: -1128.623779296875, Z: 0.5439004898071289
+            X: -3096.736328125, Y: 960.1061401367188, Z: 37.44977951049805
         },
-    playerPos: new mp.Vector3(-1035.2899169921875, -1076.11279296875, 4.646230697631836)
+    playerPos: new mp.Vector3(-3579.37, 970.00, 43.45)
 };
 
 const camToNpc = [
@@ -20,7 +20,7 @@ const camToNpc = [
             camera: new mp.Vector3(145.021240234375, -1191.6187744140625, 30.045047760009766),
             cameraLookAt:
                 {
-                    X: 153.74949645996094, Y:-1215.362548828125, Z:28.459598541259766
+                    X: 153.74949645996094, Y: -1215.362548828125, Z: 28.459598541259766
                 }
         },
         {
@@ -84,7 +84,6 @@ const npcCoordinates = [
 ];
 
 
-
 mp.events.add("enterWayInClient", (way) => {
     choseWayUI.destroy();
     mp.gui.cursor.show(false, false);
@@ -130,7 +129,7 @@ mp.events.add("moveCameraToNPC", (way) => {
 });
 
 mp.events.add("createPeds", () => {
-    for(let i = 0; i < npcCoordinates.length; i ++) {
+    for (let i = 0; i < npcCoordinates.length; i++) {
         const ped = mp.peds.new(npcCoordinates[i].modelHash, npcCoordinates[i].position, npcCoordinates[i].heading, 0);
         peds.push(ped);
     }
@@ -139,7 +138,7 @@ mp.events.add("createPeds", () => {
 function showChoseWayUI() {
     choseWayUI = mp.browsers.new("package://choseway/index.html");
 
-    choseWayCamera = mp.cameras.new("choseWayCam", camCoordinates.camera, new mp.Vector3(0, 0, 0), 20);
+    choseWayCamera = mp.cameras.new("choseWayCam", camCoordinates.camera, new mp.Vector3(0, 0, 0), 40);
     choseWayCamera.pointAtCoord(camCoordinates.cameraLookAt.X, camCoordinates.cameraLookAt.Y, camCoordinates.cameraLookAt.Z);
 
     mp.players.local.position = camCoordinates.playerPos;
