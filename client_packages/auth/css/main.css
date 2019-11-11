@@ -188,7 +188,10 @@ body {
     padding: 1.3vh 1.5vw 1.3vh 1.5vw;
     outline: none;
 }
-
+.footer .button-login input[type=submit]:hover,
+.footer .button-login input[type=submit]:active{
+    background: rgb(290, 22, 73);
+}
 .right-side{
     width:52%;
     height: 100%;

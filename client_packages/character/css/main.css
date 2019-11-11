@@ -478,6 +478,14 @@ body {
     background: rgb(211, 22, 73) 0% 0% no-repeat padding-box;
 }
 
+.footer .button_save:hover{
+    background: rgb(290, 22, 73);
+}
+
 .footer .button_cancel {
     background: rgb(61, 58, 59) 0% 0% no-repeat padding-box;
+}
+
+.footer .button_cancel:hover{
+    background: rgb(67, 58, 59) 0% 0% no-repeat padding-box;
 }

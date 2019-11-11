@@ -10,16 +10,6 @@ const coordinates = {
     playerPos: new mp.Vector3(-75.07012939453125, -820.6597900390625, 326.83221435546875),
 };
 
-const npcCoordinates = [
-    {
-        modelHash: 0xEF154C47,
-        position: new mp.Vector3(156.43, -1198.48, 29.30),
-        heading: 352.37
-    }
-];
-
-let npc;
-
 mp.events.add("showLogin", showLoginForm);
 
 mp.events.add("login", (email, pass) => {
@@ -117,16 +107,8 @@ function hideLoginForm() {
 
     mp.game.cam.renderScriptCams(false, false, 0, true, false);
 
-    createEnvironment();
+    mp.events.call("createPeds");
 }
 
-function createEnvironment() {
-    //TODO probably also 0xD7606C30
-    npc = mp.peds.new(npcCoordinates[0].modelHash, npcCoordinates[0].position, npcCoordinates[0].heading, 0);
-}
-
-exports = {
-    npc: npc
-}
 
 

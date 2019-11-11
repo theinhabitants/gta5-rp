@@ -1,5 +1,4 @@
 $("#form").on("submit", function () {
-    $("[id=sub]").fadeOut(50).fadeIn(50);
     $("[id=sub]").attr("disabled", true);
     $(".alert").hide();
     const email = $("#email").val();
@@ -39,7 +38,6 @@ password.on('change', validatePassword);
 confirm_password.keyup(validatePassword);
 
 $("#formRegister").on('submit', function () {
-    $("[id=sub]").fadeOut(50).fadeIn(50);
     $("[id=sub]").attr("disabled", true);
     $(".alert").hide();
 
