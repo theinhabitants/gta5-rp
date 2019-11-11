@@ -46,31 +46,31 @@ body {
 .orphan{
     background: transparent url(../images/orphanbg.png) 60% 45% no-repeat padding-box;
     background-size: 240%;
-    transition: background-size linear 200ms;
+    transition: background-size ease-in-out 200ms;
 }
 
 .orphan:hover{
-    transition: background-size linear 200ms;
+    transition: background-size ease-in-out 200ms;
     background-size: 300%;
 }
 
 .business{
     background: transparent url(../images/bussinesbg.png) 100% 30% no-repeat padding-box;
     background-size: 185%;
-    transition: background-size linear 200ms;
+    transition: background-size ease-in-out 200ms;
 }
 .business:hover{
-    transition: background-size linear 200ms;
+    transition: background-size ease-in-out 200ms;
     background-size: 220%;
 }
 
 .bandit{
     background: transparent url(../images/banditbg.png) 0% 35% no-repeat padding-box;
     background-size: 230%;
-    transition: background-size linear 200ms;
+    transition: background-size ease-in-out 200ms;
 }
 .bandit:hover{
-    transition: background-size linear 200ms;
+    transition: background-size ease-in-out 200ms;
     background-size: 265%;
 }
 
