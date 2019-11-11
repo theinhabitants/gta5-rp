@@ -1,5 +1,6 @@
 <html>
 <head>
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/main.css" media="screen">
     <link rel="stylesheet" type="text/css" href="css/colors.css" media="screen">
     <meta charset="utf-8"/>
@@ -14,12 +15,12 @@
     </div>
     <div class="content">
         <span class="text">
-            <p>Упс, что-то пошло не так</p><p>Обратитесь в ТП.</p>
+            <p>Упс, что-то пошло не так...</p><p>Обратитесь в ТП.</p>
         </span>
     </div>
     <div class="footer">
-            <span class="button_cancel" id="reject_warning">Нет</span>
-            <span class="button_save" id="accept_warning">Да</span>
+        <span class="button_cancel" id="reject_warning">Нет</span>
+        <span class="button_save" id="accept_warning">Да</span>
     </div>
 </div>
 <div class="wrapper">
@@ -73,7 +74,9 @@
                     <div class="line">
                         <span class="property-name">Схожесть</span>
                         <span class="retreat">
-                            <input feature="nose.width" type="range" id="parents_similarity_range" min="0.0" max="1.0" step="0.01" value="0.5"/>
+                            <div class="slider-range">
+                                <div class="slider" id="parents_similarity_range"></div>
+                            </div>
                         </span>
                     </div>
                 </div>
@@ -97,135 +100,187 @@
                     <div class="line">
                         <span class="property-name">Ширина носа</span>
                         <span class="retreat">
-                            <input feature="nose.width" type="range" id="nose_width_range" min="-1.0" max="1.0"
-                                   step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="nose.width" slider="feature_slider"
+                                     id="nose_width_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Высота носа</span>
                         <span class="retreat">
-                            <input feature="nose.height" type="range" id="nose_height_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="nose.height" slider="feature_slider"
+                                     id="nose_height_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Длина носа</span>
                         <span class="retreat">
-                            <input feature="nose.length" type="range" id="nose_length_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <div class="slider-range">
+                            <div class="slider" feature="nose.length" slider="feature_slider"
+                                 id="nose_length_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Переносица</span>
                         <span class="retreat">
-                             <input feature="nose.bridge" type="range" id="nose_bridge_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="nose.bridge" slider="feature_slider"
+                                    id="nose_bridge_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Кончик носа</span>
                         <span class="retreat">
-                             <input feature="nose.tip" type="range" id="nose_tip_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="nose.tip" slider="feature_slider" id="nose_tip_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Сдвиг переносицы</span>
                         <span class="retreat">
-                             <input feature="nose.bridgeShift" type="range" id="nose_bridgeShift_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="nose.bridgeShift" slider="feature_slider"
+                                 id="nose_bridgeShift_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Высота бровей</span>
                         <span class="retreat">
-                           <input feature="brow.height" type="range" id="brow_height_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="brow.height" slider="feature_slider"
+                                     id="brow_height_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Ширина бровей</span>
                         <span class="retreat">
-                           <input feature="brow.width" type="range" id="brow_width_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="brow.width" slider="feature_slider"
+                                    id="brow_width_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Высота скул</span>
                         <span class="retreat">
-                           <input feature="cheekbone.height" type="range" id="cheekbone_height_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="cheekbone.height" slider="feature_slider"
+                                    id="cheekbone_height_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Ширина скул</span>
                         <span class="retreat">
-                           <input feature="cheekbone.width" type="range" id="cheekbone_width_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="cheekbone.width" slider="feature_slider"
+                                    id="cheekbone_width_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Ширина щек</span>
                         <span class="retreat">
-                           <input feature="cheeks.width" type="range" id="cheeks_width_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="cheeks.width" slider="feature_slider"
+                                    id="cheeks_width_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Глаза</span>
                         <span class="retreat">
-                            <input feature="eyes" type="range" id="eyes_range" min="-1.0" max="1.0" step="0.01" value="0"/>
-                            <img for="eyes" color="features.eyes" id="chose-palette" class="color-palette" src="images/art-palette-off.svg"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="eyes" slider="feature_slider" id="eyes_range"></div>
+                            </div>
+                            <img for="eyes" color="features.eyes" id="chose-palette" class="color-palette"
+                                 src="images/art-palette-off.svg"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Размер губей</span>
                         <span class="retreat">
-                            <input feature="lips" type="range" id="lips_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="lips" slider="feature_slider" id="lips_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Ширина челюсти</span>
                         <span class="retreat">
-                            <input feature="jaw.width" type="range" id="jaw_width_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="jaw.width" slider="feature_slider" id="jaw_width_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Высота челюсти</span>
                         <span class="retreat">
-                            <input feature="jaw.height" type="range" id="jaw_height_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="jaw.height" slider="feature_slider"
+                                     id="jaw_height_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Длина подбородка</span>
                         <span class="retreat">
-                             <input feature="chin.length" type="range" id="chin_length_range" min="-1.0" step="0.01" max="1.0" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="chin.length" slider="feature_slider"
+                                    id="chin_length_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Позиция подбородка</span>
                         <span class="retreat">
-                            <input feature="chin.position" type="range" id="chin_position_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="chin.position" slider="feature_slider"
+                                     id="chin_position_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Форма подбородка</span>
                         <span class="retreat">
-                            <input feature="chin.shape" type="range" id="chin_shape_range" min="-1.0" max="1.0"
-                                   step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="chin.shape" slider="feature_slider"
+                                    id="chin_shape_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Ширина шеи</span>
                         <span class="retreat">
-                            <input feature="neck.width" type="range" id="neck_width_range" min="-1.0" max="1.0" step="0.01" value="0"/>
+                            <div class="slider-range">
+                                <div class="slider" feature="neck.width" slider="feature_slider"
+                                    id="neck_width_range"></div>
+                            </div>
                             <img class="color-palette" src="images/clear.png"/>
                         </span>
                     </div>
@@ -243,7 +298,8 @@
                             <span class="property-arrow_right" id="right_arrow_hair">
                                 <img src="images/arrow-point-to-right.svg"/>
                             </span>
-                            <img for="hair" color="hair" id="chose-palette" class="color-palette" src="images/art-palette-off.svg"/>
+                            <img for="hair" color="hair" id="chose-palette" class="color-palette"
+                                 src="images/art-palette-off.svg"/>
                         </span>
                     </div>
                     <div class="line">
@@ -269,7 +325,8 @@
                             <span class="property-arrow_right" id="right_arrow_appearance" appearance="facialHair">
                                 <img src="images/arrow-point-to-right.svg"/>
                             </span>
-                            <img for="facialHair" color="appearance.facialHair" id="chose-palette" class="color-palette" src="images/art-palette-off.svg"/>
+                            <img for="facialHair" color="appearance.facialHair" id="chose-palette" class="color-palette"
+                                 src="images/art-palette-off.svg"/>
                         </span>
                     </div>
                     <div class="line">
@@ -282,7 +339,8 @@
                             <span class="property-arrow_right" id="right_arrow_appearance" appearance="eyebrows">
                                 <img src="images/arrow-point-to-right.svg"/>
                             </span>
-                            <img for="eyebrows" color="appearance.eyebrows" id="chose-palette" class="color-palette" src="images/art-palette-off.svg"/>
+                            <img for="eyebrows" color="appearance.eyebrows" id="chose-palette" class="color-palette"
+                                 src="images/art-palette-off.svg"/>
                         </span>
                     </div>
                     <div class="line">
@@ -308,7 +366,8 @@
                             <span class="property-arrow_right" id="right_arrow_appearance" appearance="blush">
                                 <img src="images/arrow-point-to-right.svg"/>
                             </span>
-                            <img for="blush" color="appearance.blush" id="chose-palette" class="color-palette" src="images/art-palette-off.svg"/>
+                            <img for="blush" color="appearance.blush" id="chose-palette" class="color-palette"
+                                 src="images/art-palette-off.svg"/>
                         </span>
                     </div>
                     <div class="line">
@@ -360,13 +419,16 @@
                             <span class="property-arrow_right" id="right_arrow_appearance" appearance="chestHair">
                                 <img src="images/arrow-point-to-right.svg"/>
                             </span>
-                            <img for="chestHair" color="appearance.chestHair" id="chose-palette" class="color-palette" src="images/art-palette-off.svg"/>
+                            <img for="chestHair" color="appearance.chestHair" id="chose-palette" class="color-palette"
+                                 src="images/art-palette-off.svg"/>
                         </span>
                     </div>
                     <div class="line">
                         <span class="property-name">Высветление волос</span>
                         <span class="retreat">
-                             <input type="range" id="hair_highlightColor_range" min="0" max="100" value="50"/>
+                            <div class="slider-range">
+                                <div class="slider" id="hair_highlightColor_range"></div>
+                            </div>
                         </span>
                     </div>
                 </div>
@@ -398,5 +460,6 @@
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script src="js/main.js"></script>
 </html>

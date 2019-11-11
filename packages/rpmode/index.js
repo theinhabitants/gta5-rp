@@ -7,5 +7,7 @@ require('./chat/voice/voice.js');
 require('./character');
 require('./camera');
 require('./events/player.js');
+require('./choseway');
+
 
 logger.log.info("Modules are successfully loaded!");

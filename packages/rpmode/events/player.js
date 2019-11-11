@@ -27,3 +27,4 @@ function spawnPlayer(player) {
 
     player.health = 100;
 }
+

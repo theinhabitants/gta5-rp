@@ -1,4 +1,5 @@
 const authBrowser = mp.browsers.new("package://auth/index.html");
+const utils = require('utils');
 
 let authCamera;
 const coordinates = {
@@ -24,8 +25,12 @@ mp.events.add("loginHandler", (response) => {
 
     switch (response) {
         case "success":
-            mp.events.callRemote("playerSuccessAuth");
-            hideLoginForm();
+            authBrowser.destroy();
+            mp.gui.cursor.show(false, false);
+            utils.fadeScreen(() => {
+                mp.events.callRemote("playerSuccessAuth");
+                hideLoginForm();
+            }, 1000);
             break;
         case "wrong-email":
             authBrowser.execute(`$("#login-wrong-email").show();`);
@@ -49,8 +54,12 @@ mp.events.add("registrationHandler", (response) => {
     if (!authBrowser) return;
     switch (response) {
         case "success":
-            mp.events.callRemote("movePlayerToCreationSpace");
-            hideLoginForm();
+            authBrowser.destroy();
+            mp.gui.cursor.show(false, false);
+            utils.fadeScreen(() => {
+                hideLoginForm();
+                mp.events.callRemote("movePlayerToCreationSpace");
+            }, 1000);
             break;
         case "email-already-exist":
             authBrowser.execute(`$("#reg-wrong-email").show();`);
@@ -93,12 +102,13 @@ function hideLoginForm() {
     mp.game.ui.displayRadar(true);
     mp.game.ui.displayHud(true);
     mp.players.local.freezePosition(false);
-    mp.gui.cursor.show(false, false);
 
-    authBrowser.destroy();
     authCamera.destroy(true);
 
     mp.game.cam.renderScriptCams(false, false, 0, true, false);
+
+    mp.events.call("createPeds");
 }
+
 
 

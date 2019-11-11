@@ -17,8 +17,6 @@ mp.events.add('saveCharacterInServer', async (player, json) => {
         let surname = "test2" + user.id;
 
         await characterDao.create(name, surname, json, user.id);
-
-        mp.events.call("playerSuccessAuth", player);
     }
 });
 
