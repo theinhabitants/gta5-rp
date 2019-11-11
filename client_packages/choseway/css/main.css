@@ -1,0 +1,185 @@
+@font-face {
+    font-family: SignPainter-HouseScript;
+    src: url(../fonts/SignPainter-HouseScript.otf);
+}
+@font-face {
+    font-family: AdobeClean-Light;
+    src: url(../fonts/AdobeClean-Light.ttf);
+}
+@font-face {
+    font-family: Ubuntu-Bold;
+    src: url(../fonts/ubuntu-bold.ttf);
+}
+
+body {
+    /*background: transparent url(../images/background.png) no-repeat center center fixed;;*/
+    /*background-size: 100%;*/
+}
+
+.chose-block{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    line-height: 100vh;
+}
+/*rgba(0,0,0,0.51);*/
+
+.chose-way{
+    line-height: normal;
+    vertical-align:middle;
+    display:inline-block;
+    width: 27vw;
+    height: 27vw;
+    border-radius: 1.5vw;
+    position: relative;
+    margin: 0 2.2vw 0 2.2vw;
+    color: rgb(255,255,255);
+}
+
+.fade-bg{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.51);
+    border-radius: 1.5vw;
+}
+
+.orphan{
+    background: transparent url(../images/orphanbg.png) 60% 45% no-repeat padding-box;
+    background-size: 240%;
+    transition: background-size ease-in-out 200ms;
+}
+
+.orphan:hover{
+    transition: background-size ease-in-out 200ms;
+    background-size: 300%;
+}
+
+.business{
+    background: transparent url(../images/bussinesbg.png) 100% 30% no-repeat padding-box;
+    background-size: 185%;
+    transition: background-size ease-in-out 200ms;
+}
+.business:hover{
+    transition: background-size ease-in-out 200ms;
+    background-size: 220%;
+}
+
+.bandit{
+    background: transparent url(../images/banditbg.png) 0% 35% no-repeat padding-box;
+    background-size: 230%;
+    transition: background-size ease-in-out 200ms;
+}
+.bandit:hover{
+    transition: background-size ease-in-out 200ms;
+    background-size: 265%;
+}
+
+
+.left-side{
+    width:10.5vw;
+    height: 100%;
+    float:left;
+    text-align: left;
+}
+
+.orphan .left-side,
+.bandit .left-side{
+    width:10vw;
+}
+
+.orphan .right-side,
+.bandit .right-side{
+    width:16vw;
+}
+
+.orphan .left-side img{
+    width:11vw;
+    height: 29vw;
+    left: 0.7vw;
+}
+
+.bandit .left-side img{
+    width:14vw;
+    height: 29.5vw;
+    left: -1.2vw;
+    z-index: 1;
+}
+
+.left-side img{
+    position: absolute;
+    width:12vw;
+    height: 30.5vw;
+    bottom: 0;
+}
+
+.right-side {
+    width:15.5vw;
+    height: 100%;
+    float: right;
+    text-align: left;
+}
+
+.right-side p{
+    margin-block-start: 0.2vw;
+    margin-block-end: 0.2vw;
+}
+
+.orphan .right-side .title,
+.bandit .right-side .title{
+    text-align: center;
+    height: 9.5vw;
+}
+
+.orphan .content .description,
+.bandit .content .description{
+    height: 13.5vw;
+}
+
+.right-side .title {
+    line-height: 10vw;
+    height: 10vw;
+}
+
+.right-side .title h2{
+    font-family: SignPainter-HouseScript, Regular, cursive;
+    font-size: 3.6vw;
+    font-weight: normal;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.content{
+    height: 16vw;
+}
+
+.content .description{
+    padding: 1px;
+    height: 13vw;
+    font-family: AdobeClean-Light, Regular, sans-serif;
+    font-size: 1vw;
+    font-weight: lighter;
+    opacity: 0.7;
+}
+
+.footer{
+    padding: 1px;
+    height: 4vw;
+    width: 100%;
+}
+
+.footer .button{
+    outline: none;
+    border: none;
+    font-family: Ubuntu-Bold, Regular, sans-serif;
+    font-size: 0.9vw;
+    padding: 0.7vw 1.2vw 0.7vw 1.2vw;
+    border-radius: 2vw;
+    color: rgb(255,255,255);
+    background: rgb(211, 22, 73);
+    float: right;
+    margin-right: 2vw;
+}
+
+.footer .button:hover{
+    background: rgb(290, 22, 73);
+}

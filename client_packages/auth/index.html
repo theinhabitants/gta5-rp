@@ -4,40 +4,118 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu&display=swap" rel="stylesheet">
 
 <body>
-<div class="bg"></div>
-<form id="form" action="" method="POST">
-    <div class="half">
-        <div class="logo">
-            <img src="img/logo.png"/>
-        </div>
-        <div class="email">
-            <input id="email" type="email" placeholder="email" required/>
-        </div>
-    </div>
+<div class="wrapper">
+    <div class="background-dark"></div>
 
-    <div class="half">
-        <div class="pass">
-            <img id="hide" class="hide" src="img/hide.png">
-            <input id="password" type="password" minlength="6" placeholder="password" required/>
+    <form class="registration hide" id="formRegister" action="" method="POST">
+        <div class="left-side">
+            <div class="content-box">
+                <div class="header">
+                    <span class="project-name ">
+                        Регистрация
+                    </span>
+                </div>
+                <div class="error-box">
+                    <b class="alert hide" id="reg-wrong-email">Такой email уже зарегистрирован в системе</b>
+                    <b class="alert hide" id="reg-server-error" style="display: none">Внутренняя ошибка сервера,
+                        обратитесь в ТП</b>
+                </div>
+                <div class="content">
+                    <div class="email">
+                        <input id="emailRegister" type="email" placeholder="email" required/>
+                    </div>
+                    <div class="password">
+                        <div class="hide-pass">
+                            <input id="passwordRegister" type="password" minlength="6" placeholder="пароль" required/>
+                            <label for="passwordRegister" id="hide"></label>
+                        </div>
+                    </div>
+                    <div class="password">
+                        <input id="passwordRegisterRepeat" type="password" minlength="6" placeholder="повторите пароль"
+                               required/>
+                        <span class="license-accept">
+                            <span>Регистрируясь, вы соглашаетесь с условиями</span>
+                            <span class="blue">Лицензионного соглашения</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="footer">
+                    <span class="url">
+                        <a id="to-login">уже зарегистрированы?</a>
+                    </span>
+                    <span class="button-login">
+                        <input id="sub" type="submit" value="регистрация" align="center"/>
+                    </span>
+                </div>
+            </div>
         </div>
-        <div class="buttons">
-            <span class="url">
-                <a href="#">forget password</a>
-            </span>
-            <span class="url">
-                <a href="registration.html">register</a>
-            </span>
-            <span class="url">
-                <input id="sub" type="submit" value="login" align="center"/>
-            </span>
+        <div class="right-side">
+            <img src="images/man.png"/>
+            <div class="letters">
+                <p class="first_col">иди</p>
+                <p>к</p>
+                <p>мечте</p>
+            </div>
         </div>
-    </div>
-    <b class="alert" id="wrong-email" style="display: none">Такой email не зарегистрирован в системе</b>
-    <b class="alert" id="wrong-password" style="display: none">Не верный пароль</b>
-    <b class="alert" id="server-error" style="display: none">Внутренняя ошибка сервера, обратитесь в ТП</b>
-</form>
+    </form>
+    <form class="authorization" id="form" action="" method="POST">
+        <div class="left-side">
+            <div class="content-box">
+                <div class="header">
+                    <span class="project-name">
+                        <span>Real</span>
+                        <span class="red">P</span>
+                    </span>
+                    <span class="project-description">выбери свой путь к успеху</span>
+                </div>
+                <div class="error-box">
+                    <b class="alert" id="login-wrong-email" style="display: none">Указанный e-mail не зарегистрирован в
+                        системе</b>
+                    <b class="alert" id="login-wrong-password" style="display: none">Указазанный пароль не верный</b>
+                    <b class="alert" id="login-server-error" style="display: none">Внутренняя ошибка сервера, обратитесь
+                        в ТП</b>
+                </div>
+                <div class="content">
+                    <div class="email">
+                        <input id="email" type="email" placeholder="e-mail" required/>
+                    </div>
+                    <div class="password">
+                        <div class="hide-pass">
+                            <input id="password" type="password" minlength="6" placeholder="пароль" required/>
+                            <label for="password" id="hide"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <span class="url">
+                        <a href="#">забыл пароль</a>
+                    </span>
+                    <span class="url">
+                        <a id="to-register">регистрация</a>
+                    </span>
+                    <span class="button-login">
+                        <input id="sub" type="submit" value="войти" align="center"/>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="right-side">
+            <img src="images/woman.png"/>
+            <div class="letters">
+                <p class="first_col">иди</p>
+                <p>к</p>
+                <p>мечте</p></div>
+        </div>
+    </form>
+</div>
 </body>
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="js/lodash.js"></script>
 <script type="text/javascript" src="js/login.js"></script>
+<script>
+    $(document).ready(function () {
+        mp.trigger("showLogin");
+    })
+</script>
 </html>

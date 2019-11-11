@@ -15,11 +15,6 @@ let chat = {
     messageNumber: 0,
     hide_chat: 15 * 1000 // 15 - seconds
 };
-var langRegex = {
-    "EN": /^[a-zA-Z]+$/,
-    "RU": /[а-яА-ЯёЁ]/,
-    "UA": /[ієїґ\']+/ig
-};
 
 function enableChatInput(enable) {
     if (chat.active === false && enable === true) {
@@ -29,17 +24,8 @@ function enableChatInput(enable) {
         mp.invoke("focus", enable);
         if (enable) {
             $("#chat").css("opacity", 1);
-            chat.input = $("#chat").append('<div><input id="chat_msg" type="text" /><div id="chat_lang">EN</div></div>').children(":last");
+            chat.input = $("#chat").append('<div><input id="chat_msg" type="text" /></div>').children(":last");
             chat.input.children("input").focus();
-
-            chat.input.children("input").on('keypress', function (e) {
-                Object.entries(langRegex).forEach(([key, value]) => {
-                    if (value.test(e.key)) {
-                        $("#chat_lang").text(key);
-                    }
-                });
-            });
-
             mp.trigger("changeChatState", true);
         } else {
             chat.input.fadeOut('fast', function () {
@@ -83,8 +69,8 @@ var chatAPI = {
 function hide() {
     chat.timer = setTimeout(function () {
         $("#chat").css("opacity", 0.5);
-        $("#chat_messages").css("overflow", 'hidden');
     }, chat.hide_chat);
+    $("#chat_messages").css("overflow", 'hidden');
 }
 
 function show() {
@@ -117,11 +103,11 @@ $(document).ready(function () {
                         if (value[0] === "/") {
                             value = value.substr(1);
 
-                            if (value.length > 0 && value.length <= 100)
-                                mp.invoke("command", value);
+                           if (value.length > 0 && value.length <= 100)
+                               mp.invoke("command", value);
                         } else {
                             if (value.length <= 100)
-                                mp.invoke("chatMessage", value);
+                               mp.invoke("chatMessage", value);
                         }
                     }
                     enableChatInput(false);
@@ -132,10 +118,12 @@ $(document).ready(function () {
                 case BUTTON_ESCAPE: {
                     enableChatInput(false);
                     hide();
+                    mp.trigger("disableEsc");
                     break;
                 }
 
                 case BUTTON_ARROW_UP: {
+                    event.preventDefault();
                     if (chat.input.children("input").is(":focus")) {
                         number--;
                         if (number < 0) {
@@ -147,6 +135,7 @@ $(document).ready(function () {
                 }
 
                 case BUTTON_ARROW_DOWN: {
+                    event.preventDefault();
                     if (chat.input.children("input").is(":focus")) {
                         number++;
                         if (number > chat.previous.length) {
