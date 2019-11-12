@@ -1,0 +1,206 @@
+@font-face {
+    font-family: UniNeueBold;
+    src: url(../fonts/UniNeueBold.ttf);
+}
+
+@font-face {
+    font-family: UniSans-Heavy;
+    src: url(../fonts/UniSans-Heavy.otf);
+}
+
+@font-face {
+    font-family: "Segoe UI Bold";
+    src: url(../fonts/SegoiUI-Bold.ttf);
+}
+
+@font-face {
+    font-family: Pricedown;
+    src: url(../fonts/PriceDown.ttf);
+}
+
+#chat, #chat input#chat_msg, #chat ul#chat_messages {
+    font-family: UniNeueBold, sans-serif;
+}
+
+#chat, #chat input#chat_msg {
+    color: #fff;
+}
+
+body {
+    margin: 0 0 0 5px
+}
+
+#chat {
+    line-height: 24px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    user-select: none;
+    margin: 20px 0 0 25px;
+}
+
+@media screen and (min-height: 166.9242658423493vh) {
+    #chat {
+        font-size: 18px !important;
+        font-weight: 700
+    }
+}
+
+#chat ul#chat_messages {
+    height: 240px;
+    padding: 0;
+    margin: 0;
+    width: 45%;
+    min-height: 2vh;
+    font-size: 15px;
+    word-wrap: break-word;
+    text-shadow: 0px 0px 2px black, 0px 0px 2px black, 0px 0px 2px black, 0px 0px 2px black;
+    overflow: auto;
+    direction: rtl;
+}
+
+#chat input#chat_msg {
+    margin-top: 5px;
+    background: rgba(24, 20, 20, 0.5);
+    outline: 0;
+    border: none;
+    font-size: 15px;
+    line-height: 35px;
+    width: 35%;
+    padding: 5px 5px 5px 15px;
+    border-radius: 26.5px;
+}
+
+#chat_channels li {
+    float: left;
+    border: .1545595054095827vh solid #000;
+    list-style-type: none;
+    padding: 5px 15px;
+    margin: 5px 5px 0 0;
+    text-transform: uppercase;
+    font-size: 13px;
+    text-shadow: none
+}
+
+#chat_channels li#active {
+    color: #a545a5
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(24, 20, 20, 0.5);
+    border-radius: 3.5px;
+}
+
+#chat ul#chat_messages > li {
+    list-style-type: none;
+    direction: ltr;
+    text-align: left;
+    left: 10px;
+    position: relative;
+}
+
+/*body {*/
+/*    background: url(../images/bg.png) no-repeat;*/
+/*    background-size: 100% 100%;*/
+/*}*/
+
+#hud{
+    user-select: none;
+}
+
+.header{
+    position: absolute;
+    top: 3vw;
+    width: 99%;
+    height: 10vw;
+}
+
+.right-side{
+    float: right;
+    position: relative;
+    right: 2vw;
+}
+
+.money,
+.bank{
+    text-align: right;
+    display: block;
+    font-size: 2.5vw;
+    height: 2.5vw;
+    letter-spacing: 3px;
+    font-family: Pricedown, Regular, sans-serif;
+    color: rgb(94, 159, 91);
+    text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+}
+
+.bank{
+    color: rgb(187, 210, 190) !important;
+}
+
+.middle{
+    position: absolute;
+    top: 45%;
+    width: 99%;
+}
+
+.help-menu{
+    opacity: 0.6;
+    position: relative;
+    font-family: "Segoe UI Light", Regular, sans-serif;
+    left: 1.5vw;
+    float:left;
+    color: white;
+}
+
+.middle .help-menu p{
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.middle .help-menu .bold{
+    font-family: "Segoe UI Bold", Regular, sans-serif;
+}
+
+.footer{
+    position: absolute;
+    bottom: 1vw;
+    width: 99%;
+    height: 2vw;
+}
+
+.micro-off{
+    position: relative;
+    display: inline-block;
+    background: url(../images/microphone_off.svg) no-repeat;
+    background-size: contain;
+    width: 2vw;
+    height: 2vw;
+    left: 17%;
+    opacity: 0.52;
+}
+.micro-on{
+    position: relative;
+    display: inline-block;
+    background: url(../images/microphone_on.svg) no-repeat;
+    background-size: contain;
+    width: 2vw;
+    height: 2vw;
+    left: 17%;
+    opacity: 0.52;
+}
+
+.project-name{
+    display: inline-block;
+    float: right;
+    font-size: 2.2vw;
+    font-family: UniSans-Heavy, Regular, sans-serif;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.project-name .red{
+    color: rgba(210, 22, 73, 0.6);
+    padding-left: 0.1vw;
+}

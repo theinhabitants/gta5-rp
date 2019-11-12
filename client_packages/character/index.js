@@ -14,6 +14,7 @@ const DEFAULT_SIMILARITY = 0.5;
 
 mp.events.add('showCharacterCreator', (skinJson) => {
     if (skinJson) {
+        utils.displayClientHud(false);
         utils.fadeScreen(() => {
             isEdit = true;
             showEditor();
@@ -70,16 +71,19 @@ mp.events.add("changeAppearance", (index, count, color) => {
 
 mp.events.add("saveCharacterInClient", (json) => {
     characterUI.destroy();
-    mp.gui.cursor.show(false, false);
 
     if(isEdit) {
         utils.fadeScreen(() => {
+            mp.gui.cursor.show(false, false);
             mp.events.callRemote("saveCharacterInServer", json);
+
             hideEditor();
+            utils.displayClientHud(true);
         }, 1000);
     }
     else {
         mp.events.callRemote("saveCharacterInServer", json);
+
         hideEditor();
         utils.moveCamera(characterData.cameraCoords[camIndex].camera, characterData.cameraCoords[camIndex].fov,
             characterData.cameraCoords[camIndex].X, characterData.cameraCoords[camIndex].Y, characterData.cameraCoords[camIndex].Z,
@@ -129,24 +133,23 @@ function setCamera(index) {
 }
 
 function hideEditor() {
-    mp.gui.chat.activate(true);
-    mp.gui.chat.show(true);
-    mp.game.ui.displayRadar(true);
-    mp.game.ui.displayHud(true);
-
-    currentPlayer.freezePosition(false);
-
     if(isEdit) {
+        mp.gui.chat.activate(true);
+        mp.gui.chat.show(true);
+        mp.game.ui.displayRadar(true);
+        mp.game.ui.displayHud(true);
+
+        currentPlayer.freezePosition(false);
+
         mp.game.cam.destroyAllCams(true);
-    }
 
-    mp.game.cam.renderScriptCams(false, false, 0, true, false);
+        mp.game.cam.renderScriptCams(false, false, 0, true, false);
 
-    if (isEdit) {
         currentPlayer.position = currentPlayer.preCreatorPos;
         currentPlayer.setHeading(currentPlayer.preCreatorHeading);
         isEdit = false;
-    } else {
+    }
+    else {
         mp.events.call("gotoChoseWayInClient");
     }
 }
@@ -165,19 +168,20 @@ function showEditor() {
         playerCamera.pointAtCoord(characterData.cameraCoords[1].X, characterData.cameraCoords[1].Y, characterData.cameraCoords[1].Z);
 
         playerCamera.setActive(true);
+
+        mp.gui.chat.activate(false);
+        mp.gui.chat.show(false);
+        mp.game.ui.displayRadar(false);
+        mp.game.ui.displayHud(false);
+        mp.players.local.clearTasksImmediately();
+        mp.players.local.freezePosition(true);
+
+        mp.game.cam.renderScriptCams(true, false, 0, true, false);
+
+        mp.gui.cursor.show(true, true);
     }
 
-    mp.gui.chat.activate(false);
-    mp.gui.chat.show(false);
-    mp.game.ui.displayRadar(false);
-    mp.game.ui.displayHud(false);
-    mp.players.local.clearTasksImmediately();
-    mp.players.local.freezePosition(true);
     characterUI.active = true;
-
-    mp.game.cam.renderScriptCams(true, false, 0, true, false);
-
-    mp.gui.cursor.show(true, true);
 
     currentPlayer.setHeadBlendData(characterData.mothers[0], characterData.fathers[0], 0, characterData.mothers[0], characterData.fathers[0], 0, DEFAULT_SIMILARITY, DEFAULT_SIMILARITY, 0.0, false);
 }

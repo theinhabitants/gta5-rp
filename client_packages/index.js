@@ -1,4 +1,4 @@
-require('./chat/simple');
+require('./hud');
 require('./chat/voice');
 require('./noclip');
 require('./character');

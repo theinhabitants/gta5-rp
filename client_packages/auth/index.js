@@ -39,6 +39,15 @@ mp.events.add("loginHandler", (response) => {
             utils.fadeScreen(() => {
                 mp.events.callRemote("playerSuccessAuth");
                 hideLoginForm();
+                utils.displayClientHud(true);
+
+                mp.gui.chat.activate(true);
+                mp.gui.chat.show(true);
+                mp.game.ui.displayRadar(true);
+                mp.game.ui.displayHud(true);
+                mp.players.local.freezePosition(false);
+
+                mp.game.cam.renderScriptCams(false, false, 0, true, false);
             }, 1000);
             break;
         case "wrong-email":
@@ -64,8 +73,8 @@ mp.events.add("registrationHandler", (response) => {
     switch (response) {
         case "success":
             authBrowser.destroy();
-            mp.gui.cursor.show(false, false);
             hideLoginForm();
+
             mp.events.callRemote("movePlayerToCreationSpace");
             utils.moveCamera(coordinates[0].camera, 40, coordinates[0].cameraLookAt.X, coordinates[0].cameraLookAt.Y,
                 coordinates[0].cameraLookAt.Z, coordinates[1].camera, 50, coordinates[1].cameraLookAt.X, coordinates[1].cameraLookAt.Y,
@@ -100,6 +109,7 @@ function showLoginForm() {
     mp.players.local.clearTasksImmediately();
     mp.players.local.freezePosition(true);
     authBrowser.active = true;
+    utils.displayClientHud(false);
 
     mp.game.cam.renderScriptCams(true, false, 0, true, false);
 
@@ -107,17 +117,11 @@ function showLoginForm() {
 }
 
 function hideLoginForm() {
-    mp.gui.chat.activate(true);
-    mp.gui.chat.show(true);
-    mp.game.ui.displayRadar(true);
-    mp.game.ui.displayHud(true);
-    mp.players.local.freezePosition(false);
-
     authCamera.destroy(true);
-
-    mp.game.cam.renderScriptCams(false, false, 0, true, false);
-
     mp.events.call("createPeds");
+
+    utils.disableWeaponWheelStats();
+    mp.game.ui.displayCash(true);
 }
 
 

@@ -59,6 +59,7 @@ var chatAPI = {
     show: (toggle) => {
         if (toggle)
             $("#chat").show();
+
         else
             $("#chat").hide();
 
