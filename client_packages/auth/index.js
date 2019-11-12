@@ -2,13 +2,22 @@ const authBrowser = mp.browsers.new("package://auth/index.html");
 const utils = require('utils');
 
 let authCamera;
-const coordinates = {
-    camera: new mp.Vector3(-3419.60888671875, 967.689453125, 13.597350120544434),
-    cameraLookAt: {
-        X: -3270.4150390625, Y: 966.8079833984375, Z: 7.3521647453308105
+const coordinates = [
+    {
+        camera: new mp.Vector3(-3419.60888671875, 967.689453125, 13.597350120544434),
+        cameraLookAt: {
+            X: -3270.4150390625, Y: 966.8079833984375, Z: 14.3521647453308105
+        },
+        playerPos: new mp.Vector3(-3419.66, 967.70, 12.95)
     },
-    playerPos: new mp.Vector3(-3419.66, 967.70, 12.95),
-};
+    {
+        camera: new mp.Vector3(-3418.92919921875, 967.5399780273438, 12.58523178100586),
+        cameraLookAt: {
+            X: -3219.710693359375, Y: 964.2979125976562, Z: 15.748759269714355
+        }
+    }
+];
+
 
 mp.events.add("showLogin", showLoginForm);
 
@@ -56,10 +65,11 @@ mp.events.add("registrationHandler", (response) => {
         case "success":
             authBrowser.destroy();
             mp.gui.cursor.show(false, false);
-            utils.fadeScreen(() => {
-                hideLoginForm();
-                mp.events.callRemote("movePlayerToCreationSpace");
-            }, 1000);
+            hideLoginForm();
+            mp.events.callRemote("movePlayerToCreationSpace");
+            utils.moveCamera(coordinates[0].camera, 40, coordinates[0].cameraLookAt.X, coordinates[0].cameraLookAt.Y,
+                coordinates[0].cameraLookAt.Z, coordinates[1].camera, 50, coordinates[1].cameraLookAt.X, coordinates[1].cameraLookAt.Y,
+                coordinates[1].cameraLookAt.Z, false, 2000);
             break;
         case "email-already-exist":
             authBrowser.execute(`$("#reg-wrong-email").show();`);
@@ -75,10 +85,10 @@ mp.events.add("registrationHandler", (response) => {
 });
 
 function showLoginForm() {
-    authCamera = mp.cameras.new("authCamera", coordinates.camera, new mp.Vector3(0, 0, 0), 40);
-    authCamera.pointAtCoord(coordinates.cameraLookAt.X, coordinates.cameraLookAt.Y, coordinates.cameraLookAt.Z);
+    authCamera = mp.cameras.new("authCamera", coordinates[0].camera, new mp.Vector3(0, 0, 0), 40);
+    authCamera.pointAtCoord(coordinates[0].cameraLookAt.X, coordinates[0].cameraLookAt.Y, coordinates[0].cameraLookAt.Z);
 
-    mp.players.local.position = coordinates.playerPos;
+    mp.players.local.position = coordinates[0].playerPos;
 
     authCamera.setActive(true);
 

@@ -22,8 +22,6 @@ mp.events.add('saveCharacterInServer', async (player, json) => {
 
 mp.events.add("changeGenderInServer", (player, number) => {
     player.model = characterData.freemodeCharacters[number];
-    player.position = characterData.creatorPlayerPos;
-    player.heading = characterData.creatorPlayerHeading;
     player.call("changeHead", [number]);
 });
 

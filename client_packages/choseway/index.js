@@ -1,18 +1,8 @@
 const utils = require('utils');
 
-let choseWayUI,
-    choseWayCamera;
+let choseWayUI;
 let peds = new Array();
 let questBlip;
-
-const camCoordinates = {
-    camera: new mp.Vector3(-3579.320556640625, 970.0040893554688, 44.14125061035156),
-    cameraLookAt:
-        {
-            X: -3096.736328125, Y: 960.1061401367188, Z: 37.44977951049805
-        },
-    playerPos: new mp.Vector3(-3579.37, 970.00, 43.45)
-};
 
 const camToNpc = [
     [
@@ -123,6 +113,7 @@ mp.events.add("moveCameraToNPC", (way) => {
             moveSecondCamera.destroy(true);
             moveFirstCamera.destroy(true);
 
+            mp.players.local.freezePosition(false);
             mp.game.cam.renderScriptCams(false, false, 0, true, false);
         }, 2100);
     }, 3000);
@@ -138,12 +129,7 @@ mp.events.add("createPeds", () => {
 function showChoseWayUI() {
     choseWayUI = mp.browsers.new("package://choseway/index.html");
 
-    choseWayCamera = mp.cameras.new("choseWayCam", camCoordinates.camera, new mp.Vector3(0, 0, 0), 40);
-    choseWayCamera.pointAtCoord(camCoordinates.cameraLookAt.X, camCoordinates.cameraLookAt.Y, camCoordinates.cameraLookAt.Z);
-
-    mp.players.local.position = camCoordinates.playerPos;
-
-    choseWayCamera.setActive(true);
+    mp.players.local.position = new mp.Vector3(-3579.37, 970.00, 43.45);
 
     mp.gui.chat.activate(false);
     mp.gui.chat.show(false);
@@ -162,9 +148,8 @@ function hideChoseWayUI() {
     mp.gui.chat.show(true);
     mp.game.ui.displayRadar(true);
     mp.game.ui.displayHud(true);
-    mp.players.local.freezePosition(false);
 
-    choseWayCamera.destroy(true);
+    mp.game.cam.destroyAllCams(true);
 
     mp.game.cam.renderScriptCams(false, false, 0, true, false);
 }

@@ -267,7 +267,7 @@ let holdInButton = 0;
 let currentPage = "parents_page";
 let palette;
 let showPalette;
-let angleCount = 180;
+let angleCount = 90;
 let clickAngle = false;
 
 

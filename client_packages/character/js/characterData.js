@@ -88,8 +88,8 @@ const hairList = [
 const fathers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 42, 43, 44];
 const mothers = [21, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 45];
 
-const creatorPlayerPos = new mp.Vector3(402.8664, -996.4108, -99.00027);
-const creatorPlayerHeading = 180;
+const creatorPlayerPos = new mp.Vector3(-3417.56, 967.52, 11.94);
+const creatorPlayerHeading = 90;
 
 const creatorClothes = [
     [{index: 3, clothes: 15}, {index: 11, clothes: 15}, {index: 8, clothes: 15}, {index: 4, clothes: 14}, {
@@ -104,27 +104,32 @@ const creatorClothes = [
 
 const cameraCoords = [
     {
-        camera: new mp.Vector3(402.8664, -997.5515, -98.5),
-        X: 402.8664,
-        Y: -996.4108,
-        Z: -98.5,
+        camera: new mp.Vector3(-3418.92919921875, 967.5399780273438, 12.58523178100586),
+        X: -3219.710693359375,
+        Y: 964.2979125976562,
+        Z: 15.748759269714355,
         fov: 100
     },
     {
-        camera: new mp.Vector3(402.8664, -997.5515, -98.5),
-        X: 402.8664,
-        Y: -996.4108,
-        Z: -98.5,
+        camera: new mp.Vector3(-3418.92919921875, 967.5399780273438, 12.58523178100586),
+        X: -3219.710693359375,
+        Y: 964.2979125976562,
+        Z: 15.748759269714355,
         fov: 50
     },
     {
-        camera: new mp.Vector3(402.85, -996.8515, -98.31),
-        X: 402.900,
-        Y: -993.761,
-        Z: -98.38,
-        fov: 40
+        camera: new mp.Vector3(-3417.92919921875, 967.5399780273438, 12.62),
+        X: -3219.710693359375,
+        Y: 964.2979125976562,
+        Z: 15.748759269714355,
+        fov: 50
     }
 ];
+
+const cameraMoveTo = {
+    camera: new mp.Vector3(-3579.320556640625, 970.0040893554688, 44.14125061035156),
+    X: -3096.736328125, Y: 960.1061401367188, Z: 37.44977951049805
+};
 
 exports = {
     hairList : hairList,
@@ -133,6 +138,7 @@ exports = {
     creatorPlayerPos: creatorPlayerPos,
     creatorPlayerHeading: creatorPlayerHeading,
     mothers : mothers,
-    cameraCoords : cameraCoords
+    cameraCoords : cameraCoords,
+    cameraMoveTo : cameraMoveTo
 };
 

@@ -5,18 +5,18 @@ let characterUI;
 
 let currentPlayer = mp.players.local;
 
-let playerCamera,
-    playerTempCamera;
+let playerCamera;
 
 let isEdit = false;
+let camIndex = 1;
 
 const DEFAULT_SIMILARITY = 0.5;
 
 mp.events.add('showCharacterCreator', (skinJson) => {
     if (skinJson) {
         utils.fadeScreen(() => {
-            showEditor();
             isEdit = true;
+            showEditor();
             characterUI.execute("character = " + skinJson);
         }, 1000);
     } else {
@@ -30,7 +30,7 @@ mp.events.add('changeHair', (number, gender) => {
 });
 
 mp.events.add('changeZoom', (index) => {
-    setCamera(index, true);
+    setCamera(index);
 });
 
 mp.events.add('changeModelAngle', (angle) => {
@@ -42,7 +42,7 @@ mp.events.add('changeFeature', (index, value) => {
 });
 
 mp.events.add('resetCharacter', () => {
-    setCamera(1, false);
+    setCamera(1);
 
     mp.events.callRemote("changeGenderInServer", 0);
 });
@@ -69,14 +69,23 @@ mp.events.add("changeAppearance", (index, count, color) => {
 });
 
 mp.events.add("saveCharacterInClient", (json) => {
-    const timeout = isEdit ? 1000 : 700;
-
     characterUI.destroy();
     mp.gui.cursor.show(false, false);
-    utils.fadeScreen(() => {
+
+    if(isEdit) {
+        utils.fadeScreen(() => {
+            mp.events.callRemote("saveCharacterInServer", json);
+            hideEditor();
+        }, 1000);
+    }
+    else {
         mp.events.callRemote("saveCharacterInServer", json);
         hideEditor();
-    }, timeout);
+        utils.moveCamera(characterData.cameraCoords[camIndex].camera, characterData.cameraCoords[camIndex].fov,
+            characterData.cameraCoords[camIndex].X, characterData.cameraCoords[camIndex].Y, characterData.cameraCoords[camIndex].Z,
+            characterData.cameraMoveTo.camera, 40, characterData.cameraMoveTo.X, characterData.cameraMoveTo.Y,
+            characterData.cameraMoveTo.Z , false, 7000);
+    }
 });
 
 mp.events.add("changeParents", (mother, father, similarity) => {
@@ -86,8 +95,6 @@ mp.events.add("changeParents", (mother, father, similarity) => {
 
 
 mp.events.add("changeGenderInClient", (number) => {
-    setCamera(1, false);
-
     mp.events.callRemote("changeGenderInServer", number);
 });
 
@@ -106,20 +113,19 @@ mp.events.add("changeHead", (gender) => {
 function setCamera(index) {
     const nullIndex = (index === 0) ? 2 : index - 1;
 
-    if(playerTempCamera) {
-        playerTempCamera.setActive(false);
-        playerTempCamera.destroy(true);
+    camIndex = index;
+
+    if(playerCamera) {
+        playerCamera.setActive(false);
+        playerCamera.destroy(true);
+        playerCamera = false;
     }
 
-    playerCamera.destroy(true);
-
-    playerTempCamera = mp.cameras.new("creatorCamera", characterData.cameraCoords[nullIndex].camera, new mp.Vector3(0, 0, 0), characterData.cameraCoords[nullIndex].fov);
-    playerTempCamera.pointAtCoord(characterData.cameraCoords[nullIndex].X, characterData.cameraCoords[nullIndex].Y, characterData.cameraCoords[nullIndex].Z);
-
-    playerCamera = mp.cameras.new("creatorCamera", characterData.cameraCoords[index].camera, new mp.Vector3(0, 0, 0), characterData.cameraCoords[index].fov);
-    playerCamera.pointAtCoord(characterData.cameraCoords[index].X, characterData.cameraCoords[index].Y, characterData.cameraCoords[index].Z);
-
-    playerCamera.setActiveWithInterp(playerTempCamera.handle, 2000, 0, 0);
+    utils.moveCamera(characterData.cameraCoords[nullIndex].camera, characterData.cameraCoords[nullIndex].fov,
+        characterData.cameraCoords[nullIndex].X, characterData.cameraCoords[nullIndex].Y, characterData.cameraCoords[nullIndex].Z,
+        characterData.cameraCoords[index].camera, characterData.cameraCoords[index].fov,
+        characterData.cameraCoords[index].X, characterData.cameraCoords[index].Y, characterData.cameraCoords[index].Z,
+        false, 2000);
 }
 
 function hideEditor() {
@@ -130,8 +136,9 @@ function hideEditor() {
 
     currentPlayer.freezePosition(false);
 
-    if(playerTempCamera) playerTempCamera.destroy(true);
-    playerCamera.destroy(true);
+    if(isEdit) {
+        mp.game.cam.destroyAllCams(true);
+    }
 
     mp.game.cam.renderScriptCams(false, false, 0, true, false);
 
@@ -153,10 +160,12 @@ function showEditor() {
 
     characterUI = mp.browsers.new("package://character/index.html");
 
-    playerCamera = mp.cameras.new("creatorCamera", characterData.cameraCoords[1].camera, new mp.Vector3(0, 0, 0), characterData.cameraCoords[1].fov);
-    playerCamera.pointAtCoord(characterData.cameraCoords[1].X, characterData.cameraCoords[1].Y, characterData.cameraCoords[1].Z);
+    if(isEdit) {
+        playerCamera = mp.cameras.new("creatorCamera", characterData.cameraCoords[1].camera, new mp.Vector3(0, 0, 0), characterData.cameraCoords[1].fov);
+        playerCamera.pointAtCoord(characterData.cameraCoords[1].X, characterData.cameraCoords[1].Y, characterData.cameraCoords[1].Z);
 
-    playerCamera.setActive(true);
+        playerCamera.setActive(true);
+    }
 
     mp.gui.chat.activate(false);
     mp.gui.chat.show(false);
