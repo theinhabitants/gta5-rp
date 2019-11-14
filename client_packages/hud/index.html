@@ -30,6 +30,48 @@
     </span>
 </div>
 
+<div id="speedometer" class="speedometer hide">
+    <div class="speedometer-box">
+        <div class="speedometer-box_line">
+            <img src="images/speed.svg"/>
+            <span id="speed" class="speed">0</span>
+            <span class="km">км/час</span>
+        </div>
+        <div class="speedometer-box_line">
+            <img src="images/fuel.svg"/>
+            <span class="progressbar-fuel">
+                    <span class="percent-fuel">0%</span>
+                </span>
+        </div>
+    </div>
+    <div class="properties">
+        <div class="property">
+                <span class="center">
+                    <img src="images/lock.svg"/>
+                    <span class="word">L</span>
+                </span>
+        </div>
+        <div class="property">
+                <span class="center">
+                    <img src="images/flash.svg"/>
+                    <span class="word">2</span>
+                </span>
+        </div>
+        <div class="property" style="background: rgba(0,0,0, 0.6)">
+                <span class="center">
+                    <img class="headlight" src="images/headlight.svg"/>
+                    <span class="word">3</span>
+                </span>
+        </div>
+        <div class="property" style="background: rgba(0,0,0, 0.6)">
+                <span class="center">
+                    <img class="car" src="images/trunk-open.svg"/>
+                    <span class="word">4</span>
+                </span>
+        </div>
+    </div>
+</div>
+
 <div class="footer">
     <span class="micro-off"></span>
     <span class="micro-on" style="display: none"></span>
@@ -41,5 +83,6 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="js/chat.js"></script>
+<script src="js/main.js"></script>
 </html>
 

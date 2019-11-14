@@ -16,6 +16,9 @@ mp.events.add("playerSuccessAuth", (player) => {
     spawnPlayer(player);
 });
 
+mp.events.add("playerEnterVehicle", (player, vehicle) => {
+    player.call("showSpeedometer", [vehicle]);
+});
 function spawnPlayer(player) {
     const spawnPoints = require('../spawn_points.json').SpawnPoints;
 
@@ -27,4 +30,3 @@ function spawnPlayer(player) {
 
     player.health = 100;
 }
-

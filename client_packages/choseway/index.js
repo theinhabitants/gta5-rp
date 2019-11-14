@@ -132,5 +132,8 @@ function hideChoseWayUI() {
     mp.game.cam.destroyAllCams(true);
 
     mp.game.cam.renderScriptCams(false, false, 0, true, false);
+
+    mp.game.streaming.requestAnimDict("timetable@tracy@sleep@");
+    mp.game.streaming.requestAnimDict("switch@franklin@bed");
 }
 

@@ -9,6 +9,11 @@
 }
 
 @font-face {
+    font-family: Ubuntu-Bold;
+    src: url(../fonts/ubuntu-bold.ttf);
+}
+
+@font-face {
     font-family: "Segoe UI Bold";
     src: url(../fonts/SegoiUI-Bold.ttf);
 }
@@ -16,6 +21,11 @@
 @font-face {
     font-family: Pricedown;
     src: url(../fonts/PriceDown.ttf);
+}
+
+@font-face {
+    font-family: "Ubuntu-Medium Italic";
+    src: url(../fonts/UbuntuItalic.ttf);
 }
 
 #chat, #chat input#chat_msg, #chat ul#chat_messages {
@@ -107,13 +117,17 @@ body {
 /*    background-size: 100% 100%;*/
 /*}*/
 
+.hide{
+    display: none;
+}
+
 #hud{
     user-select: none;
 }
 
 .header{
     position: absolute;
-    top: 3vw;
+    top: 2.5vw;
     width: 99%;
     height: 10vw;
 }
@@ -128,8 +142,8 @@ body {
 .bank{
     text-align: right;
     display: block;
-    font-size: 2.5vw;
-    height: 2.5vw;
+    font-size: 2.2vw;
+    height: 2.2vw;
     letter-spacing: 3px;
     font-family: Pricedown, Regular, sans-serif;
     color: rgb(94, 159, 91);
@@ -144,6 +158,111 @@ body {
     position: absolute;
     top: 45%;
     width: 99%;
+    height: 20vw;
+}
+
+.speedometer{
+    position: absolute;
+    right: 5vw;
+    bottom: 6vw;
+    width: 15vw;
+    height: 8vw;
+}
+
+.speedometer .speedometer-box{
+    background: rgba(0,0,0, 0.6);
+    width: 100%;
+    border-radius: 1vw;
+    height: 5.5vw;
+    padding: 1px;
+}
+
+.speedometer .speedometer-box_line{
+    color: #FFFFFF;
+    width: 93%;
+    margin: 2.5% 0 2.5% 7%;
+    line-height: 2vw;
+    height: 2vw;
+}
+
+.speedometer .speedometer-box_line span{
+    vertical-align: middle;
+}
+
+.speedometer .speedometer-box .speed,
+.speedometer .speedometer-box .km{
+    font-family: "Ubuntu-Medium Italic", sans-serif;
+    font-size: 1vw;
+}
+
+.speedometer .speedometer-box_line img{
+    display: inline-block;
+    vertical-align: middle;
+    width: 1.6vw;
+    height: 1.6vw;
+    padding-right: 0.8vw;
+}
+
+
+.speedometer .speedometer-box_line .progressbar-fuel{
+    line-height: 1.1vw;
+    display: inline-block;
+    width: 10.5vw;
+    height: 1.1vw;
+    background: -webkit-linear-gradient(left, #FFFFFF 0%, #FFFFFF 50%, #FFFFFF 50%);
+    border-radius: 2vw;
+    text-align: center;
+}
+.speedometer .speedometer-box_line .progressbar-fuel .percent-fuel{
+    background: -webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73, 1) 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    width: 10.5vw;
+    display: block;
+    font-family: Ubuntu-Bold, Regular, sans-serif;
+    font-size: 0.8vw;
+}
+
+.speedometer .properties{
+    padding-top: 0.5vw;
+    text-align: center;
+}
+
+.speedometer .properties .property{
+    display: inline-block;
+    margin: 0 0.5vw 0 0.5vw;
+    background: rgb(210, 22, 73);
+    border-radius: 100%;
+    width: 2.2vw;
+    height: 2.2vw;
+}
+
+.speedometer .properties .property .center{
+    display: block;
+    padding: 0.4vw 0 0.5vw 0;
+}
+
+.speedometer .properties .word{
+    display: block;
+    font-size: 0.4vw;
+    font-family: "Ubuntu", Regular, sans-serif;
+    font-weight: 200;
+    color: #FFFFFF;
+}
+
+.speedometer .properties .property img {
+    padding-bottom: 0.1vw;
+    display: inline-block;
+    width: 0.84vw;
+    height: 1.05vw;
+}
+
+.speedometer .properties .headlight {
+    width: 1.15vw!important;
+}
+
+.speedometer .properties .car {
+    width: 1.5vw!important;
 }
 
 .help-menu{

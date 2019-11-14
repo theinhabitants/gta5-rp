@@ -7,7 +7,8 @@ mp.events.add("disableEsc", function () {
     setTimeout(() => utils.disableInternalButton(false, 13, 200), 200);
 });
 
-let isPress = false;
+let isPress = false,
+    speedometer;
 
 mp.keys.bind(116, false, function () {
     if(!isPress) {
@@ -23,5 +24,18 @@ mp.keys.bind(116, false, function () {
         isPress = false;
     }
 });
+
+mp.events.add("showSpeedometer", (vehicle) =>{
+    mp.gui.execute("$('#speedometer').show();");
+
+    speedometer = setInterval(() => {
+        mp.gui.execute("$('#speed').text(" + (vehicle.getSpeed() * 3.6).toFixed(0) + ")");
+    }, 200);
+});
+
+mp.events.add("playerLeaveVehicle", () => {
+    clearInterval(speedometer);
+    mp.gui.execute("$('#speedometer').hide()");
+})
 
 

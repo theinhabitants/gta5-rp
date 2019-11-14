@@ -11,11 +11,11 @@ setInterval(function () {
 
     if (mp.keys.isDown(BUTTON_G) && mp.voiceChat.muted) {
         mp.voiceChat.muted = false;
-        mp.gui.execute('$(".micro-off").hide(200); $(".micro-on").show(200);');
+        mp.gui.execute('$(".micro-off").hide(); $(".micro-on").show();');
         currentPlayer.playFacialAnim("mic_chatter", "mp_facial");
     } else if (mp.keys.isUp(BUTTON_G) && !mp.voiceChat.muted) {
         mp.voiceChat.muted = true;
-        mp.gui.execute('$(".micro-on").hide(200); $(".micro-off").show(200);');
+        mp.gui.execute('$(".micro-on").hide(); $(".micro-off").show();');
         currentPlayer.playFacialAnim("mood_normal_1", "facials@gen_male@variations@normal");
     }
 
