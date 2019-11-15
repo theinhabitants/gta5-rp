@@ -19,6 +19,7 @@ mp.events.add("playerSuccessAuth", (player) => {
 mp.events.add("playerEnterVehicle", (player, vehicle) => {
     player.call("showSpeedometer", [vehicle]);
 });
+
 function spawnPlayer(player) {
     const spawnPoints = require('../spawn_points.json').SpawnPoints;
 
