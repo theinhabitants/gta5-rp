@@ -11,13 +11,12 @@ let isPress = false,
     speedometer;
 
 mp.keys.bind(116, false, function () {
-    if(!isPress) {
+    if (!isPress) {
         mp.game.ui.displayRadar(false);
         mp.game.ui.displayHud(false);
         utils.displayClientHud(false);
         isPress = true;
-    }
-    else {
+    } else {
         mp.game.ui.displayRadar(true);
         mp.game.ui.displayHud(true);
         utils.displayClientHud(true);
@@ -25,7 +24,7 @@ mp.keys.bind(116, false, function () {
     }
 });
 
-mp.events.add("showSpeedometer", (vehicle) =>{
+mp.events.add("showSpeedometer", (vehicle) => {
     mp.gui.execute("$('#speedometer').show();");
 
     speedometer = setInterval(() => {
@@ -36,6 +35,4 @@ mp.events.add("showSpeedometer", (vehicle) =>{
 mp.events.add("playerLeaveVehicle", () => {
     clearInterval(speedometer);
     mp.gui.execute("$('#speedometer').hide()");
-})
-
-
+});

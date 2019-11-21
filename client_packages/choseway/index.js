@@ -96,10 +96,13 @@ mp.events.add("gotoChoseWayInClient", () => {
 });
 
 mp.events.add("moveCameraToNPC", (way) => {
+    mp.game.streaming.requestAnimDict("timetable@tracy@sleep@");
+    mp.game.streaming.requestAnimDict("switch@franklin@bed");
+
     mp.game.streaming.requestAnimDict("anim@mp_player_intupperwave");
 
     utils.moveCamera(camToNpc[way][0].camera, 40, camToNpc[way][0].cameraLookAt.X, camToNpc[way][0].cameraLookAt.Y, camToNpc[way][0].cameraLookAt.Z,
-        camToNpc[way][1].camera, 40,camToNpc[way][1].cameraLookAt.X, camToNpc[way][1].cameraLookAt.Y, camToNpc[way][1].cameraLookAt.Z, false, 2000)
+        camToNpc[way][1].camera, 40, camToNpc[way][1].cameraLookAt.X, camToNpc[way][1].cameraLookAt.Y, camToNpc[way][1].cameraLookAt.Z, false, 2000)
 
     mp.game.cam.renderScriptCams(true, false, 0, true, false);
 
@@ -127,9 +130,10 @@ mp.events.add("createPeds", () => {
         peds.push(ped);
 
         mp.labels.new(npcName[i], npcCoordinates[i].labelPosition, {
+            font: 4,
             los: true,
-            color: [255, 255, 255, 255],
-            scale: [0.35, 0.35],
+            color: [0, 188, 212, 255],
+            scale: [0, 0],
             outline: true,
             drawDistance: 15
         });
@@ -145,8 +149,5 @@ function hideChoseWayUI() {
     mp.game.cam.destroyAllCams(true);
 
     mp.game.cam.renderScriptCams(false, false, 0, true, false);
-
-    mp.game.streaming.requestAnimDict("timetable@tracy@sleep@");
-    mp.game.streaming.requestAnimDict("switch@franklin@bed");
 }
 

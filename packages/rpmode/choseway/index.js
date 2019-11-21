@@ -27,13 +27,13 @@ const spawnCoordinates = [
 mp.events.add("enterWayInServer", (player, way) => {
     const npcPhrase = [
         [
-            "Эй ты, "+ player.name +", подойди ко мне, я хочу тебе кое-что сказать"
+            "Эй ты, " + player.name + ", подойди ко мне, я хочу тебе кое-что сказать"
         ],
         [
-            "Братишка "+ player.name +", ну-ка подойди, нужно перетереть с тобой несколько"
+            "Братишка " + player.name + ", ну-ка подойди, нужно перетереть с тобой несколько"
         ],
         [
-            "Ну-ка, "+ player.name +", встал оттуда, и подошел ко мне, быстро!"
+            "Ну-ка, " + player.name + ", встал оттуда, и подошел ко мне, быстро!"
         ],
     ];
 
@@ -46,18 +46,20 @@ mp.events.add("enterWayInServer", (player, way) => {
 
     player.health = 100;
 
-    player.playAnimation("timetable@tracy@sleep@", "idle_c", 1, 1);
-
     setTimeout(() => {
-        player.position = spawnCoordinates[thisWay].upBed;
-        player.heading = spawnCoordinates[thisWay].upBedHeading;
-        player.playAnimation('switch@franklin@bed', 'bed_reading_getup_facial', 1, 1);
+        player.playAnimation("timetable@tracy@sleep@", "idle_c", 1, 33);
+
         setTimeout(() => {
-            player.stopAnimation();
-            player.call("moveCameraToNPC", [thisWay]);
-            player.outputChatBox(npcName[thisWay] + ": " + npcPhrase[thisWay][0]);
-        }, 1000);
-    }, 5000);
+            player.position = spawnCoordinates[thisWay].upBed;
+            player.heading = spawnCoordinates[thisWay].upBedHeading;
+            player.playAnimation('switch@franklin@bed', 'bed_reading_getup_facial', 1, 33);
+            setTimeout(() => {
+                player.stopAnimation();
+                player.call("moveCameraToNPC", [thisWay]);
+                player.outputChatBox(npcName[thisWay] + ": " + npcPhrase[thisWay][0]);
+            }, 1000);
+        }, 5000);
+    }, 500);
 });
 
 mp.events.addCommand('anim', (player, args) => {
@@ -65,7 +67,7 @@ mp.events.addCommand('anim', (player, args) => {
     const firstID = args[0];
     const secondID = args[1];
     const thirdID = parseInt(args[2]);
-    const four = parseInt(args[2]);
+    const four = parseInt(args[3]);
 
     player.playAnimation(firstID, secondID, thirdID, four);
 });
