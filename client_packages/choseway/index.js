@@ -4,6 +4,8 @@ let choseWayUI;
 let peds = new Array();
 let questBlip;
 
+const npcName = ["Бомж", "Какой-то тип", "Охранник аэропорта"];
+
 const camToNpc = [
     [
         {
@@ -59,16 +61,19 @@ const npcCoordinates = [
     {
         modelHash: 0xEF154C47,
         position: new mp.Vector3(156.43, -1198.48, 29.30),
+        labelPosition: new mp.Vector3(156.43, -1198.48, 30.51),
         heading: 352.37
     },
     {
         modelHash: 0x9D0087A8,
         position: new mp.Vector3(146.04, -1673.29, 29.58),
+        labelPosition: new mp.Vector3(146.04, -1673.29, 30.79),
         heading: 218.95
     },
     {
         modelHash: 0x1880ED06,
         position: new mp.Vector3(-1068.22, -2558.49, 13.81),
+        labelPosition: new mp.Vector3(-1068.22, -2558.49, 15),
         heading: 327.49
     }
 ];
@@ -120,6 +125,14 @@ mp.events.add("createPeds", () => {
     for (let i = 0; i < npcCoordinates.length; i++) {
         const ped = mp.peds.new(npcCoordinates[i].modelHash, npcCoordinates[i].position, npcCoordinates[i].heading, 0);
         peds.push(ped);
+
+        mp.labels.new(npcName[i], npcCoordinates[i].labelPosition, {
+            los: true,
+            color: [255, 255, 255, 255],
+            scale: [0.35, 0.35],
+            outline: true,
+            drawDistance: 15
+        });
     }
 });
 

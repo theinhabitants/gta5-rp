@@ -28,6 +28,7 @@ mp.events.add('render', (nameTags) => {
                     outline: true
                 });
         }
+
     })
 });
 

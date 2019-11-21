@@ -73,10 +73,3 @@ mp.events.addCommand('anim', (player, args) => {
 mp.events.addCommand('stopanim', (player) => {
     player.stopAnimation();
 });
-
-mp.events.addCommand('pos', (player, args) => {
-    const thirdID = parseFloat(args[0]);
-    const four = parseFloat(args[1]);
-
-    player.position = new mp.Vector3(player.position.x-thirdID, player.position.y-four, player.position.z)
-});
