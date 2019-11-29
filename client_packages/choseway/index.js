@@ -82,6 +82,7 @@ const npcCoordinates = [
 mp.events.add("enterWayInClient", (way) => {
     choseWayUI.destroy();
     mp.gui.cursor.show(false, false);
+    mp.game.graphics.transitionFromBlurred(10000);
     utils.fadeScreen(() => {
         mp.events.callRemote("enterWayInServer", way);
         hideChoseWayUI();

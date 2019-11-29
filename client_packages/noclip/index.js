@@ -1,7 +1,3 @@
-mp.keys.bind(13, true, function() {
-  mp.gui.cursor.show(false, false);
-});
-
 var getNormalizedVector = function(vector) {
   var mag = Math.sqrt(
       vector.x * vector.x + vector.y * vector.y + vector.z * vector.z

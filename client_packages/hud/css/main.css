@@ -1,32 +1,5 @@
-@font-face {
-    font-family: UniNeueBold;
-    src: url(../fonts/UniNeueBold.ttf);
-}
-
-@font-face {
-    font-family: UniSans-Heavy;
-    src: url(../fonts/UniSans-Heavy.otf);
-}
-
-@font-face {
-    font-family: Ubuntu-Bold;
-    src: url(../fonts/ubuntu-bold.ttf);
-}
-
-@font-face {
-    font-family: "Segoe UI Bold";
-    src: url(../fonts/SegoiUI-Bold.ttf);
-}
-
-@font-face {
-    font-family: Pricedown;
-    src: url(../fonts/PriceDown.ttf);
-}
-
-@font-face {
-    font-family: "Ubuntu-Medium Italic";
-    src: url(../fonts/UbuntuItalic.ttf);
-}
+@import url("package://utils/cef/importfonts.css"); /*FOR RAGE MP*/
+@import url("../../utils/cef/importfonts.css"); /* FOR BROWSER */
 
 #chat, #chat input#chat_msg, #chat ul#chat_messages {
     font-family: UniNeueBold, sans-serif;
@@ -37,6 +10,9 @@
 }
 
 body {
+    overflow: hidden;
+    /*background: url(../images/bg.png);*/
+    /*background-size: 100% 100%;*/
     margin: 0 0 0 5px
 }
 
@@ -127,7 +103,7 @@ body {
 
 .header{
     position: absolute;
-    top: 2.5vw;
+    top: 2vw;
     width: 99%;
     height: 10vw;
 }
@@ -138,20 +114,155 @@ body {
     right: 2vw;
 }
 
-.money,
-.bank{
-    text-align: right;
-    display: block;
-    font-size: 2.2vw;
-    height: 2.2vw;
-    letter-spacing: 3px;
-    font-family: Pricedown, Regular, sans-serif;
-    color: rgb(94, 159, 91);
-    text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+.right-side .navigation-block{
+    color: #FFFFFF;
+    width: 14vw;
+    height: 11.26vw;
+    background: rgba(0,0,0, 0.7) 0 0 no-repeat padding-box;
+    backdrop-filter: blur(12px);
+    border-radius: 1.5vw;
 }
 
-.bank{
-    color: rgb(187, 210, 190) !important;
+.right-side .line{
+    padding-left: 1vw;
+    line-height: 1.7vw;
+    height: 1.7vw;
+}
+
+.right-side .second-line{
+    height: 2.1vw;
+}
+
+
+.right-side .line .icon-hungary{
+    display: inline-block;
+    background: url("../images/icon_hungary.svg") no-repeat;
+    background-size: contain;
+    width:1.6vw;
+    height: 1.6vw;
+}
+
+.right-side .line .progressbar-hungary{
+    margin-bottom: 0.2vw;
+    display: inline-block;
+    width: 10vw;
+    height: 0.9vw;
+    background: -webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) 50%, #FFFFFF 50%);
+    border-radius: 2vw;
+}
+
+.right-side .line .money{
+    line-height: normal;
+    padding-left: 0.2vw;
+    font-family: UninSans-SemiBold, sans-serif;
+    font-size: 1.2vw;
+    vertical-align: top;
+}
+
+.right-side .line .bank{
+    padding-left: 0.1vw;
+    font-family: UninSans-SemiBold, sans-serif;
+    font-size: 0.6vw;
+    vertical-align: top;
+}
+
+.right-side .line .icon-cash{
+    display: inline-block;
+    background: url("../images/icon_cash.svg") no-repeat;
+    background-size: contain;
+    width:1.4vw;
+    height: 1.4vw;
+}
+
+.right-side .small-line{
+    font-family: UniSans-Regular, sans-serif;
+    height: 1.2vw;
+    padding-left: 3vw;
+    line-height: 1vw;
+}
+
+.right-side .small-line_second{
+    height: 0.9vw;
+}
+
+.right-side .small-line .cash{
+    font-size: 0.8vw;
+    padding-right: 0.2vw;
+}
+.right-side .small-line .bank{
+    font-size: 0.5vw;
+}
+
+
+.right-side .nav-header{
+    height: 3vw;
+}
+
+.right-side .nav-header .content-text{
+    padding-left: 1vw;
+    padding-right: 1vw;
+    height: 3vw;
+    line-height: 3.5vw;
+}
+
+.right-side .nav-header .time{
+    font-size: 1.5vw;
+}
+
+.right-side .nav-header .date{
+    font-size: 1vw;
+}
+
+.right-side .nav-header .time,
+.right-side .nav-header .date{
+    font-family: UniSans-Regular, sans-serif;
+}
+
+.right-side .nav-footer{
+    height: 2vw;
+    width: 100%;
+}
+
+.right-side .nav-footer .box{
+    display: table;
+    width: 13vw;
+    line-height: 2.4vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.right-side .nav-footer .content-footer{
+    display: table-cell;
+}
+
+.right-side .nav-footer .content-center{
+    width: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.right-side .nav-footer .name{
+    font-family: UniNeueBold, sans-serif;
+    font-size: 0.7vw;
+}
+
+.right-side .nav-footer .walkie-talkie{
+    display: block;
+    background: url(../images/walkie-talkie.svg) no-repeat;
+    background-size: contain;
+    width: 2vw;
+    height: 1.8vw;
+    opacity: 0.8;
+}
+
+.right-side .nav-footer .micro{
+    display: block;
+    background: url(../images/microphone_off.svg) no-repeat;
+    background-size: contain;
+    width: 1.6vw;
+    height: 1.6vw;
+    opacity: 0.52;
 }
 
 .middle{
@@ -290,27 +401,6 @@ body {
     height: 2vw;
 }
 
-.micro-off{
-    position: relative;
-    display: inline-block;
-    background: url(../images/microphone_off.svg) no-repeat;
-    background-size: contain;
-    width: 2vw;
-    height: 2vw;
-    left: 17%;
-    opacity: 0.52;
-}
-.micro-on{
-    position: relative;
-    display: inline-block;
-    background: url(../images/microphone_on.svg) no-repeat;
-    background-size: contain;
-    width: 2vw;
-    height: 2vw;
-    left: 17%;
-    opacity: 0.52;
-}
-
 .project-name{
     display: inline-block;
     float: right;
@@ -322,4 +412,62 @@ body {
 .project-name .red{
     color: rgba(210, 22, 73, 0.6);
     padding-left: 0.1vw;
+}
+
+.alert-box {
+    margin: auto;
+    position: absolute;
+    left: 0;
+    bottom: -5vw;
+    right: 0;
+    width:30.3vw;
+}
+
+#map_line_svg {
+    backdrop-filter: blur(3px);
+    border-radius: 1vw;
+    width: 30.2vw;
+    height: 4.4vw;
+}
+
+.rect {
+    fill: #0F1524;
+    opacity: 0.8;
+}
+
+.inside {
+    color: #FFFFFF;
+    line-height: 0.7vw;
+}
+
+.inside p {
+    margin-block-start: 0;
+    margin-block-end: 1vw;
+}
+
+.alert {
+    text-transform: uppercase;
+    font-family: HelveticaNeueLight, sans-serif;
+    opacity: 0.6;
+    font-size: 0.8vw;
+}
+
+.message {
+    font-family: HelveticaNeue-Regular, Regular, sans-serif;
+    font-size: 1vw;
+}
+
+.message-area {
+    z-index: 2;
+    display: inline-block;
+}
+
+.smile {
+    width: 2.5vw;
+    height: 2.5vw;
+    display: inline-block;
+    background: url("../images/smile_bad.svg") no-repeat;
+    background-size: contain;
+    padding-right: 1vw;
+    float: right;
 }

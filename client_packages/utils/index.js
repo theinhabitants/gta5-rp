@@ -55,6 +55,9 @@ function getSecondCamera() {
     return moveSecondCamera;
 }
 
+function showAlert(type, message) {
+    mp.gui.execute("showAlert(" + type + ", '" + message +"');");
+}
 
 function displayClientHud(val) {
     if (val) {
@@ -68,6 +71,7 @@ exports = {
     disableInternalButton: disableInternalButton,
     fadeScreen: fadeScreen,
     moveCamera: moveCamera,
+    showAlert: showAlert,
     getFirstCamera: getFirstCamera,
     getSecondCamera: getSecondCamera,
     displayClientHud: displayClientHud,

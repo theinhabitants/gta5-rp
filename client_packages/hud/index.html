@@ -1,6 +1,6 @@
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="style/main.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="css/main.css" media="screen">
     <meta charset="utf-8"/>
 </head>
 <body id="hud">
@@ -11,8 +11,44 @@
 
 <div class="header">
     <div class="right-side">
-        <span class="money" id="money">$43859102</span>
-        <span class="bank" id="bank">$438591</span>
+        <div class="navigation-block hide" id="nav-block">
+            <div class="nav-header">
+                <div class="content-text">
+                    <span class="time" id="time">13:45</span>
+                    <span class="date" id="date">Пн, 24 июня</span>
+                </div>
+            </div>
+            <div class="small-line">
+                <span class="cash">Наличные</span>
+                <span class="bank">Банк</span>
+            </div>
+            <div class="line">
+                <div class="icon-cash"></div>
+                <span class="money">$9 209 885</span>
+                <span class="bank">$40 000 000</span>
+            </div>
+            <div class="small-line small-line_second">
+                <span class="cash">Сытость</span>
+            </div>
+            <div class="line second-line">
+                <div class="icon-hungary"></div>
+                <span class="progressbar-hungary">
+                </span>
+            </div>
+            <div class="nav-footer">
+                <div class="box">
+                    <div class="content-footer">
+                        <span class="micro"></span>
+                    </div>
+                    <div class="content-center">
+                        <span class="name" id="name">Twoy Senpai (1500)</span>
+                    </div>
+                    <div class="content-footer">
+                        <span class="walkie-talkie"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -28,6 +64,26 @@
         <p><span class="bold"> F10 -</span> Анимации</p>
         <p><span class="bold"> Enter -</span> Курсор</p>
     </span>
+</div>
+
+<div class="alert-box hide">
+    <svg id="map_line_svg">
+        <rect y="2px" class="rect" width="30vw" height="4.1vw" rx="1vw" fill="none">
+        </rect>
+
+        <rect class="outline" x="0.1vw" y="0.1vw" width="30vw" height="4.2vw" rx="1vw" fill="none" stroke-width="4"
+              stroke="#D21649" stroke-dashoffset="0" stroke-dasharray="68vw">
+            <animate id="anim" begin="false" attributeName="stroke-dashoffset" from="0" to="68vw" dur="5.2s"/>
+        </rect>
+
+        <foreignobject class="inside" x="1vw" y="1vw" width="29vw" height="3vw">
+            <div class="message-area">
+                <p><span class="alert">Оповещение</span></p>
+                <p><span class="message">Игрок (3232) передал вам $23131231213</span></p>
+            </div>
+            <div class="smile"></div>
+        </foreignobject>
+    </svg>
 </div>
 
 <div id="speedometer" class="speedometer hide">
@@ -73,12 +129,10 @@
 </div>
 
 <div class="footer">
-    <span class="micro-off"></span>
-    <span class="micro-on" style="display: none"></span>
-    <span class="project-name">
+    <div class="project-name">
         <span>Real</span>
         <span class="red">P</span>
-    </span>
+    </div>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

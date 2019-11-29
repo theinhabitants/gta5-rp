@@ -201,6 +201,15 @@ mp.events.addCommand('tp', (player, args) => {
     }
 });
 
+mp.events.addCommand('al', (player, args) => {
+    args = args.split(" ");
+
+    const first = parseInt(args[0]);
+    const second = args[1];
+
+    player.call("testAlert", [first, second]);
+});
+
 mp.events.addCommand('o', (player, message) => {
     if (message === undefined) {
         player.outputChatBox("!{red}Ошибка! Используйте /o [текст]");

@@ -11,9 +11,9 @@ const coordinates = [
         playerPos: new mp.Vector3(-3419.66, 967.70, 12.95)
     },
     {
-        camera: new mp.Vector3(-3418.92919921875, 967.5399780273438, 12.58523178100586),
+        camera: new mp.Vector3(-3377.39990234375, 968.8628540039062, 17.524507522583008),
         cameraLookAt: {
-            X: -3219.710693359375, Y: 964.2979125976562, Z: 15.748759269714355
+            X: -3419.73974609375, Y: 966.1765747070312, Z: 9.758538246154785
         }
     }
 ];
@@ -38,6 +38,7 @@ mp.events.add("loginHandler", (response) => {
             mp.gui.cursor.show(false, false);
             utils.fadeScreen(() => {
                 mp.events.callRemote("playerSuccessAuth");
+
                 hideLoginForm();
                 utils.displayClientHud(true);
 
@@ -46,6 +47,8 @@ mp.events.add("loginHandler", (response) => {
                 mp.game.ui.displayRadar(true);
                 mp.game.ui.displayHud(true);
                 mp.players.local.freezePosition(false);
+
+                mp.game.graphics.transitionFromBlurred(0);
 
                 mp.game.cam.renderScriptCams(false, false, 0, true, false);
             }, 1000);
@@ -75,7 +78,8 @@ mp.events.add("registrationHandler", (response) => {
             authBrowser.destroy();
             hideLoginForm();
 
-            mp.events.callRemote("movePlayerToCreationSpace");
+            mp.events.call("gotoEnterName");
+
             utils.moveCamera(coordinates[0].camera, 40, coordinates[0].cameraLookAt.X, coordinates[0].cameraLookAt.Y,
                 coordinates[0].cameraLookAt.Z, coordinates[1].camera, 50, coordinates[1].cameraLookAt.X, coordinates[1].cameraLookAt.Y,
                 coordinates[1].cameraLookAt.Z, false, 2000);
@@ -99,6 +103,7 @@ function showLoginForm() {
 
     mp.players.local.position = coordinates[0].playerPos;
 
+    mp.game.graphics.transitionToBlurred(0);
     authCamera.setActive(true);
 
     mp.gui.chat.activate(false);

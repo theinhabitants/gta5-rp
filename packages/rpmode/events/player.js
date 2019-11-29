@@ -1,6 +1,8 @@
 const auth = require("../auth/auth");
 const logger = require("../logger/logger");
 
+const DRIVER_SEAT = -1;
+
 function playerQuitHandler(player) {
     auth.removeOnlineUser(player.id);
     logger.log.info("Player: %s disconnected", player.name)
@@ -14,10 +16,8 @@ mp.events.add('playerDeath', (player) => {
 
 mp.events.add("playerSuccessAuth", (player) => {
     spawnPlayer(player);
-});
 
-mp.events.add("playerEnterVehicle", (player, vehicle) => {
-    player.call("showSpeedometer", [vehicle]);
+    player.call("displayNavigationBlock", [player]);
 });
 
 function spawnPlayer(player) {
@@ -31,3 +31,9 @@ function spawnPlayer(player) {
 
     player.health = 100;
 }
+
+mp.events.add("playerEnterVehicle", (player, vehicle, seat) => {
+    if(seat === DRIVER_SEAT) {
+        player.call("showSpeedometer", [vehicle]);
+    }
+});

@@ -1,0 +1,82 @@
+body {
+    background-color:#0dd;
+}
+#view{
+    width: 50vw;
+    height: 30vw;
+    margin: 0 auto;
+    outline: black 5px solid;
+}
+#dice{
+    margin: 0 auto;
+    width:3vw;
+    height:3vw;
+    position:relative;
+    transform-style:preserve-3d;
+    transition: transform 1s;
+}
+#move{
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    margin: 0 auto 0 auto;
+    top: 50%;
+    position:relative;
+}
+/*#btnFront:checked ~ #view>#dice{*/
+/*    transform:rotateY(360deg) !important;*/
+/*}*/
+/*#btnRight:checked ~ #view>#dice{*/
+/*    transform:rotateY(-90deg) !important;*/
+/*}*/
+/*#btnBack:checked ~ #view>#dice{*/
+/*    transform:rotateY(180deg) !important;*/
+/*}*/
+/*#btnLeft:checked ~ #view>#dice{*/
+/*    transform:rotateY(90deg) !important;*/
+/*}*/
+/*#btnTop:checked ~ #view>#dice{*/
+/*    transform:rotateX(-90deg) !important;*/
+/*}*/
+/*#btnBottom:checked ~ #view>#dice{*/
+/*    transform:rotateX(90deg) !important;*/
+/*}*/
+
+.diceFace{
+    position:absolute;
+    width:3vw;
+    height:3vw;
+    text-align:center;
+    line-height:3vw;
+    font-size:2vw;
+    border:1px solid #000000;
+    border-radius: 0.2vw;
+    background-size: contain;
+}
+
+
+#front{
+    background-image: url(../images/one.svg);
+    transform:rotateY(0deg) translateZ(1.5vw);
+}
+#right{
+    background-image: url(../images/two.svg);
+    transform:rotateY(90deg) translateZ(1.5vw);
+}
+#back{
+    background-image: url(../images/three.svg);
+    transform:rotateY(180deg) translateZ(1.5vw);
+}
+#left{
+    background-image: url(../images/four.svg);
+    transform:rotateY(-90deg) translateZ(1.5vw);
+}
+#top{
+    background-image: url(../images/five.svg);
+    transform:rotateX(90deg) translateZ(1.5vw);
+}
+#bottom{
+    background-image: url(../images/six.svg);
+    transform:rotateX(-90deg) translateZ(1.5vw);
+}
+
+

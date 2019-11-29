@@ -60,8 +60,9 @@ mp.events.add("enterWayInServer", (player, way) => {
             }, 1000);
         }, 5000);
     }, 500);
-});
 
+    player.call("displayNavigationBlock", [player]);
+});
 mp.events.addCommand('anim', (player, args) => {
     args = args.split(" ");
     const firstID = args[0];

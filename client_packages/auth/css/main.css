@@ -1,31 +1,10 @@
-@font-face {
-    font-family: UniSans-Light;
-    src: url(../fonts/UniSans-Light.otf);
-}
-@font-face {
-    font-family: UniSans-Heavy;
-    src: url(../fonts/UniSans-Heavy.otf);
-}
-@font-face {
-    font-family: Ubuntu-Bold;
-    src: url(../fonts/ubuntu-bold.ttf);
-}
-@font-face {
-    font-family: Ubuntu-Condensed;
-    src: url(../fonts/Ubuntu-Condensed.ttf);
-}
-@font-face {
-    font-family: Ubuntu-Light;
-    src: url(../fonts/ubuntu-light.ttf);
-}
-@font-face {
-    font-family: Ubuntu-Medium;
-    src: url(../fonts/ubuntu-medium.ttf);
-}
+@import url("package://utils/cef/importfonts.css"); /*FOR RAGE MP*/
+@import url("../../utils/cef/importfonts.css"); /* FOR BROWSER */
 
 body {
     color: #FFFFFF;
     font-size: 0.8vw;
+    overflow: hidden;
 }
 
 .wrapper{
@@ -40,6 +19,13 @@ body {
     transform: translate(-50%, -50%);
 }
 
+.enter-name .wrapper {
+    background: transparent url(../images/bg.jpg) 50% 0 no-repeat padding-box;
+    background-size: cover;
+    width:38vw!important;
+    height:47vh!important;
+}
+
 .background-dark{
     width: 42.5vw;
     height: 45vh;
@@ -49,12 +35,22 @@ body {
     position: absolute;
 }
 
+.enter-name .background-dark{
+    width: 38vw!important;
+    height: 47vh!important;
+}
+
 .left-side{
     width:40%;
     height: 90%;
     padding: 1.5vw 1vw 1vw 1.9vw;
     text-align: center;
     float:left;
+}
+
+.enter-name .left-side{
+    width:60% !important;
+    float:right!important;
 }
 
 .content-box{
@@ -66,11 +62,22 @@ body {
     height: 13vh;
 }
 
+.enter-name .header{
+    height: 10vh!important;
+    line-height: 10vh!important;
+}
+
 .project-name{
     display: block;
     font-size: 4.3vw;
     font-family: UniSans-Heavy, Regular, sans-serif;
     color: rgb(255, 255, 255);
+}
+
+.enter-name .project-name{
+    vertical-align: middle!important;
+    font-size: 3vw!important;
+    font-family: SignPainter-HouseScript, Bold, sans-serif!important;
 }
 
 .project-name .red{
@@ -93,6 +100,10 @@ body {
     height: 1vh;
 }
 
+.enter-name .error-box{
+    height: 2vh!important;
+}
+
 .hide{
     display: none;
 }
@@ -100,6 +111,10 @@ body {
 .content{
     width:100%;
     height: 19vh;
+}
+
+.enter-name .content{
+    height: 18.5vh!important;
 }
 
 .content input{
@@ -115,6 +130,11 @@ body {
     outline: none;
     font-family: Ubuntu-Medium, sans-serif;
     color: black;
+}
+
+.enter-name .content input{
+    width: 19vw!important;
+    margin: 1.5vh 0 1.5vh 0!important;
 }
 
 .content input::placeholder {
@@ -162,6 +182,33 @@ body {
     font-size: 0.6vw;
 }
 
+.enter-name .footer{
+    height: 12vh!important;
+}
+
+.enter-name .footer .warning{
+    position: relative;
+    left: -2.6vw;
+    padding-top: 2vw;
+    text-align: left!important;
+    font-family: AdobeClean-Light, Regular, sans-serif;
+    width: 125%;
+    bottom: 0;
+    font-size: 0.73vw!important;
+    color: rgba(255,255,255,0.52);
+    line-height: normal!important;
+}
+
+.enter-name .footer .red{
+    color: rgba(211, 25, 70, 0.9) !important;
+    font-weight: 700!important;
+}
+
+.enter-name .footer .warning .line{
+    display: block;
+}
+
+
 .footer .url{
     float:left;
     margin: 0 0.3vw 0 0.3vw;
@@ -171,6 +218,12 @@ body {
     font-family: Ubuntu-Light, sans-serif;
     color: rgba(255, 255, 255, 0.4);
     text-decoration: none;
+}
+
+.enter-name .footer .center{
+    width: 19vw;
+    height: 4.5vh;
+    margin: 0 auto;
 }
 
 .footer .button-login{
@@ -192,11 +245,17 @@ body {
 .footer .button-login input[type=submit]:active{
     background: rgb(290, 22, 73);
 }
+
 .right-side{
     width:52%;
     height: 100%;
     float:right;
     text-align: left;
+}
+
+.enter-name .right-side{
+    float:left!important;
+    text-align: right!important;
 }
 
 .right-side .letters{
@@ -219,6 +278,12 @@ body {
     height: calc(100% + 5vw);
     bottom: 0;
     left: 59.5%;
+}
+
+.enter-name .right-side img{
+    left: -1vw!important;
+    width:16vw!important;
+    height: calc(100% + 9vw) !important;
 }
 
 .registration .left-side{
