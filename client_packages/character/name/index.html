@@ -1,0 +1,55 @@
+<html class="transparent-bg-4">
+<meta charset="utf-8">
+<link rel="stylesheet" href="package://auth/css/main.css">
+<link rel="stylesheet" href="../../auth/css/main.css">
+
+<body class="enter-name">
+<div class="wrapper">
+    <div class="background-dark"></div>
+
+    <form class="registration" id="formRegister" action="" method="POST">
+        <div class="left-side">
+            <div class="content-box">
+                <div class="header">
+                    <span class="project-name ">
+                        Как тебя зовут?
+                    </span>
+                </div>
+                <div class="error-box">
+                    <b class="alert hide" id="name-already-exist">Такое сочетание имени и фамилии уже занято :c</b>
+                    <b class="alert hide" id="name-server-error">Внутренняя ошибка сервера,
+                        обратитесь в ТП</b>
+                </div>
+                <div class="content">
+                    <div class="name">
+                        <input id="name" type="text" minlength="2" maxlength="21" placeholder="Введите имя вашего персонажа" required/>
+                    </div>
+                    <div class="surname">
+                        <input id="surname" type="text" minlength="2" maxlength="21" placeholder="Введите фамилию вашего персонажа"
+                               required/>
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="center">
+                        <span class="button-login">
+                            <input id="sub" type="submit" value="сохранить"/>
+                        </span>
+                    </div>
+                    <div class="warning">
+                        <span class="line">
+                            <span class="red">Внимание:</span> запрещено использовать сочетания имени и фамилии типа Vilka_Lojka,</span>
+                        <span class="line">Kluch_Gae4niy и т.п, не соблюдения этого правила будет строго наказываться!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-side">
+            <img src="images/man.png"/>
+        </div>
+    </form>
+</div>
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="package://utils/cef/js/lodash.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+</html>

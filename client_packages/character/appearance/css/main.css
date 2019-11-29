@@ -1,0 +1,477 @@
+@import url("package://utils/cef/importfonts.css"); /*FOR RAGE MP*/
+@import url("../../utils/cef/importfonts.css"); /* FOR BROWSER */
+
+
+body {
+    /*background: url(../images/bg.png) no-repeat center center fixed;*/
+    /*background-size: cover; !* Современные браузеры *!*/
+    color: #FFFFFF;
+    font-size: 0.8vw;
+}
+
+.clear-area {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.hide {
+    display: none;
+}
+
+.wrapper {
+    z-index: 2;
+    display: block;
+    width: 50vw;
+    height: 100%;
+}
+
+.settings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 300%);
+}
+
+.settings .zoom:hover {
+    opacity: 1;
+}
+
+.settings .arrow_angle:hover {
+    opacity: 1;
+}
+
+.settings .zoom {
+    width: 7vw;
+    height: 7vh;
+    margin: 0 5vw 0 5vw;
+    opacity: 0.7;
+}
+
+.settings .arrow_angle {
+    width: 10vw;
+    height: 10vh;
+    display: inline-block;
+    opacity: 0.7;
+}
+
+.settings .right_arrow {
+    transform: scaleX(-1);
+}
+
+.warning {
+    width: 20vw;
+    height: 20vh;
+    background: rgba(0, 0, 0, 0.6) 0% 0% no-repeat padding-box;
+    border-radius: 1vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 0.3vw;
+    transform: translate(-50%, -50%);
+}
+
+.warning .head {
+    height: 5vh;
+}
+
+.warning .title {
+    margin: 1vh 0 0 0;
+}
+
+.warning .title h2 {
+    font-size: 1.5vw !important;
+}
+
+.warning .content p {
+    margin-block-start: 0.2em;
+    margin-block-end: 0.2em;
+}
+
+.warning .content {
+    height: 10vh;
+    font-family: Roboto-Light, serif;
+    font-size: 0.8vw !important;
+    text-align: center;
+    display: table;
+}
+
+.warning .content .text {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.warning .footer {
+    height: 5vh;
+    line-height: 3vh;
+}
+
+.warning .footer .button_cancel,
+.warning .footer .button_save {
+    padding: 1vh 0 1vh 0;
+    width: 5vw;
+    font-size: 0.7vw;
+    margin: 0 1.3vw 0 1.3vw;
+}
+
+.color_select-box {
+    position: relative;
+    background: rgba(0, 0, 0, 0.6) 0% 0% no-repeat padding-box;
+    border-radius: 1vw 0.5vw 1vw 1vw;
+    width: 14.5vw;
+    height: 30vh;
+    left: 23vw;
+    top: 30%;
+    padding: 0.6vw 0.6vw 0.3vw 0.6vw;
+}
+
+.color_select-box .head {
+    height: 5vh;
+}
+
+.color_select-box .title {
+    margin: 0 0 0 0;
+}
+
+.color_select-box .head .cross:after {
+    content: "\00d7";
+    background: rgb(211, 22, 73);
+    padding: 0.2vw 0.4vw 0.2vw 0.4vw;
+    border-radius: 100%;
+    float: right;
+    position: relative;
+    top: -1vw;
+    left: 1vw;
+}
+
+.color_select-box .head .cross:hover {
+    color: #f4dfb6;
+}
+
+.color_select-box .title h2 {
+    font-size: 1.5vw !important;
+}
+
+.color_select-box .content {
+    height: 23vh;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.color_select-box .content .palette {
+    width: 100%;
+    height: 100%;
+}
+
+.color_select-box .content .color {
+    width: 2vw;
+    height: 3.5vh;
+    background: #a545a5;
+    margin: 0.15vw 0.15vw 0.15vw 0.15vw;
+    cursor: pointer;
+    display: inline-block;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+}
+
+.creator_box {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6) 0% 0% no-repeat padding-box;
+    border-radius: 1vw;
+    width: 21vw;
+    height: 90vh;
+    padding: 1px;
+    display: inline-block;
+    margin-left: 1vw;
+}
+
+.head {
+    width: 100%;
+    height: 18vh;
+    padding: 1px;
+}
+
+.section {
+    width: 100%;
+    text-align: center;
+}
+
+.section_button-label {
+    z-index: 99 !important;
+    position: relative;
+}
+
+.section_button {
+    padding: 0.9vh 0 0.9vh 0;
+    font-family: Roboto-Bold;
+    text-align: center;
+    width: 5.5vw;
+    font-size: 0.7vw;
+    margin: 0 0.3vw 0 0.3vw;
+    border-radius: 4vw;
+    z-index: 5;
+    display: inline-block;
+    cursor: pointer;
+    background: rgb(211, 22, 73) 0% 0% no-repeat padding-box;
+}
+
+.section .not_active {
+    background: rgb(104, 104, 104)
+}
+
+.color-red {
+    color: rgb(211, 22, 73);
+}
+
+.animation {
+    padding: 0.9vh 0 0.9vh 0;
+    font-family: Roboto-Bold;
+    text-align: center;
+    width: 5.52vw;
+    font-size: 0.7vw;
+    margin: 0 0.3vw 0 0.3vw;
+    border-radius: 4vw;
+    display: inline-block;
+    z-index: 6;
+    cursor: pointer;
+    position: absolute;
+    background: rgb(211, 22, 77) 0% 0% no-repeat padding-box;
+}
+
+.title {
+    width: 100%;
+    margin: 4vh 0 3vh 0;
+    padding: 1px;
+}
+
+.title h2 {
+    font-family: SignPainter-HouseScript, Regular, cursive;
+    font-size: 2.5vw;
+    text-align: center;
+    margin: 0;
+    font-weight: inherit;
+    letter-spacing: 0;
+    color: #FFFFFF;
+}
+
+.content {
+    width: 100%;
+    height: 61vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 1.3vw;
+}
+
+.subject {
+    width: 92%;
+    padding: 0 0 0 8%;
+}
+
+.subject-gender {
+    width: 100%;
+    text-align: center;
+    margin: 1vh 0 0 0;
+}
+
+.gender {
+    width: 100%;
+    heigth: 11vh;
+    padding: 1px;
+}
+
+.gender .gender_item {
+    display: inline-block;
+    width: 3vw;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.gender_chose {
+    cursor: pointer;
+    background: rgb(211, 22, 73);
+    display: inline-block;
+    border-radius: 100%;
+    padding: 0.7vw;
+}
+
+.gender_chose > img {
+    display: block;
+    width: 1vw;
+    height: 1vw;
+}
+
+/*.gender .label{
+    display: block;
+    font-family: Bebas-Neue, Regular, monospace;
+}*/
+
+.line {
+    width: 90%;
+    height: 6vh;
+    line-height: 6vh;
+}
+
+.features_page .property-name {
+    font-size: 1vw !important;
+}
+
+.features_page .retreat {
+    margin-top: -0.7vh !important;
+}
+
+.features_page .retreat .slider-range {
+    width: 7.5vw !important;
+}
+
+.features_page .line .color-palette {
+    margin-left: 0.4vw !important;
+}
+
+.appearance_page .property-name {
+    font-size: 1.1vw !important;
+}
+
+.appearance_page .line .property-value {
+    width: 3vw !important;
+}
+
+.appearance_page .retreat .slider-range {
+    width: 9vw !important;
+}
+
+.line .color-palette {
+    width: 1.1vw;
+    height: 2.52vh;
+    vertical-align: middle;
+    margin-left: 1vw;
+    cursor: pointer;
+    border: none;
+}
+
+.line .property-name {
+    vertical-align: middle;
+    display: inline-block;
+    font-family: Bebas-Neue, Regular, monospace;
+    height: 2vw;
+}
+
+.line .property-value {
+    vertical-align: middle;
+    text-align: center;
+    font-family: SignPainter-HouseScript, Regular, cursive;
+    width: 7vw;
+    height: 5.5vh;
+    display: inline-block;
+}
+
+.line .property-arrow_left,
+.line .property-arrow_right {
+    vertical-align: middle;
+    cursor: pointer;
+    background: rgba(211, 22, 73, 0.51);
+    display: inline-block;
+    border-radius: 100%;
+    padding: 0.5vw;
+    text-align: center;
+}
+
+.line .property-arrow_left > img,
+.line .property-arrow_right > img {
+    display: block;
+    width: 0.5vw;
+    height: 0.5vw;
+}
+
+.line .property-arrow_left > img {
+    transform: rotate(180deg);
+}
+
+.line .retreat {
+    display: inline-block;
+    float: right;
+    height: 6vh;
+}
+
+.line .retreat .slider-range {
+    display: inline-block;
+    margin-top: 2.8vh;
+    border: none;
+    -webkit-appearance: none;
+    border-radius: 4vw;
+    width: 10vw;
+    height: 0.5vh;
+    background: -webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73, 0.3) 50%);
+}
+
+.line .retreat .slider {
+    border: none;
+    margin-left: 0.5vw;
+    background: none;
+}
+
+.slider .ui-slider-handle {
+    border-radius: 100%;
+    background: rgb(211, 22, 73);
+    border: none;
+    outline: none;
+    height: 1vw;
+    width: 1vw;
+}
+
+.content::-webkit-scrollbar {
+    width: 0.5vh;
+    background: rgba(211, 22, 73, 0.3);
+    border-radius: 4vw;
+}
+
+.content::-webkit-scrollbar-track {
+    border-radius: 4vw;
+    width: 0.5vh;
+    background: rgba(211, 22, 73, 0.3);
+}
+
+.content::-webkit-scrollbar-thumb {
+    border-radius: 4vw;
+    background: rgba(211, 22, 73, 1);
+}
+
+.footer {
+    width: 100%;
+    height: 11vh;
+    padding: 1px;
+    text-align: center;
+    line-height: 10vh;
+}
+
+.footer .button_cancel,
+.footer .button_save {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    padding: 1.3vh 0 1.3vh 0;
+    font-family: Roboto-Bold, serif;
+    width: 7vw;
+    font-size: 0.9vw;
+    margin: 0 1.7vw 0 1.7vw;
+    border-radius: 4vw;
+    cursor: pointer;
+    border: 0;
+    outline: 0;
+    color: #FFFFFF;
+    background: rgb(211, 22, 73) 0% 0% no-repeat padding-box;
+}
+
+.footer .button_save:hover {
+    background: rgb(290, 22, 73);
+}
+
+.footer .button_cancel {
+    background: rgb(61, 58, 59) 0% 0% no-repeat padding-box;
+}
+
+.footer .button_cancel:hover {
+    background: rgb(67, 58, 59) 0% 0% no-repeat padding-box;
+}
