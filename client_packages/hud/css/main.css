@@ -1,0 +1,473 @@
+@import url("package://utils/cef/importfonts.css"); /*FOR RAGE MP*/
+@import url("../../utils/cef/importfonts.css"); /* FOR BROWSER */
+
+#chat, #chat input#chat_msg, #chat ul#chat_messages {
+    font-family: UniNeueBold, sans-serif;
+}
+
+#chat, #chat input#chat_msg {
+    color: #fff;
+}
+
+body {
+    overflow: hidden;
+    /*background: url(../images/bg.png);*/
+    /*background-size: 100% 100%;*/
+    margin: 0 0 0 5px
+}
+
+#chat {
+    line-height: 24px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    user-select: none;
+    margin: 20px 0 0 25px;
+}
+
+@media screen and (min-height: 166.9242658423493vh) {
+    #chat {
+        font-size: 18px !important;
+        font-weight: 700
+    }
+}
+
+#chat ul#chat_messages {
+    height: 240px;
+    padding: 0;
+    margin: 0;
+    width: 45%;
+    min-height: 2vh;
+    font-size: 15px;
+    word-wrap: break-word;
+    text-shadow: 0px 0px 2px black, 0px 0px 2px black, 0px 0px 2px black, 0px 0px 2px black;
+    overflow: auto;
+    direction: rtl;
+}
+
+#chat input#chat_msg {
+    margin-top: 5px;
+    background: rgba(24, 20, 20, 0.5);
+    outline: 0;
+    border: none;
+    font-size: 15px;
+    line-height: 35px;
+    width: 35%;
+    padding: 5px 5px 5px 15px;
+    border-radius: 26.5px;
+}
+
+#chat_channels li {
+    float: left;
+    border: .1545595054095827vh solid #000;
+    list-style-type: none;
+    padding: 5px 15px;
+    margin: 5px 5px 0 0;
+    text-transform: uppercase;
+    font-size: 13px;
+    text-shadow: none
+}
+
+#chat_channels li#active {
+    color: #a545a5
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(24, 20, 20, 0.5);
+    border-radius: 3.5px;
+}
+
+#chat ul#chat_messages > li {
+    list-style-type: none;
+    direction: ltr;
+    text-align: left;
+    left: 10px;
+    position: relative;
+}
+
+/*body {*/
+/*    background: url(../images/bg.png) no-repeat;*/
+/*    background-size: 100% 100%;*/
+/*}*/
+
+.hide{
+    display: none;
+}
+
+#hud{
+    user-select: none;
+}
+
+.header{
+    position: absolute;
+    top: 2vw;
+    width: 99%;
+    height: 10vw;
+}
+
+.right-side{
+    float: right;
+    position: relative;
+    right: 2vw;
+}
+
+.right-side .navigation-block{
+    color: #FFFFFF;
+    width: 14vw;
+    height: 11.26vw;
+    background: rgba(0,0,0, 0.7) 0 0 no-repeat padding-box;
+    backdrop-filter: blur(12px);
+    border-radius: 1.5vw;
+}
+
+.right-side .line{
+    padding-left: 1vw;
+    line-height: 1.7vw;
+    height: 1.7vw;
+}
+
+.right-side .second-line{
+    height: 2.1vw;
+}
+
+
+.right-side .line .icon-hungary{
+    display: inline-block;
+    background: url("../images/icon_hungary.svg") no-repeat;
+    background-size: contain;
+    width:1.6vw;
+    height: 1.6vw;
+}
+
+.right-side .line .progressbar-hungary{
+    margin-bottom: 0.2vw;
+    display: inline-block;
+    width: 10vw;
+    height: 0.9vw;
+    background: -webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) 50%, #FFFFFF 50%);
+    border-radius: 2vw;
+}
+
+.right-side .line .money{
+    line-height: normal;
+    padding-left: 0.2vw;
+    font-family: UninSans-SemiBold, sans-serif;
+    font-size: 1.2vw;
+    vertical-align: top;
+}
+
+.right-side .line .bank{
+    padding-left: 0.1vw;
+    font-family: UninSans-SemiBold, sans-serif;
+    font-size: 0.6vw;
+    vertical-align: top;
+}
+
+.right-side .line .icon-cash{
+    display: inline-block;
+    background: url("../images/icon_cash.svg") no-repeat;
+    background-size: contain;
+    width:1.4vw;
+    height: 1.4vw;
+}
+
+.right-side .small-line{
+    font-family: UniSans-Regular, sans-serif;
+    height: 1.2vw;
+    padding-left: 3vw;
+    line-height: 1vw;
+}
+
+.right-side .small-line_second{
+    height: 0.9vw;
+}
+
+.right-side .small-line .cash{
+    font-size: 0.8vw;
+    padding-right: 0.2vw;
+}
+.right-side .small-line .bank{
+    font-size: 0.5vw;
+}
+
+
+.right-side .nav-header{
+    height: 3vw;
+}
+
+.right-side .nav-header .content-text{
+    padding-left: 1vw;
+    padding-right: 1vw;
+    height: 3vw;
+    line-height: 3.5vw;
+}
+
+.right-side .nav-header .time{
+    font-size: 1.5vw;
+}
+
+.right-side .nav-header .date{
+    font-size: 1vw;
+}
+
+.right-side .nav-header .time,
+.right-side .nav-header .date{
+    font-family: UniSans-Regular, sans-serif;
+}
+
+.right-side .nav-footer{
+    height: 2vw;
+    width: 100%;
+}
+
+.right-side .nav-footer .box{
+    display: table;
+    width: 13vw;
+    line-height: 2.4vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.right-side .nav-footer .content-footer{
+    display: table-cell;
+}
+
+.right-side .nav-footer .content-center{
+    width: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.right-side .nav-footer .name{
+    font-family: UniNeueBold, sans-serif;
+    font-size: 0.7vw;
+}
+
+.right-side .nav-footer .walkie-talkie{
+    display: block;
+    background: url(../images/walkie-talkie.svg) no-repeat;
+    background-size: contain;
+    width: 2vw;
+    height: 1.8vw;
+    opacity: 0.8;
+}
+
+.right-side .nav-footer .micro{
+    display: block;
+    background: url(../images/microphone_off.svg) no-repeat;
+    background-size: contain;
+    width: 1.6vw;
+    height: 1.6vw;
+    opacity: 0.52;
+}
+
+.middle{
+    position: absolute;
+    top: 45%;
+    width: 99%;
+    height: 20vw;
+}
+
+.speedometer{
+    position: absolute;
+    right: 5vw;
+    bottom: 6vw;
+    width: 15vw;
+    height: 8vw;
+}
+
+.speedometer .speedometer-box{
+    background: rgba(0,0,0, 0.6);
+    width: 100%;
+    border-radius: 1vw;
+    height: 5.5vw;
+    padding: 1px;
+}
+
+.speedometer .speedometer-box_line{
+    color: #FFFFFF;
+    width: 93%;
+    margin: 2.5% 0 2.5% 7%;
+    line-height: 2vw;
+    height: 2vw;
+}
+
+.speedometer .speedometer-box_line span{
+    vertical-align: middle;
+}
+
+.speedometer .speedometer-box .speed,
+.speedometer .speedometer-box .km{
+    font-family: "Ubuntu-Medium Italic", sans-serif;
+    font-size: 1vw;
+}
+
+.speedometer .speedometer-box_line img{
+    display: inline-block;
+    vertical-align: middle;
+    width: 1.6vw;
+    height: 1.6vw;
+    padding-right: 0.8vw;
+}
+
+
+.speedometer .speedometer-box_line .progressbar-fuel{
+    line-height: 1.1vw;
+    display: inline-block;
+    width: 10.5vw;
+    height: 1.1vw;
+    background: -webkit-linear-gradient(left, #FFFFFF 0%, #FFFFFF 50%, #FFFFFF 50%);
+    border-radius: 2vw;
+    text-align: center;
+}
+.speedometer .speedometer-box_line .progressbar-fuel .percent-fuel{
+    background: -webkit-linear-gradient(left, rgba(211, 22, 73, 1) 0%, rgba(211, 22, 73, 1) 50%, rgba(211, 22, 73, 1) 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    width: 10.5vw;
+    display: block;
+    font-family: Ubuntu-Bold, Regular, sans-serif;
+    font-size: 0.8vw;
+}
+
+.speedometer .properties{
+    padding-top: 0.5vw;
+    text-align: center;
+}
+
+.speedometer .properties .property{
+    display: inline-block;
+    margin: 0 0.5vw 0 0.5vw;
+    background: rgb(210, 22, 73);
+    border-radius: 100%;
+    width: 2.2vw;
+    height: 2.2vw;
+}
+
+.speedometer .properties .property .center{
+    display: block;
+    padding: 0.4vw 0 0.5vw 0;
+}
+
+.speedometer .properties .word{
+    display: block;
+    font-size: 0.4vw;
+    font-family: "Ubuntu", Regular, sans-serif;
+    font-weight: 200;
+    color: #FFFFFF;
+}
+
+.speedometer .properties .property img {
+    padding-bottom: 0.1vw;
+    display: inline-block;
+    width: 0.84vw;
+    height: 1.05vw;
+}
+
+.speedometer .properties .headlight {
+    width: 1.15vw!important;
+}
+
+.speedometer .properties .car {
+    width: 1.5vw!important;
+}
+
+.help-menu{
+    opacity: 0.6;
+    position: relative;
+    font-family: "Segoe UI Light", Regular, sans-serif;
+    left: 1.5vw;
+    float:left;
+    color: white;
+}
+
+.middle .help-menu p{
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.middle .help-menu .bold{
+    font-family: "Segoe UI Bold", Regular, sans-serif;
+}
+
+.footer{
+    position: absolute;
+    bottom: 1vw;
+    width: 99%;
+    height: 2vw;
+}
+
+.project-name{
+    display: inline-block;
+    float: right;
+    font-size: 2.2vw;
+    font-family: UniSans-Heavy, Regular, sans-serif;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.project-name .red{
+    color: rgba(210, 22, 73, 0.6);
+    padding-left: 0.1vw;
+}
+
+.alert-box {
+    margin: auto;
+    position: absolute;
+    left: 0;
+    bottom: -5vw;
+    right: 0;
+    width:30.3vw;
+}
+
+#map_line_svg {
+    backdrop-filter: blur(3px);
+    border-radius: 1vw;
+    width: 30.2vw;
+    height: 4.4vw;
+}
+
+.rect {
+    fill: #0F1524;
+    opacity: 0.8;
+}
+
+.inside {
+    color: #FFFFFF;
+    line-height: 0.7vw;
+}
+
+.inside p {
+    margin-block-start: 0;
+    margin-block-end: 1vw;
+}
+
+.alert {
+    text-transform: uppercase;
+    font-family: HelveticaNeueLight, sans-serif;
+    opacity: 0.6;
+    font-size: 0.8vw;
+}
+
+.message {
+    font-family: HelveticaNeue-Regular, Regular, sans-serif;
+    font-size: 1vw;
+}
+
+.message-area {
+    z-index: 2;
+    display: inline-block;
+}
+
+.smile {
+    width: 2.5vw;
+    height: 2.5vw;
+    display: inline-block;
+    background: url("../images/smile_bad.svg") no-repeat;
+    background-size: contain;
+    padding-right: 1vw;
+    float: right;
+}

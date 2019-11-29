@@ -1,18 +1,10 @@
 const utils = require('utils');
 
-let choseWayUI,
-    choseWayCamera;
+let choseWayUI;
 let peds = new Array();
 let questBlip;
 
-const camCoordinates = {
-    camera: new mp.Vector3(-1040.2899169921875, -1076.11279296875, 4.646230697631836),
-    cameraLookAt:
-        {
-            X: -1126.150390625, Y: -1128.623779296875, Z: 0.5439004898071289
-        },
-    playerPos: new mp.Vector3(-1035.2899169921875, -1076.11279296875, 4.646230697631836)
-};
+const npcName = ["Бомж", "Какой-то тип", "Охранник аэропорта"];
 
 const camToNpc = [
     [
@@ -20,7 +12,7 @@ const camToNpc = [
             camera: new mp.Vector3(145.021240234375, -1191.6187744140625, 30.045047760009766),
             cameraLookAt:
                 {
-                    X: 153.74949645996094, Y:-1215.362548828125, Z:28.459598541259766
+                    X: 153.74949645996094, Y: -1215.362548828125, Z: 28.459598541259766
                 }
         },
         {
@@ -69,103 +61,93 @@ const npcCoordinates = [
     {
         modelHash: 0xEF154C47,
         position: new mp.Vector3(156.43, -1198.48, 29.30),
+        labelPosition: new mp.Vector3(156.43, -1198.48, 30.51),
         heading: 352.37
     },
     {
         modelHash: 0x9D0087A8,
         position: new mp.Vector3(146.04, -1673.29, 29.58),
+        labelPosition: new mp.Vector3(146.04, -1673.29, 30.79),
         heading: 218.95
     },
     {
         modelHash: 0x1880ED06,
         position: new mp.Vector3(-1068.22, -2558.49, 13.81),
+        labelPosition: new mp.Vector3(-1068.22, -2558.49, 15),
         heading: 327.49
     }
 ];
 
 
-
 mp.events.add("enterWayInClient", (way) => {
     choseWayUI.destroy();
     mp.gui.cursor.show(false, false);
+    mp.game.graphics.transitionFromBlurred(10000);
     utils.fadeScreen(() => {
         mp.events.callRemote("enterWayInServer", way);
         hideChoseWayUI();
+        utils.displayClientHud(true);
     }, 3000);
 });
 
 mp.events.add("gotoChoseWayInClient", () => {
-    showChoseWayUI();
+    choseWayUI = mp.browsers.new("package://choseway/index.html");
+
+    mp.players.local.position = new mp.Vector3(-3579.37, 970.00, 43.45);
 });
 
 mp.events.add("moveCameraToNPC", (way) => {
-    const moveFirstCamera = mp.cameras.new('moveCamera', camToNpc[way][0].camera, new mp.Vector3(0, 0, 0), 40);
-    const moveSecondCamera = mp.cameras.new('moveCamera', camToNpc[way][1].camera, new mp.Vector3(0, 0, 0), 40);
-
-    moveFirstCamera.pointAtCoord(camToNpc[way][0].cameraLookAt.X, camToNpc[way][0].cameraLookAt.Y, camToNpc[way][0].cameraLookAt.Z);
-    moveSecondCamera.pointAtCoord(camToNpc[way][1].cameraLookAt.X, camToNpc[way][1].cameraLookAt.Y, camToNpc[way][1].cameraLookAt.Z);
-
-    moveSecondCamera.setActiveWithInterp(moveFirstCamera.handle, 2000, 0, 0);
-
-
-    mp.game.cam.renderScriptCams(true, false, 0, true, false);
+    mp.game.streaming.requestAnimDict("timetable@tracy@sleep@");
+    mp.game.streaming.requestAnimDict("switch@franklin@bed");
 
     mp.game.streaming.requestAnimDict("anim@mp_player_intupperwave");
+
+    utils.moveCamera(camToNpc[way][0].camera, 40, camToNpc[way][0].cameraLookAt.X, camToNpc[way][0].cameraLookAt.Y, camToNpc[way][0].cameraLookAt.Z,
+        camToNpc[way][1].camera, 40, camToNpc[way][1].cameraLookAt.X, camToNpc[way][1].cameraLookAt.Y, camToNpc[way][1].cameraLookAt.Z, false, 2000)
+
+    mp.game.cam.renderScriptCams(true, false, 0, true, false);
 
     peds[way].taskPlayAnim("anim@mp_player_intupperwave", "idle_a", 8.0, 1.0, 5000, 1, 1.0, false, false, false);
 
     questBlip = mp.blips.new(66, npcCoordinates[way].position);
 
     setTimeout(() => {
-        moveSecondCamera.setActive(false);
-        moveFirstCamera.setActiveWithInterp(moveSecondCamera.handle, 2000, 0, 0);
+        utils.getSecondCamera().setActive(false);
+        utils.getFirstCamera().setActiveWithInterp(utils.getSecondCamera().handle, 2000, 0, 0);
         setTimeout(() => {
-            moveFirstCamera.setActive(false);
-            moveSecondCamera.destroy(true);
-            moveFirstCamera.destroy(true);
+            utils.getFirstCamera().setActive(false);
+            utils.getSecondCamera().destroy(true);
+            utils.getFirstCamera().destroy(true);
 
+            mp.players.local.freezePosition(false);
             mp.game.cam.renderScriptCams(false, false, 0, true, false);
         }, 2100);
     }, 3000);
 });
 
 mp.events.add("createPeds", () => {
-    for(let i = 0; i < npcCoordinates.length; i ++) {
+    for (let i = 0; i < npcCoordinates.length; i++) {
         const ped = mp.peds.new(npcCoordinates[i].modelHash, npcCoordinates[i].position, npcCoordinates[i].heading, 0);
         peds.push(ped);
+
+        mp.labels.new(npcName[i], npcCoordinates[i].labelPosition, {
+            font: 4,
+            los: true,
+            color: [0, 188, 212, 255],
+            scale: [0, 0],
+            outline: true,
+            drawDistance: 15
+        });
     }
 });
-
-function showChoseWayUI() {
-    choseWayUI = mp.browsers.new("package://choseway/index.html");
-
-    choseWayCamera = mp.cameras.new("choseWayCam", camCoordinates.camera, new mp.Vector3(0, 0, 0), 20);
-    choseWayCamera.pointAtCoord(camCoordinates.cameraLookAt.X, camCoordinates.cameraLookAt.Y, camCoordinates.cameraLookAt.Z);
-
-    mp.players.local.position = camCoordinates.playerPos;
-
-    choseWayCamera.setActive(true);
-
-    mp.gui.chat.activate(false);
-    mp.gui.chat.show(false);
-    mp.game.ui.displayRadar(false);
-    mp.game.ui.displayHud(false);
-    mp.players.local.clearTasksImmediately();
-    mp.players.local.freezePosition(true);
-
-    mp.game.cam.renderScriptCams(true, false, 0, true, false);
-
-    mp.gui.cursor.show(true, true);
-}
 
 function hideChoseWayUI() {
     mp.gui.chat.activate(true);
     mp.gui.chat.show(true);
     mp.game.ui.displayRadar(true);
     mp.game.ui.displayHud(true);
-    mp.players.local.freezePosition(false);
 
-    choseWayCamera.destroy(true);
+    mp.game.cam.destroyAllCams(true);
 
     mp.game.cam.renderScriptCams(false, false, 0, true, false);
 }

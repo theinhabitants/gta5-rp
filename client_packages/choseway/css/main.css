@@ -1,15 +1,5 @@
-@font-face {
-    font-family: SignPainter-HouseScript;
-    src: url(../fonts/SignPainter-HouseScript.otf);
-}
-@font-face {
-    font-family: AdobeClean-Light;
-    src: url(../fonts/AdobeClean-Light.ttf);
-}
-@font-face {
-    font-family: Ubuntu-Bold;
-    src: url(../fonts/ubuntu-bold.ttf);
-}
+@import url("package://utils/cef/importfonts.css"); /*FOR RAGE MP*/
+@import url("../../utils/cef/importfonts.css"); /* FOR BROWSER */
 
 body {
     /*background: transparent url(../images/background.png) no-repeat center center fixed;;*/

@@ -3,6 +3,9 @@ const auth = require('../auth/auth');
 const characterData = require('./characterData');
 require('./commands');
 
+let name,
+    surname;
+
 mp.events.add('saveCharacterInServer', async (player, json) => {
     applyCharacterSkin(player, json);
 
@@ -13,19 +16,22 @@ mp.events.add('saveCharacterInServer', async (player, json) => {
         await characterDao.updateSkin(json, user.id);
         player.dimension = player.preCreatorDimension;
     } else {
-        let name = "test2" + user.id;
-        let surname = "test2" + user.id;
-
         await characterDao.create(name, surname, json, user.id);
+
+        player.name = name + " " + surname;
     }
 });
 
 mp.events.add("changeGenderInServer", (player, number) => {
     player.model = characterData.freemodeCharacters[number];
-    player.position = characterData.creatorPlayerPos;
-    player.heading = characterData.creatorPlayerHeading;
     player.call("changeHead", [number]);
 });
+
+mp.events.add("userSendName", (player, firstName, secondName) => {
+    name = firstName;
+    surname = secondName;
+});
+
 
 mp.events.add("movePlayerToCreationSpace", (player) => {
     player.model = characterData.freemodeCharacters[0];

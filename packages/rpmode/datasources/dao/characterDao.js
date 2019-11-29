@@ -59,8 +59,22 @@ const isExist = function (user_id) {
     });
 };
 
+const isNameExist = function (firstName, secondName) {
+    return new Promise(function (resolve, reject) {
+        connectionPool.query("SELECT 1 FROM `character` WHERE `name` = ? AND `surname` = ?", [firstName, secondName], function (err, res) {
+            if (err) {
+                reject(err);
+            }
+            let response = res.length === 1;
+            resolve(response);
+        });
+    });
+};
+
+
 module.exports.getByUserID = getByUserID;
 module.exports.create = create;
 module.exports.updateSkin = updateSkin;
 module.exports.isExist = isExist;
+module.exports.isNameExist = isNameExist;
 

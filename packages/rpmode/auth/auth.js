@@ -61,6 +61,20 @@ mp.events.add("userRegistration", async (player, email, password) => {
     player.call("registrationHandler", ["success"]);
 });
 
+mp.events.add("userSaveName", async (player, firstName, secondName) => {
+    if (await characterDao.isNameExist(firstName, secondName) === true) {
+        player.call("saveNameHandler", ["name-already-exist"]);
+        return;
+    }
+    try {
+    } catch (e) {
+        logger.log.error(e);
+        player.call("saveNameHandler", ["internal-server-error"]);
+    }
+
+    player.call("saveNameHandler", ["success", firstName, secondName]);
+});
+
 function getOnlineUser(userID) {
     return OnlineUsers.get(userID);
 }
