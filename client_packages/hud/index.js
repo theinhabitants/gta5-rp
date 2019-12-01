@@ -40,7 +40,14 @@ function timeWithNull(time) {
     return time > 9 ? time : '0' + time;
 }
 
-mp.events.add("showSpeedometer", (vehicle) => {
+mp.events.add("showSpeedometer", (vehicle, engineStatus) => {
+    vehicle.setEngineOn(engineStatus, true, !engineStatus);
+    if (engineStatus) {
+        mp.gui.execute("$('#engine').css('background', 'rgb(210, 22, 73)')");
+    } else {
+        mp.gui.execute("$('#engine').css('background', 'rgba(0,0,0, 0.6)')");
+    }
+
     mp.gui.execute("$('#speedometer').show();");
 
     speedometerTimer = setInterval(() => {
@@ -50,6 +57,7 @@ mp.events.add("showSpeedometer", (vehicle) => {
 
 mp.events.add("playerLeaveVehicle", () => {
     clearInterval(speedometerTimer);
+    utils.disableInternalButton(false, 16, 71);
     mp.gui.execute("$('#speedometer').hide()");
 });
 

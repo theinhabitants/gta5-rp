@@ -7,6 +7,7 @@ require('./chat/voice/voice.js');
 require('./character');
 require('./camera');
 require('./events/player.js');
+require('./events/vehicles.js');
 require('./choseway');
 
 

@@ -1,7 +1,6 @@
 const auth = require("../auth/auth");
 const logger = require("../logger/logger");
 
-const DRIVER_SEAT = -1;
 
 function playerQuitHandler(player) {
     auth.removeOnlineUser(player.id);
@@ -31,9 +30,3 @@ function spawnPlayer(player) {
 
     player.health = 100;
 }
-
-mp.events.add("playerEnterVehicle", (player, vehicle, seat) => {
-    if(seat === DRIVER_SEAT) {
-        player.call("showSpeedometer", [vehicle]);
-    }
-});

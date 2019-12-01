@@ -101,7 +101,7 @@ mp.events.addCommand('veh', (player, args) => {
     switch (args.length) {
         case 1:
             try {
-                mp.vehicles.new(mp.joaat(args[0]), player.position);
+                mp.vehicles.new(mp.joaat(args[0]), player.position, {engine: false});
                 player.outputChatBox("Транспортное средство " + args[0] + " заспавнено");
             } catch (e) {
                 player.outputChatBox("!{red}Ошибка! Такое транспортное средство не существует");
@@ -112,7 +112,7 @@ mp.events.addCommand('veh', (player, args) => {
             try {
                 const playerID = parseInt(args[0]);
                 const secondPlayer = mp.players.at(playerID);
-                mp.vehicles.new(mp.joaat(args[1]), player.position);
+                mp.vehicles.new(mp.joaat(args[1]), player.position, {engine: false});
                 player.outputChatBox("Транспортное средство " + args[1] + " заспавнено для игрока " + getPlayerNameWithID(secondPlayer));
                 secondPlayer.outputChatBox(getPlayerNameWithID(player) + " заспавнил вам транспортное средство: " + args[1]);
             } catch (e) {

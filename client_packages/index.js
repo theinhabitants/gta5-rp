@@ -7,6 +7,7 @@ require('./camera');
 require('./auth');
 require('./choseway');
 require('./player/nametags');
+require('./vehicle/engine');
 
 let isClicked = false;
 
